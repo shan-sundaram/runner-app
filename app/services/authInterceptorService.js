@@ -9,7 +9,6 @@ app.factory('authInterceptorService', ['$q', '$injector','$location', '$cookies'
 
         var authData = $cookies.getObject('authData');
         if (authData) {
-            console.log(authData.bearerToken);
             config.headers.Authorization = authData.bearerToken;
         }
 
