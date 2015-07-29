@@ -2,6 +2,9 @@
     <div class="panel-heading">
         List of Jobs
     </div>
+    <div>
+	    Search : <input ng-model="searchData" />  
+    </div>
     <div class="table-responsive">
         <table class="table table-striped" data-toggle="table" pagination="true" data-search="true" data-height="50">
             <thead >
@@ -18,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="job in jobsList | orderBy:'details.lastRun'">
+            <tr ng-repeat="job in jobsList | orderBy:'details.lastRun' | filter: searchData">
             <!--<tr ng-repeat="job in jobsList">-->
                 <td>{{$index + 1}}</td>
                 <td><a href="#/status/{{job.id}}">{{job.id}}</a></td>
