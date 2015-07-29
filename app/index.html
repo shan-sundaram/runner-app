@@ -35,16 +35,16 @@
         </div>
     </div>
 </div>
-<div class="jumbotron">
+<div ng-hide="authentication.isAuth" class="jumbotron">
     <div class="container">
         <div class="page-header text-center">
-            <h1>Centurylink - Automation service </h1>
+            <h1>Centurylink - Automation service dashboard</h1>
         </div>
-        <p>View all your automation jobs in a single UI and status of each job in runtime.</p>
+        <!--<p>View all your automation jobs in a single UI and status of each job in runtime.</p>-->
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div ng-view="">
     </div>
 </div>

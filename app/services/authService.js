@@ -1,6 +1,6 @@
 'use strict';
     /*Todo - Lot of clean up to be done*/
-    app.factory('authService',['$http', function($http){
+    app.factory('authService',['$http', '$cookies', function($http, $cookies){
         var authServiceFactory = {};
 
         var _authentication = {
@@ -28,17 +28,28 @@
             _authentication.userName = _authentication.accountAlias = _authentication.bearerToken = "";
         };
 
-        var _fillAuthData = function (authData) {
+        var _fillAuthData = function () {
+            var authData = _getLocalAuthData();
             if (authData) {
                 _authentication.isAuth = true;
                 _authentication.userName = authData.userName;
                 _authentication.accountAlias = authData.accountAlias;
-                _authentication.bearerToken = 'Bearer ' + authData.bearerToken;
+                _authentication.bearerToken = authData.bearerToken;
             }
         };
+
+        var _getLocalAuthData = function () {
+            return $cookies.getObject('authData');
+        }
+
+        var _setLocalAuthData = function (newAuthData){
+            $cookies.putObject('authData', newAuthData);
+        }
+
         authServiceFactory.authentication = _authentication;
         authServiceFactory.login = _login;
         authServiceFactory.fillAuthData = _fillAuthData;
+        authServiceFactory.setLocalAuthData = _setLocalAuthData;
         authServiceFactory.logOut = _logOut;
 
         return authServiceFactory;
