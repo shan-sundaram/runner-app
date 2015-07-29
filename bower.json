@@ -5,6 +5,9 @@
   "homepage": "https://github.com/angular/angular-seed",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "postinstall": "bower install angular, angular-cookies, bootstrap"
+  },
   "dependencies": {
     "angular": "~1.4.0",
     "angular-route": "~1.4.0",

@@ -6,7 +6,8 @@
 	    Search : <input ng-model="searchData" />  
     </div>
     <div class="table-responsive">
-        <table class="table table-striped" data-toggle="table" pagination="true" data-search="true" data-height="50">
+        <div class="alert alert-info" ng-show="loading">Loading...</div>
+        <table class="table table-striped" data-toggle="table" pagination="true" data-search="true" data-height="50" ng-hide="loading">
             <thead >
                 <tr>
                     <th>#</th>
@@ -34,8 +35,5 @@
             </tr>
             </tbody>
         </table>
-    </div>
-    <div class="col-md-12 text-center">
-        <ul class="pagination pagination-lg pager" id="myPager"></ul>
     </div>
 </div>

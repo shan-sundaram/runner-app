@@ -14,9 +14,12 @@
         .controller("jobsController", ['$scope', 'jobAPIService', function($scope, jobAPIService){
             $scope.jobsList = [];
             /*TODO - Get all jobs*/
+            $scope.loading = true;
+            console.log($scope.loading);
             jobAPIService.getAllJobs().success(function (response){
                 //Get all jobs for an account Alias
                 $scope.jobsList = response;
+                $scope.loading = false;
             });
 
         }])
