@@ -28,18 +28,17 @@
             _authentication.userName = _authentication.accountAlias = _authentication.bearerToken = "";
         };
 
-        var _fillAuthData = function () {
-            var authData = _getLocalAuthData();
-            if (authData) {
+        var _fillAuthData = function (authData) {
+            if (!_authentication.isAuth) {
                 _authentication.isAuth = true;
                 _authentication.userName = authData.userName;
                 _authentication.accountAlias = authData.accountAlias;
-                _authentication.bearerToken = authData.bearerToken;
+                _authentication.bearerToken = 'Bearer ' + authData.bearerToken;
             }
         };
 
-        var _getLocalAuthData = function () {
-            return $cookies.getObject('authData');
+        var _getAuthData = function () {
+            return _authentication;
         }
 
         var _setLocalAuthData = function (newAuthData){
@@ -49,7 +48,7 @@
         authServiceFactory.authentication = _authentication;
         authServiceFactory.login = _login;
         authServiceFactory.fillAuthData = _fillAuthData;
-        authServiceFactory.setLocalAuthData = _setLocalAuthData;
+        authServiceFactory.getAuthData = _getAuthData;
         authServiceFactory.logOut = _logOut;
 
         return authServiceFactory;

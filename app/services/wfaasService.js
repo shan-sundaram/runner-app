@@ -11,7 +11,6 @@
 //                    url: 'http://64.15.188.230/jobs/wfaq',
                     headers: {
                         'Content-Type': 'application/json'
-//                        ,'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBpLXRpZXIzIiwiYXVkIjoidXJuOnRpZXIzLXVzZXJzIiwibmJmIjoxNDM3NjM0MzM4LCJleHAiOjE0Mzg4NDM5MzgsInJvbGUiOlsiQWNjb3VudFZpZXdlciIsIkROU01hbmFnZXIiLCJOZXR3b3JrQWRtaW4iLCJTZXJ2ZXJBZG1pbiJdLCJ1bmlxdWVfbmFtZSI6InNoYW4uc3VuZGFyYW0ud2ZhZCIsInVybjp0aWVyMzphY2NvdW50LWFsaWFzIjoiV0ZBRCIsInVybjp0aWVyMzpsb2NhdGlvbi1hbGlhcyI6IlVDMSJ9.Jk93tW4IPyUgLKoExBwkmHk30OSoFPp1i7AqxzOJPbs'
                     }
                 });
             }
@@ -27,8 +26,7 @@
                     method: 'GET',
                     url: 'http://10.121.41.26:8084/status/wfad/job/' + jobId,
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBpLXRpZXIzIiwiYXVkIjoidXJuOnRpZXIzLXVzZXJzIiwibmJmIjoxNDM3NjM0MzM4LCJleHAiOjE0Mzg4NDM5MzgsInJvbGUiOlsiQWNjb3VudFZpZXdlciIsIkROU01hbmFnZXIiLCJOZXR3b3JrQWRtaW4iLCJTZXJ2ZXJBZG1pbiJdLCJ1bmlxdWVfbmFtZSI6InNoYW4uc3VuZGFyYW0ud2ZhZCIsInVybjp0aWVyMzphY2NvdW50LWFsaWFzIjoiV0ZBRCIsInVybjp0aWVyMzpsb2NhdGlvbi1hbGlhcyI6IlVDMSJ9.Jk93tW4IPyUgLKoExBwkmHk30OSoFPp1i7AqxzOJPbs'
+                        'Content-Type': 'application/json'
                     }
                 });
             }

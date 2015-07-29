@@ -29,5 +29,5 @@
         });
 
         app.run(['authService', function (authService) {
-            authService.fillAuthData();
+            authService.getAuthData();
         }]);

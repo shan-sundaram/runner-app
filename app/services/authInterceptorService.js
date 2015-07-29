@@ -1,15 +1,16 @@
 'use strict';
-app.factory('authInterceptorService', ['$q', '$injector','$location', '$cookies', function ($q, $injector,$location, $cookies) {
+app.factory('authInterceptorService', ['$q', '$injector','$location', function ($q, $injector, $location) {
 
     var authInterceptorServiceFactory = {};
 
     var _request = function (config) {
 
         config.headers = config.headers || {};
+        var authService = $injector.get('authService');
 
-        var authData = $cookies.getObject('authData');
-        if (authData) {
-            config.headers.Authorization = authData.bearerToken;
+//        console.log('in interceptor' + authService.authentication.bearerToken);
+        if (authService.authentication.isAuth) {
+            config.headers.Authorization = authService.authentication.bearerToken;
         }
 
         return config;
