@@ -1,6 +1,6 @@
 'use strict';
     /*Todo - Lot of clean up to be done*/
-    app.factory('authService',['$http', '$cookies', function($http, $cookies){
+    app.factory('authService',['$http', function($http){
         var authServiceFactory = {};
 
         var _authentication = {
@@ -39,10 +39,6 @@
 
         var _getAuthData = function () {
             return _authentication;
-        }
-
-        var _setLocalAuthData = function (newAuthData){
-            $cookies.putObject('authData', newAuthData);
         }
 
         authServiceFactory.authentication = _authentication;

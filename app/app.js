@@ -1,6 +1,6 @@
 'use strict';
 
-    var app = angular.module('wfaasApp', ['ngRoute','ngCookies']);
+    var app = angular.module('wfaasApp', ['ngRoute']);
     // Declare app level module which depends on views, and components
 
         app.config(function($routeProvider){

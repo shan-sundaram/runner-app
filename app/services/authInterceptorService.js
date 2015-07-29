@@ -8,7 +8,6 @@ app.factory('authInterceptorService', ['$q', '$injector','$location', function (
         config.headers = config.headers || {};
         var authService = $injector.get('authService');
 
-//        console.log('in interceptor' + authService.authentication.bearerToken);
         if (authService.authentication.isAuth) {
             config.headers.Authorization = authService.authentication.bearerToken;
         }

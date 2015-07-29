@@ -1,9 +1,7 @@
 <div class="panel panel-success">
-    <div class="panel-heading">
-        List of Jobs
-    </div>
-    <div>
-	    Search : <input ng-model="searchData" />  
+    <div class="container-fluid panel-heading">
+        <div class="panel-title col-md-9">List of Jobs</div>
+        <div class="col-sm-1 form-control-static text-right">Search : </div><div class="col-sm-2"><input ng-model="searchData" class="form-control container-fluid"/></div>
     </div>
     <div class="table-responsive">
         <div class="alert alert-info" ng-show="loading">Loading...</div>
@@ -16,7 +14,6 @@
                     <th>Status</th>
                     <th>Repository</th>
                     <th>Playbook</th>
-                    <!--<th><a href="" ng-click="reverse=!reverse;order('details.lastRun', reverse)">Last Executed</a></th>-->
                     <th>Last Executed</th>
                     <th>Account Alias</th>
                 </tr>
