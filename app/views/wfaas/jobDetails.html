@@ -2,30 +2,32 @@
     <div class="panel-heading">
         Job Status
     </div>
-    <table class="table">
-        <thead >
-        <tr>
-            <th>#</th>
-            <th>Job Id</th>
-            <th>Execution Id</th>
-            <th>Execution Time</th>
-            <th>Name</th>
-            <th>Event Message</th>
-            <th>Event Type</th>
-            <th>Account Alias</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="job in jobDetails">
-            <td>{{$index + 1}}</td>
-            <td>{{job.job_id}}</td>
-            <td>{{job.id}}</td>
-            <td>{{job.timestamp | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
-            <td>{{job.message.name}}</td>
-            <td>{{job.message.msg}}</td>
-            <td>{{job.event_type}}</td>
-            <td>{{job.account_alias}}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead >
+            <tr>
+                <th>#</th>
+                <th>Job Id</th>
+                <th>Execution Id</th>
+                <th>Execution Time</th>
+                <th>Name</th>
+                <th>Event Message</th>
+                <th>Event Type</th>
+                <th>Account Alias</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="job in jobDetails | orderBy:'job.timestamp'">
+                <td>{{$index + 1}}</td>
+                <td>{{job.job_id}}</td>
+                <td>{{job.id}}</td>
+                <td>{{job.timestamp | date: 'MM/dd/yyyy HH:mm:sss'}}</td>
+                <td>{{job.message.name}}</td>
+                <td>{{job.message.msg}}</td>
+                <td>{{job.event_type}}</td>
+                <td>{{job.account_alias}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

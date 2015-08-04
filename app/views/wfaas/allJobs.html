@@ -15,7 +15,7 @@
                     <th>Repository</th>
                     <th>Playbook</th>
                     <th>Last Executed</th>
-                    <th>Account Alias</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
                 <td><a ng-href="{{job.repository.url}}" target="_blank">{{job.repository.url}}</a></td>
                 <td>{{job.repository.defaultPlaybook}}</td>
                 <td>{{job.details.lastRun | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
-                <td>{{job.accountAlias}}</td>
+                <td><button ng-click="startJob(job.id)" type="button" class="btn btn-success glyphicon glyphicon-play-circle"></button></td>
             </tr>
             </tbody>
         </table>
