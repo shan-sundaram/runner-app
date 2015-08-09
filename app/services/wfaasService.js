@@ -3,6 +3,10 @@
 //    angular.module('wfaas.service',[])
         app.factory('jobAPIService',['$http', function($http){
             var jobAPI = {};
+            /*TODO - 
+                1. Add Content json to the headers in interceptor
+                2. Account alias from local storage
+                3. Login data in local storage */
 
             jobAPI.getAllJobs = function(){
                 return $http({
@@ -15,10 +19,20 @@
                 });
             }
 
+            jobAPI.createJob = function (jobData, immediate) {
+                return $http({
+                    method: 'PUT',
+                    url: 'http://10.121.41.26:8080/jobs/wfad?immediate=' + immediate, //Dev url
+                    data: jobData,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            }
             jobAPI.startJob = function(jobId){
                 return $http({
                     method: 'POST',
-                    url: 'http://10.121.41.26:8080/jobs/wfad/' + jobId + '/start',
+                    url: 'http://10.121.41.26:8080/jobs/wfad/' + jobId + '/start', //Dev url
                     data: '{}',
                     headers: {
                         'Content-Type': 'application/json'
