@@ -1,6 +1,6 @@
 'use strict';
 
-    var app = angular.module('wfaasApp', ['ngRoute']);
+    var app = angular.module('wfaasApp', ['ngRoute', 'LocalStorageModule']);
     // Declare app level module which depends on views, and components
 
         app.config(function($routeProvider){
@@ -29,5 +29,5 @@
         });
 
         app.run(['authService', function (authService) {
-            authService.getAuthData();
+            authService.fillAuthData();
         }]);
