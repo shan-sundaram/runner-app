@@ -45,10 +45,11 @@
                     $location.path("/status/"+jobId);
                 });
             }
-            $scope.deleteJob = function(jobId){
-                // jobAPIService.startJob(jobId).success(function (response){
-                //     $location.path("/status/"+jobId);
-                // });
+            //TODO- Refresh table scope again after deletion
+            $scope.deleteJob = function(rowIndex, jobId){
+                jobAPIService.deleteJob(jobId).success(function (response){
+                    $scope.jobsList.splice(rowIndex, 1);
+                });
             }
             $scope.cancelJob = function(){
                 $scope.newJob = false;
