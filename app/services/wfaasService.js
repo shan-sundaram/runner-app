@@ -30,6 +30,12 @@
                     data: '{}'
                 });
             }
+            jobAPI.deleteJob = function(jobId){
+                return $http({
+                    method: 'DELETE',
+                    url: 'http://10.121.41.26:8080/jobs/wfad/' + jobId //Dev url
+                });
+            }
             return jobAPI;
 
         }])
