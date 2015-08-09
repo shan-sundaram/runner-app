@@ -1,0 +1,159 @@
+/* Variables */
+/* GloboSearch */
+
+.globoSearch-menu {
+  color: white;
+  background: #264e1b;
+  border-color: #224418;
+}
+.globoSearch-menu .ui-menu-item {
+  border-color: #224418;
+}
+.globoSearch-menu .ui-menu-item a {
+  color: white;
+}
+.globoSearch-menu .ui-menu-item a .description {
+  color: #b3b3b3;
+}
+.globoSearch-menu .ui-menu-item a .description .location,
+.globoSearch-menu .ui-menu-item a .description .name {
+  color: white;
+}
+.globoSearch-menu .ui-menu-item a .type {
+  color: white;
+  background: #204117;
+}
+.globoSearch-menu .ui-menu-item a.ui-state-hover {
+  color: white;
+  background: #306122;
+}
+.globoSearch-menu .ui-menu-item a.ui-state-hover .type {
+  background: #2b571f;
+}
+.globoSearch-menu .ui-menu-item a.no-results.ui-state-hover {
+  color: white;
+  background: #306122;
+}
+/* Header */
+
+#shellHeader {
+  color: white;
+}
+#shellHeader a {
+  color: white;
+}
+#shellHeader #brandBar {
+  background-color: #306122;
+}
+#shellHeader #brandBar #brand #logo {
+  border-right: solid 1px #29521d;
+}
+#shellHeader #brandBar #brand #siteName {
+  border-left: solid 1px #387128;
+}
+#shellHeader #brandBar #auxNav .dropdown-menu {
+  color: white;
+  background: #264e1b;
+}
+#shellHeader #brandBar #auxNav .dropdown-menu .divider {
+  border-bottom: solid 1px white;
+}
+#shellHeader #brandBar #auxNav .dropdown-menu .nav-header {
+  color: white;
+}
+#shellHeader #brandBar #auxNav .dropdown-menu li > a {
+  color: white;
+}
+#shellHeader #brandBar #auxNav .dropdown-menu li > a:hover {
+  color: white;
+  background: #306122;
+}
+#shellHeader #brandBar #auxNav .help a,
+#shellHeader #brandBar #auxNav .admin a,
+#shellHeader #brandBar #auxNav .queue a,
+#shellHeader #brandBar #auxNav .account a {
+  color: #cacaca;
+}
+#shellHeader #brandBar #auxNav .help a:hover,
+#shellHeader #brandBar #auxNav .admin a:hover,
+#shellHeader #brandBar #auxNav .queue a:hover,
+#shellHeader #brandBar #auxNav .account a:hover {
+  color: white;
+}
+#shellHeader #brandBar #auxNav .search,
+#shellHeader #brandBar #auxNav .help,
+#shellHeader #brandBar #auxNav .admin,
+#shellHeader #brandBar #auxNav .queue,
+#shellHeader #brandBar #auxNav .account {
+  border-left: solid 1px #387128;
+  border-right: solid 1px #29521d;
+}
+#shellHeader #brandBar #auxNav .search {
+  border-left: none;
+}
+#shellHeader #brandBar #auxNav .search .search-box {
+  background: #264e1b;
+}
+#shellHeader #brandBar #auxNav .search .search-box input {
+  background: transparent;
+  color: white;
+}
+#shellHeader #brandBar #auxNav .search .search-box-navigating {
+  background: #183111;
+  color: white;
+}
+#shellHeader #menu {
+  background-color: #529e3d;
+}
+#shellHeader #menu #accountSwitcher form .combobox-container input,
+#shellHeader #menu #accountSwitcher form .combobox-container .add-on {
+  color: white;
+  background: #3e772e;
+}
+#shellHeader #menu #accountSwitcher form .combobox-container .dropdown-menu {
+  background: #3e772e;
+}
+#shellHeader #menu #accountSwitcher form .combobox-container .dropdown-menu .active > a,
+#shellHeader #menu #accountSwitcher form .combobox-container .dropdown-menu .active > a:hover {
+  background: #529e3d;
+}
+#shellHeader #menu #accountSwitcher form :not(.combobox-focus).combobox-container input,
+#shellHeader #menu #accountSwitcher form :not(.combobox-focus).combobox-container .add-on {
+  color: white;
+  background: #468634;
+}
+#shellHeader #menu #accountSwitcher form :not(.combobox-focus).combobox-container:hover input,
+#shellHeader #menu #accountSwitcher form :not(.combobox-focus).combobox-container:hover .add-on {
+  background: #427e31;
+}
+#shellHeader #menu #nav {
+  background-color: #529e3d;
+}
+#shellHeader #menu #nav #nav-inner h3 {
+  color: rgba(255, 255, 255, 0.5);
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+#shellHeader #menu #nav #nav-inner ol li:hover,
+#shellHeader #menu #nav #nav-inner ol li.selected {
+  background-color: white;
+}
+#shellHeader #menu #nav #nav-inner ol li:hover a,
+#shellHeader #menu #nav #nav-inner ol li.selected a {
+  color: #529e3d;
+}
+#shellHeader #menu #nav #nav-inner ol li.admin-item a {
+  color: rgba(255, 255, 255, 0.45);
+}
+#shellHeader #menu #nav #nav-inner ol li.admin-item:hover a,
+#shellHeader #menu #nav #nav-inner ol li.admin-item.selected a {
+  color: #529e3d;
+}
+/* Links */
+
+a {
+  color: #529e3d;
+}
+#shellHeader #menu #targetArea i {
+  color: white;
+}
+/* Mixins */

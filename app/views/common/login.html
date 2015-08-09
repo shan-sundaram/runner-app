@@ -1,14 +1,24 @@
+<div ng-hide="authentication.isAuth" class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h1>Centurylink - Automation service dashboard</h1>
+        </div>
+        <!--<p>View all your automation jobs in a single UI and status of each job in runtime.</p>-->
+    </div>
+</div>
+
 <form role="form">
     <div class="row">
         <div class="col-md-4">
             &nbsp;
         </div>
         <div class="col-md-4">
-            <h2 class="form-login-heading">Login</h2>
-            <input type="text" class="form-control" placeholder="Username" ng-model="loginData.userName" required autofocus>
-            <input type="password" class="form-control" placeholder="Password" ng-model="loginData.password" required>
-            <div class="col-md-offset-4">&nbsp;</div>
-            <button class="btn btn-md btn-info btn-block" type="submit" ng-click="login()">Login</button>
+            <h2 class="form-login-heading">Centurylink Portal Login</h2>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Username" ng-model="loginData.userName" required autofocus>
+                <input type="password" class="form-control" placeholder="Password" ng-model="loginData.password" required>
+                <button class="btn btn-md btn-info btn-block" type="submit" ng-click="login()">Login</button>
+            </div>
             <div ng-hide="message == ''" class="alert alert-danger">
                 {{message}}
             </div>
