@@ -1,15 +1,16 @@
 'use strict';
-app.factory('authInterceptorService', ['$q', '$injector','$location', function ($q, $injector, $location) {
+app.factory('authInterceptorService', ['$q', '$injector','$location', 'localStorageService', function ($q, $injector, $location, localStorageService) {
 
     var authInterceptorServiceFactory = {};
 
     var _request = function (config) {
 
         config.headers = config.headers || {};
-        var authService = $injector.get('authService');
-
-        if (authService.authentication.isAuth) {
-            config.headers.Authorization = authService.authentication.bearerToken;
+        var authData = localStorageService.get('authorizationData');
+        
+        if (authData) {
+            
+            config.headers.Authorization = 'Bearer ' + authData.bearerToken;
         }
 
         return config;
