@@ -17,7 +17,7 @@
 
             var deferred = $q.defer();
 
-            $http.post(clcAuthenticationUrl, loginData, { headers: {'Content-Type': 'application/json' } }).success( function (response){
+            $http.post(clcAuthenticationUrl, loginData).success( function (response){
                 _setAuthData(response);
                 deferred.resolve(response);
             })
