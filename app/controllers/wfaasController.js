@@ -12,20 +12,46 @@
         }])
         /*Get all Jobs Controller*/
         .controller("jobsController", ['$scope', '$location', 'jobAPIService', function($scope, $location, jobAPIService){
+            /*Declaration*/
             $scope.jobsList = [];
-            /*TODO - Get all jobs*/
             $scope.loading = true;
-            console.log($scope.loading);
+            $scope.newJob = false;
+            $scope.job = {};
+            $scope.job.hosts = [];
+            // $scope.job.callbacks = [];
+            $scope.checkboxModel = {
+                runImmediate: false
+            };
+
+            $scope.template = {
+                "createJob": "views/wfaas/createJob.html"
+            }
+
             jobAPIService.getAllJobs().success(function (response){
                 //Get all jobs for an account Alias
                 $scope.jobsList = response;
                 $scope.loading = false;
             });
 
+            
+            $scope.createJob = function (){
+                jobAPIService.createJob($scope.job, $scope.checkboxModel.runImmediate).success(function (response){
+                    $location.path("/status/" + response.id);
+                });
+            }
+
             $scope.startJob = function(jobId){
                 jobAPIService.startJob(jobId).success(function (response){
                     $location.path("/status/"+jobId);
                 });
+            }
+            $scope.deleteJob = function(jobId){
+                // jobAPIService.startJob(jobId).success(function (response){
+                //     $location.path("/status/"+jobId);
+                // });
+            }
+            $scope.cancelJob = function(){
+                $scope.newJob = false;
             }
         }])
 

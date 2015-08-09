@@ -1,0 +1,109 @@
+<div class="container-fluid">
+    <div class="row">
+        <form role="form" class="form-horizontal">
+            <fieldset>
+                <legend class="header"><h2>Create Job<button class="close" type="button" aria-label="Close" ng-click="cancelJob()"><span class="glyphicon glyphicon-remove"></span></button></h2></legend>
+                <div class="form-group">
+                    <label class="control-label" for="jobName">Job Name</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="jobName" id="jobName" ng-model="job.description" placeholder="Enter Job Description">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="callBackUrl">Call Back Url(s)</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="callBackUrl" id="callBackUrl" ng-model="job.callbacks" placeholder="Provide Call back url">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="sshPrivateKey">SSH Private Key(s)</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="sshPrivateKey" id="sshPrivateKey" ng-model="job.sshPrivateKey" placeholder="Provide SSH Keys">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label"></label>
+                    <div class="checkbox">
+                        <label class="col-md-6">
+                            <input type="checkbox" ng-model="checkboxModel.runImmediate">Run Immediate
+                        </label>
+                    <!-- <label class="control-label">Run Immediate</label>
+                    <input type="checkbox" data-toggle="toggle" ng-model="checkboxModel.runImmediate"><strong>Immediate</strong> -->
+                    <!-- <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-toggle="toggle" ng-model="checkboxModel.runImmediate"><strong>Immediate</strong>
+                        </label>
+                    </div> -->
+                    </div>
+                </div>            
+                <fieldset>
+                    <legend>Repository details</legend>
+                    <div class="form-group">
+                        <label class="control-label" for="repoUrl">Git repository link</label>
+                        <div class="controls">
+                            <input type="text" class="form-control col-md-6" name="repoUrl" id="repoUrl" ng-model="job.repository.url" placeholder="Playbook Git Location" required>
+                            <span class="btn-danger input-group-addon" style="width: 15px; height: 35px;"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="repoBranch">Branch Name</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="repoBranch" id="repoBranch" ng-model="job.repository.ref" placeholder="Git Branch Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="playbookName">Playbook Name</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="playbookName" id="playbookName" ng-model="job.repository.defaultPlaybook" placeholder="Playbook Name" required>
+                        <span class="btn-danger input-group-addon" style="width: 15px; height: 35px;"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="repoUserName">User Name</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="repoUserName" id="repoUserName" ng-model="job.repository.credentials.username" placeholder="Git User Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="repoPassword">Password</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="repoPassword" id="repoPassword" ng-model="job.repository.credentials.password" placeholder="Git password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="repoSSHKey">SSH Private Key</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="repoSSHKey" id="repoSSHKey" ng-model="job.repository.credentials.sshPrivateKey" placeholder="Git SSH Private Key">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Host details</legend>
+                <div class="form-group">
+                    <label class="control-label" for="hostId">Host</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="hostId" id="hostId" ng-model="job.hosts[0].id" placeholder="Host Id(s)" required>
+                        <span class="btn-danger input-group-addon" style="width: 15px; height: 35px;"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="ansibleConnection">Ansible Connection</label>
+                    <div class="controls">
+                        <input type="text" class="form-control col-md-6" name="ansibleConnection" id="ansibleConnection" ng-model="job.hosts[0].hostvars.ansible_connection" placeholder="Ansible Connection">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="controls">
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-actions">
+                <button class="btn btn-success" type="submit" ng-click="createJob()">Create Job</button>
+                <button type="button" class="btn btn-link" ng-click="cancelJob()">Cancel</button>
+            </div>
+            <!-- <textarea class="form-control" rows="5" id="comment">{{job | json}}</textarea> -->
+        </form>
+    </div>
+</div>
+<div class="row">&nbsp;</div>
