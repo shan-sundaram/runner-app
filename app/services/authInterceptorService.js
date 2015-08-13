@@ -1,40 +1,43 @@
-'use strict';
-app.factory('authInterceptorService', ['$q', '$injector','$location', 'localStorageService', function ($q, $injector, $location, localStorageService) {
+(function () {
+    'use strict';
+    app.factory('authInterceptorService', ['$q', '$injector','$location', 'localStorageService', function ($q, $injector, $location, localStorageService) {
 
-    var authInterceptorServiceFactory = {};
+        var authInterceptorServiceFactory = {};
 
-    var _request = function (config) {
+        var _request = function (config) {
 
-        config.headers = config.headers || {};
-        var authData = localStorageService.get('authorizationData');
-        
-        if (authData) {
+            config.headers = config.headers || {};
+            config.headers['Content-Type'] = 'application/json';
+            var authData = localStorageService.get('authorizationData');
             
-            config.headers.Authorization = 'Bearer ' + authData.bearerToken;
-        }
+            if (authData) {
+                
+                config.headers.Authorization = 'Bearer ' + authData.bearerToken;
+            }
 
-        return config;
-    }
+            return config;
+        };
 
-//    var _responseError = function (rejection) {
-//        if (rejection.status === 401) {
-//            var authService = $injector.get('authService');
-//            var authData = localStorageService.get('authorizationData');
-//
-//            if (authData) {
-//                if (authData.useRefreshTokens) {
-//                    $location.path('/refresh');
-//                    return $q.reject(rejection);
-//                }
-//            }
-//            authService.logOut();
-//            $location.path('/login');
-//        }
-//        return $q.reject(rejection);
-//    }
+    //    var _responseError = function (rejection) {
+    //        if (rejection.status === 401) {
+    //            var authService = $injector.get('authService');
+    //            var authData = localStorageService.get('authorizationData');
+    //
+    //            if (authData) {
+    //                if (authData.useRefreshTokens) {
+    //                    $location.path('/refresh');
+    //                    return $q.reject(rejection);
+    //                }
+    //            }
+    //            authService.logOut();
+    //            $location.path('/login');
+    //        }
+    //        return $q.reject(rejection);
+    //    }
 
-    authInterceptorServiceFactory.request = _request;
-//    authInterceptorServiceFactory.responseError = _responseError;
+        authInterceptorServiceFactory.request = _request;
+    //    authInterceptorServiceFactory.responseError = _responseError;
 
-    return authInterceptorServiceFactory;
-}]);
+        return authInterceptorServiceFactory;
+    }]);
+}) ();
