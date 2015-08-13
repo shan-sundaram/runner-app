@@ -39,25 +39,38 @@
 					}
 				},
 				watch: {
-					dev: {
+					scripts: {
 						options: {
-							livereload: true
+							spawn: false,
+							event: ['all']
 						},
-						files: ['**/*.html' , '**/*.js', '**/*.css'],
-						tasks: ['jshint','build']
+						files: ['app/**/*.html','app/**/*.html','app/**/*.html', '!e2e-tests/*'],
+					    tasks: ['build']
+					    // , 'css/**/*.scss', '!lib/dontwatch.js'],
+						// dev: {
+						// 	options: {
+						// 		livereload: true
+						// 	},
+						// 	files: ['**/*.html' , '**/*.js', '**/*.css'],
+						// 	tasks: ['jshint','build']
+						// }
 					}
 				},
 				jshint: {
 					all: ['Gruntfile.js', 'app/services/**/*.js', 'app/controllers/**/*.js']
 				}
 			});
-
+			
+			grunt.event.on('watch', function(action, filepath, target) {
+			  	grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
+			  	grunt.config(['clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'usemin'], filepath);
+			});
 			//Load the plugin that provides the "uglify" task
 			require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 			
 			//Default task(s).
 			grunt.registerTask('default', ['jshint']);
-			grunt.registerTask('watch', ['watch']);
+			
 			grunt.registerTask('build', ['clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'usemin']);
 		};
 }) ();
