@@ -6,12 +6,18 @@
     <meta name="description" content="" />
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
     <title>Centurylink Cloud - Automation</title>
+    <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <!-- endbuild -->
+
+    <!-- build:css styles/dashboard.css -->
     <link rel="stylesheet" href="css/clc2.css">
     <link rel="stylesheet" href="css/clc.css">
     <link rel="stylesheet" href="css/theme/WFAD.css">
     <link rel="stylesheet" href="css/theme/genericons/genericons.css">
+    <!-- endbuild -->
+
     <!--<link href="content/css/loading-bar.css" rel="stylesheet" />-->
     <!--<link href="content/css/font-awesome.min.css" rel="stylesheet" />-->
     <!--<link href="content/css/social-buttons.css" rel="stylesheet" />-->
@@ -59,24 +65,32 @@
 </div>
 
 <!-- 3rd party libraries -->
+<!-- build:js scripts/main.js -->
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
 <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <!--<script src="scripts/loading-bar.min.js"></script>-->
+<!-- endbuild -->
 
 <!-- Load app main script -->
+<!-- build:js app.js -->
 <script src="app.js"></script>
+<!-- endbuild -->
 
+<!-- build:js scripts/services.js-->
 <!-- Load services -->
 <script src="services/wfaasService.js"></script>
 <script src="services/authService.js"></script>
-<script src="services/authInterceptorService.js?v=2"></script>
+<script src="services/authInterceptorService.js"></script>
+<!-- endbuild -->
 
+<!-- build:js scripts/controllers.js -->
 <!-- Load controllers -->
 <script src="controllers/wfaasController.js"></script>
 <script src="controllers/indexController.js"></script>
 <script src="controllers/homeController.js"></script>
 <script src="controllers/loginController.js"></script>
+<!-- endbuild -->
 
 <!-- Load custom filters -->
 <!-- Load custom directives -->

@@ -38,7 +38,7 @@
                 <td>{{job.repository.defaultPlaybook}}</td>
                 <td>{{job.details.lastRun | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                 <td>
-                    <button ng-click="startJob(job.id)" type="button" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-play-circle"></span></button>
+                    <button ng-click="startJob(job.id)" type="button" class="btn btn-success btn-xs"><span class="genericon genericon-video"></span></button>
                     <button ng-click="deleteJob(jobsList.indexOf(job), job.id)" type="button" class="btn btn-danger btn-xs"><span class="genericon genericon-trash"></span></button>
                 </td>
             </tr>
