@@ -47,9 +47,9 @@
                     });
                 };
                 //TODO- Refresh table scope again after deletion
-                $scope.deleteJob = function(rowIndex, jobId){
-                    jobAPIService.deleteJob(jobId).success(function (response){
-                        $scope.jobsList.splice(rowIndex, 1);
+                $scope.deleteJob = function(job){
+                    jobAPIService.deleteJob(job.id).success(function (response){
+                        $scope.jobsList.splice($scope.jobsList.indexOf(job), 1);
                     });
                 };
                 $scope.cancelJob = function(){

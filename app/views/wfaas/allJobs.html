@@ -2,12 +2,12 @@
 <div class="panel panel-success">
     <div class="container-fluid panel-heading">
         <div class="row">
-            <div class="panel-title col-md-7">List of Jobs</div>
-            <div class="col-md-5">
-                <div class="col-sm-3 form-control-static text-right">Search : </div>
-                <div class="col-md-8"><input ng-model="searchData" class="form-control container-fluid"/></div>
-                <div class="cold-sm-1">
-                    <button ng-click="newJob = true" type="button" class="btn btn-success glyphicon glyphicon-plus"></button>
+            <div class="panel-title col-md-5">List of Jobs</div>
+            <div class="col-md-6">
+                <div class="col-md-3 form-control-static text-right">Search : </div>
+                <div class="col-md-5 col-xs-push-1"><input ng-model="searchData" class="form-control container-fluid col-md-12"/></div>
+                <div class="col-md-1 col-xs-push-2">
+                    <button ng-click="newJob = true" type="button" class="btn btn-success"><span class="genericon genericon-plus"></span></button>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 <td>{{job.details.lastRun | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                 <td>
                     <button ng-click="startJob(job.id)" type="button" class="btn btn-success btn-xs"><span class="genericon genericon-video"></span></button>
-                    <button ng-click="deleteJob(jobsList.indexOf(job), job.id)" type="button" class="btn btn-danger btn-xs"><span class="genericon genericon-trash"></span></button>
+                    <button ng-click="deleteJob(job)" type="button" class="btn btn-danger btn-xs"><span class="genericon genericon-trash"></span></button>
                 </td>
             </tr>
             </tbody>

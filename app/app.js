@@ -6,12 +6,12 @@
         app.config(function($routeProvider){
             $routeProvider
             .when("/home", {
-                controller: "homeController",
-                templateUrl: "views/common/home.html"
+                templateUrl: "views/common/home.html",
+                controller: "homeController"                
             })
             .when("/login", {
-                controller: "loginController",
-                templateUrl: "views/common/login.html"
+                templateUrl: "views/common/login.html",
+                controller: "loginController"                
             })
             .when("/allJobs",{
                 templateUrl: "views/wfaas/allJobs.html",
@@ -20,6 +20,10 @@
             .when("/status/:jobId",{
                 templateUrl: "views/wfaas/jobDetails.html",
                 controller: "statusController"
+            })
+            .when("/playbookBuilder", {
+                templateUrl: "views/wfaas/playbookBuilder.html",
+                controller: "pbBuilderController"
             })
             .otherwise({redirectTo: '/home'});
         });

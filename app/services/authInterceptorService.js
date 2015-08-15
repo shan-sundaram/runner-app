@@ -9,15 +9,13 @@
             config.headers = config.headers || {};
             config.headers['Content-Type'] = 'application/json';
             var authData = localStorageService.get('authorizationData');
-            
+              
             if (authData) {
-                
                 config.headers.Authorization = 'Bearer ' + authData.bearerToken;
             }
 
             return config;
         };
-
     //    var _responseError = function (rejection) {
     //        if (rejection.status === 401) {
     //            var authService = $injector.get('authService');

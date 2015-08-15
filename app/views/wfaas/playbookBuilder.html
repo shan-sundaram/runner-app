@@ -1,0 +1,40 @@
+<div class="col-md-5 items">
+	<ul>
+		<h2>Select {{os_List.name}}to build:</h2>
+		<li ng-repeat="osItem in os_List.list" ng-click="renderScript(os_List.type, osItem)">{{osItem.name}}</li>
+	</ul>
+	<ul>
+		<h2>Select {{server_list.name}}to build:</h2>
+		<li ng-repeat="svrItem in server_list.list" ng-click="renderScript(server_list.type, svrItem)">{{svrItem.name}}</li>
+	</ul>
+	<ul>
+		<h2>Select {{db_list.name}}to build:</h2>
+		<li ng-repeat="dbItem in db_list.list" ng-click="renderScript(db_list.type, dbItem)">{{dbItem.name}}</li>
+	</ul>
+	<ul>
+		<h2>Select {{extras_list.name}}to build:</h2>
+		<li ng-repeat="extItem in extras_list.list" ng-click="renderScript(extras_list.type, extItem)">{{extItem.name}}</li>
+	</ul>
+</div>
+<div class="col-md-6">
+    <h2>Current Build:</h2>
+    <div class="col-md-12" id="">
+    	<div class="col-md-12 brush: yml" ng-show="showScript" ng-bind-html="trustAsHtml(scriptBlock)"></div>
+    </div>
+    <div class="col-md-12 disclaimer">Disclaimer: Unless required by applicable law
+        or agreed to in writing, software
+        distributed under the License is 
+        distributed on an "AS IS" BASIS, 
+        WITHOUT WARRANTIES OR CONDITIONS OF
+        ANY KIND, either express or implied. 
+        See the License for the specific 
+        language governing permissions and
+        limitations under the License.
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="col-md-6 btn-menus">
+        <button class="btn btn-danger" name="Revert" type="submit" ng-click="scriptRestart()">Start Over</button>
+        <button class="btn btn-success" name="Save" type="submit">Save as Playbook</button>
+        <button class="btn btn-warning" name="Save" type="submit">Run as Job</button>
+    </div>
+</div>
