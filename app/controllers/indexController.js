@@ -6,6 +6,9 @@
 	            authService.logOut();
 	            $location.path('/home');
 	        };
-	        $scope.authentication = authService.authentication;
+	        $scope.getClass = function (viewLocation) { 
+	        	return viewLocation === $location.path();
+		    };
+		   	$scope.authentication = authService.authentication;
 	    }]);
 }) ();

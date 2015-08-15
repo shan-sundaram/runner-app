@@ -30,6 +30,12 @@
 		                cwd: 'app/views',
 		                src: ['**/*.html'],
 		                dest: 'build/views'
+					},
+					stylesCopy: {
+						expand: true,
+		                cwd: 'app/css/theme/fonts',
+		                src: ['**/*'],
+		                dest: 'build/styles'
 					}
 				},
 				uglify: {
@@ -44,7 +50,7 @@
 							spawn: false,
 							event: ['all']
 						},
-						files: ['app/**/*.html','app/**/*.html','app/**/*.html', '!e2e-tests/*'],
+						files: ['app/**/*.html','app/**/*.js','app/**/*.css', '!e2e-tests/*'],
 					    tasks: ['build']
 					    // , 'css/**/*.scss', '!lib/dontwatch.js'],
 						// dev: {

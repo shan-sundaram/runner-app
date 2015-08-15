@@ -15,9 +15,9 @@
         <div class="col-md-4">
             <h2 class="form-login-heading">Centurylink Portal Login</h2>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" ng-model="loginData.userName" required autofocus>
-                <input type="password" class="form-control" placeholder="Password" ng-model="loginData.password" required>
-                <button class="btn btn-md btn-info btn-block" type="submit" ng-click="login()">Login</button>
+                <input type="text" class="form-control col-md-9" placeholder="Username" ng-model="loginData.userName" required autofocus>
+                <input type="password" class="form-control col-md-9" placeholder="Password" ng-model="loginData.password" required>
+                <button class="btn btn-md btn-info btn-block col-md-9" type="submit" ng-click="login()">Login</button>
             </div>
             <div ng-hide="message == ''" class="alert alert-danger">
                 {{message}}

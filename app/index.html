@@ -6,51 +6,99 @@
     <meta name="description" content="" />
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
     <title>Centurylink Cloud - Automation</title>
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <!-- endbuild -->
+    <link rel="icon" type="image/ico" href="https://control.ctl.io/Theme/Favicon/WFAD">
 
     <!-- build:css styles/dashboard.css -->
-    <link rel="stylesheet" href="css/clc2.css">
     <link rel="stylesheet" href="css/clc.css">
+    <link rel="stylesheet" href="css/clc2.css">
     <link rel="stylesheet" href="css/theme/WFAD.css">
     <link rel="stylesheet" href="css/theme/genericons/genericons.css">
+    <link rel="stylesheet" href="css/pbb.css">
+    <link rel="stylesheet" href="css/shCoreDefault.css"> 
     <!-- endbuild -->
-
+    
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="css/theme/font-awesome.css">
+    <!-- endbuild -->
+    
+    <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css"> -->
     <!--<link href="content/css/loading-bar.css" rel="stylesheet" />-->
-    <!--<link href="content/css/font-awesome.min.css" rel="stylesheet" />-->
     <!--<link href="content/css/social-buttons.css" rel="stylesheet" />-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
 <body>
-<div id="shellHeader">
-    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="indexController">
-        <div class="container-fluid" id="brandBar">
-            <div class="navbar-header">
-                <!-- <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                </button> -->
-                <a class="navbar-brand" href="#/">Home</a>
+    <section id="shellHeader">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div id="brandBar">
+                    <div id="brand" class="pull-left">
+                        <a href="" id="logo"><img src="https://control.ctl.io/theme/Logo/WFAD" alt="WFAAS DEV"></a>
+                        <h2 id="siteName"><a href="">WFAAS DEV</a></h2>
+                    </div>
+                    <div id="auxNav" class="pull-right">
+                        <div class="search">
+                            <form>
+                                <div class="search-box">
+                                    <input type="text" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
+                                    <i class="fa fa-search" title="Search"></i>
+                                </div>
+                                <div class="search-box-navigating">
+                                    <i class="icon-refresh icon-white"></i> Loading...
+                                </div>
+                            </form>
+                        </div>
+                        <div class="queue"><a href="" title="Queue"><i class="fa fa-tasks"></i></a></div>
+                        <div class="help"><a href="" id="auxNavSupport" title="Support"><i class="fa fa-question"></i></a></div>
+                        <div class="account dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="" title="Profile"><i class="fa fa-user"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="nav-header"></li>
+                                <li><a href="">Profile</a></li>
+                                <li><a href="">Sign Out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> 
+                <div id="menu">
+                    <div id="breadcrumbTrail">
+                        <div id="accountSwitcher" style="display: none;">
+                            <form action="" method="post"><select id="accountDropdown" name="impersonatedAccount"></select></form>                            
+                        </div>
+                        <div id="breadcrumb" style="margin-left: 15px;">
+                            <a href="">Dashboard</a>
+                            <span data-bind="text: text">Account</span>
+                        </div>
+                    </div>
+                    <div id="targetArea" style="width: 1133px; height: 40px;"><i class="fa fa-chevron-down"></i></div>
+                    <div id="nav"><div id="nav-inner" class="row-fluid"></div></div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse" data-collapse="!navbarExpanded">
-                <ul class="nav navbar-nav navbar-right">
-                    <li ng-hide="!authentication.isAuth"><a href="#">Welcome {{authentication.userName}}</a></li>
-                    <li ng-hide="!authentication.isAuth"><a href="#/allJobs">All Jobs</a></li>
-                    <!--<li data-ng-hide="!authentication.isAuth"><a href="#/status">Job Status</a></li>-->
-                    <li ng-hide="!authentication.isAuth"><a href="" ng-click="logOut()">Logout</a></li>
-                    <li ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
-                </ul>
+        </div>
+    </section>
+    <!-- Page Title & Tab navigation -->
+    <div class="container-fluid page-title" ng-controller="indexController">
+        <ul class="breadcrumb"></ul>
+        <h1 id="body-title">Automation / Playbook Builder</h1>
+
+        <ul class="nav nav-tabs ">  
+            <li ng-class="{ active: getClass('/login')}"><a href="#/">Home</a></li>
+            <li ng-class="{ active: getClass('/playbookBuilder')}"><a href="#/playbookBuilder">Playbook Builder</a></li>
+            <li ng-class="{ active: getClass('/allJobs')}"><a href="#/allJobs">Jobs</a></li>            
+            <li ng-class="{ active: getClass('/Status')}"><a href="">Statuses</a></li>
+        </ul>
+    </div>
+    <div class="container-fluid tab-body">                
+        <div class="row">
+            <div class="col-md-12">
+                <div id="account-contacts" class="module col-md-11" ng-view="">
+                </div>
             </div>
         </div>
     </div>
-</div>
 <div class="row">&nbsp;</div>
 <div class="row">&nbsp;</div>
 <div class="row">&nbsp;</div>
-<div class="container-fluid">
-    <div ng-view=""></div>
-</div>
 
 <hr />
 
@@ -77,11 +125,17 @@
 <script src="app.js"></script>
 <!-- endbuild -->
 
+<!-- build:js scripts/syntaxHighlighter.js -->
+<script src="scripts/shCore.js"></script>
+<script src="scripts/shBrushYaml.js"></script>
+<!-- endbuild -->
+
 <!-- build:js scripts/services.js-->
 <!-- Load services -->
 <script src="services/wfaasService.js"></script>
 <script src="services/authService.js"></script>
 <script src="services/authInterceptorService.js"></script>
+<script src="services/pbBuilderService.js"></script>
 <!-- endbuild -->
 
 <!-- build:js scripts/controllers.js -->
@@ -90,6 +144,7 @@
 <script src="controllers/indexController.js"></script>
 <script src="controllers/homeController.js"></script>
 <script src="controllers/loginController.js"></script>
+<script src="controllers/pbBuilderController.js"></script>
 <!-- endbuild -->
 
 <!-- Load custom filters -->
