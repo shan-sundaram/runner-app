@@ -31,11 +31,11 @@
 		                src: ['**/*.html'],
 		                dest: 'build/views'
 					},
-					stylesCopy: {
+					fontsCopy: {
 						expand: true,
-		                cwd: 'app/css/theme/fonts',
+		                cwd: 'app/css/fonts',
 		                src: ['**/*'],
-		                dest: 'build/styles'
+		                dest: 'build/styles/fonts'
 					}
 				},
 				uglify: {
