@@ -68,7 +68,7 @@
                 /*Check for latest job status details for every 15 seconds and stop after 10 pings*/
                 $interval(function(){
                     getJobStatus();
-                }, 1000, 15);
+                }, 5000, 36);
 
                 /*Get job details for the first time*/
                 function getJobStatus(){
