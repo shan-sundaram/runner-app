@@ -7,3 +7,4 @@ tmp
 .idea
 .tmp/
 build/
+app/bower_components/
