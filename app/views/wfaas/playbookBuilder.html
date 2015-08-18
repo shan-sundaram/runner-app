@@ -1,18 +1,18 @@
 <div class="col-md-5 items">
 	<ul>
-		<h2>Select {{os_List.name}}to build:</h2>
+		<h2>Select {{os_List.name}} to build:</h2>
 		<li ng-repeat="osItem in os_List.list" ng-click="renderScript(os_List.type, osItem)">{{osItem.name}}</li>
 	</ul>
 	<ul>
-		<h2>Select {{server_list.name}}to build:</h2>
+		<h2>Select {{server_list.name}} to build:</h2>
 		<li ng-repeat="svrItem in server_list.list" ng-click="renderScript(server_list.type, svrItem)">{{svrItem.name}}</li>
 	</ul>
 	<ul>
-		<h2>Select {{db_list.name}}to build:</h2>
+		<h2>Select {{db_list.name}} to build:</h2>
 		<li ng-repeat="dbItem in db_list.list" ng-click="renderScript(db_list.type, dbItem)">{{dbItem.name}}</li>
 	</ul>
 	<ul>
-		<h2>Select {{extras_list.name}}to build:</h2>
+		<h2>Select {{extras_list.name}} to build:</h2>
 		<li ng-repeat="extItem in extras_list.list" ng-click="renderScript(extras_list.type, extItem)">{{extItem.name}}</li>
 	</ul>
 </div>

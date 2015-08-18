@@ -2,12 +2,6 @@
   "name": "Automation Dashboard",
   "description": "Dashboard to manage your Automation tasks",
   "version": "1.0.0",
-  // "homepage": "https://github.com/angular/angular-seed",
-  // "license": "MIT",
-  // "private": true,
-  // "scripts": {
-  //   "postinstall": "bower install angular, angular-cookies, bootstrap"
-  // },
   "dependencies": {
     "angular": "~1.4.3",
     "angular-local-storage": "~0.2.2",
