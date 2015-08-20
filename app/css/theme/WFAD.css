@@ -157,3 +157,17 @@ a {
   color: white;
 }
 /* Mixins */
+
+/* Font awesome overridern styles*/
+.fa-star-fav {
+  color: yellow;
+  text-shadow: -1px 0 green, 0 1px green, 1px 0 green, 0 -1px green;
+}
+.fa-star-none {
+  color: green;
+}
+
+.table td {
+  font-size: 12px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
