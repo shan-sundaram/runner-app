@@ -14,17 +14,17 @@
     </div>
     <div class="table-responsive">
         <div class="alert alert-info" ng-show="loading">Loading...</div>
-        <table class="table table-striped table-condensed" ng-hide="loading">
+        <table class="table table-striped table-condensed table-responsive" ng-hide="loading">
             <thead >
                 <tr>
-                    <th>#</th>
+                    <th style="width: 25px;">#</th>
                     <th>Job Id</th>
                     <th>Description</th>
                     <th>Status</th>
                     <th>Repository</th>
                     <th>Playbook</th>
                     <th>Last Executed</th>
-                    <th>Action</th>
+                    <th style="width: 45px;">Action</th>
                 </tr>
             </thead>
             <tbody style="max-height:100px; overflow-y:scroll;">
@@ -38,8 +38,9 @@
                 <td>{{job.repository.defaultPlaybook}}</td>
                 <td>{{job.details.lastRun | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                 <td>
-                    <button ng-click="startJob(job.id)" type="button" class="btn btn-success btn-xs"><span class="genericon genericon-video"></span></button>
-                    <button ng-click="deleteJob(job)" type="button" class="btn btn-danger btn-xs"><span class="genericon genericon-trash"></span></button>
+                    <span title="add to favourites" class="fa fa-star-o fa-star-none" highlight-on-click></span>
+                    <span title="play this job" ng-click="startJob(job.id)" class="fa fa-play fa-lg" style="color: #5bb75b;"></span>
+                    <span title="remove this job" ng-click="deleteJob(job)" class="fa fa-trash-o fa-lg" style="color: #dc4a3c;"></span>
                 </td>
             </tr>
             </tbody>

@@ -19,7 +19,6 @@
                 $scope.newJob = false;
                 $scope.job = {};
                 $scope.job.hosts = [];
-                // $scope.job.callbacks = [];
                 $scope.checkboxModel = {
                     runImmediate: false
                 };
