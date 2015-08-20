@@ -38,10 +38,14 @@
 
             var _fillAuthData = function () {
 
-                var authData = localStorageService.get('authorizationData');
+                var authData = _getAuthData();
                 if (authData) {
                     _setAuthData(authData);
                 }
+            };
+
+            var _getAuthData = function () {
+                return localStorageService.get('authorizationData');
             };
 
             var _setAuthData = function (authData) {
@@ -58,7 +62,7 @@
             authServiceFactory.authentication = _authentication;
             authServiceFactory.login = _login;
             authServiceFactory.fillAuthData = _fillAuthData;
-            // authServiceFactory.getAuthData = _getAuthData;
+            authServiceFactory.getAuthData = _getAuthData;
             authServiceFactory.logOut = _logOut;
 
             return authServiceFactory;
