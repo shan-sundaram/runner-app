@@ -2,39 +2,39 @@
     'use strict';
 
     //    angular.module('wfaas.service',[])
-            app.factory('jobAPIService',['$http', function($http){
+            app.factory('jobAPIService',['$http', 'authService', function($http, authService){
                 var jobAPI = {};
-                /*TODO - 
-                    1. Add Content json to the headers in interceptor
-                    2. Account alias from local storage
-                    3. Login data in local storage */
+                var accountAlias = authService.authentication.accountAlias;
 
                 jobAPI.getAllJobs = function(){
                     return $http({
                         method: 'GET',
-                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/wfad' //Dev url
-    //                    url: 'http://64.15.188.230/jobs/wfaq', //QA url
+                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/' + accountAlias //Dev url
+                       // url: 'http://64.15.188.230/jobs/wfaq', //QA url
                     });
                 };
 
                 jobAPI.createJob = function (jobData, immediate) {
                     return $http({
                         method: 'PUT',
-                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/wfad?immediate=' + immediate, //Dev url
+                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/' + accountAlias + '?immediate=' + immediate, //Dev url
+                        // url: 'http://64.15.188.230/jobs/wfaq?immediate=' + immediate, //QA url
                         data: jobData
                     });
                 };
                 jobAPI.startJob = function(jobId){
                     return $http({
                         method: 'POST',
-                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/wfad/' + jobId + '/start', //Dev url
+                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/' + accountAlias + '/' + jobId + '/start', //Dev url
+                        // url: 'http://64.15.188.230/jobs/wfaq/' + jobId + '/start', //QA url
                         data: '{}'
                     });
                 };
                 jobAPI.deleteJob = function(jobId){
                     return $http({
                         method: 'DELETE',
-                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/wfad/' + jobId //Dev url
+                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/' + accountAlias + '/' + jobId //Dev url
+                        // url: 'http://64.15.188.230/jobs/wfaq/' + jobId //QA url
                     });
                 };
                 return jobAPI;
@@ -46,8 +46,8 @@
                 statusAPI.getJobDetails = function(jobId){
                     return $http({
                         method: 'GET',
-                        url: 'http://wfaas-status-api-svc-v1.service.consul:30003/status/wfad/job/' + jobId //Dev url
-    //                    url: 'http://64.15.188.230/status/wfad/job/' + jobId, //QA url
+                        url: 'http://wfaas-status-api-svc-v1.service.consul:30003/status/' + accountAlias + '/job/' + jobId //Dev url
+                       // url: 'http://64.15.188.230/status/wfaq/job/' + jobId //QA url
                     });
                 };
                 return statusAPI;

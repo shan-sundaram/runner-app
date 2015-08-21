@@ -21,6 +21,10 @@
                 templateUrl: "views/wfaas/jobDetails.html",
                 controller: "statusController"
             })
+            .when("/createJob", {
+                templateUrl : "views/wfaas/createJob.html",
+                controller: "createJobController"
+            })
             .when("/playbookBuilder", {
                 templateUrl: "views/wfaas/playbookBuilder.html",
                 controller: "pbBuilderController"

@@ -2,7 +2,7 @@
     <div class="row">
         <form role="form" class="form-horizontal">
             <fieldset>
-                <legend class="header"><h2>Create Job<button class="close" type="button" aria-label="Close" ng-click="cancelJob()"><span class="genericon genericon-close-alt"></span></button></h2></legend>
+                <legend class="header"><h2>Create Job<button class="close" type="button" aria-label="Close" ng-show="newJob" ng-click="cancelJob()"><span class="genericon genericon-close-alt"></span></button></h2></legend>
                 <div class="form-group">
                     <label class="control-label" for="jobName">Job Name</label>
                     <div class="controls">
@@ -42,7 +42,6 @@
                         <label class="control-label" for="repoUrl">Git repository link</label>
                         <div class="controls">
                             <input type="text" class="form-control col-md-6" name="repoUrl" id="repoUrl" ng-model="job.repository.url" placeholder="Playbook Git Location" required>
-                            <span class="btn-danger input-group-addon" style="width: 15px; height: 35px;"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                     </div>
                 </fieldset>
@@ -55,8 +54,7 @@
                 <div class="form-group">
                     <label class="control-label" for="playbookName">Playbook Name</label>
                     <div class="controls">
-                        <input type="text" class="form-control col-md-6" name="playbookName" id="playbookName" ng-model="job.repository.defaultPlaybook" placeholder="Playbook Name" required>
-                        <span class="btn-danger input-group-addon" style="width: 15px; height: 35px;"><span class="glyphicon glyphicon-asterisk"></span></span>
+                        <input type="text" class="form-control col-md-6" name="playbookName" id="playbookName" ng-model="job.repository.defaultPlaybook" placeholder="Playbook Name" required>                        
                     </div>
                 </div>
                 <div class="form-group">
@@ -84,7 +82,6 @@
                     <label class="control-label" for="hostId">Host</label>
                     <div class="controls">
                         <input type="text" class="form-control col-md-6" name="hostId" id="hostId" ng-model="job.hosts[0].id" placeholder="Host Id(s)" required>
-                        <span class="btn-danger input-group-addon" style="width: 15px; height: 35px;"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
                 <div class="form-group">

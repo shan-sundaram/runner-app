@@ -12,17 +12,18 @@
 
             }])
             /*Get all Jobs Controller*/
-            .controller("jobsController", ['$scope', '$location', 'jobAPIService', function($scope, $location, jobAPIService){
+            .controller("jobsController", ['$scope', '$location', '$controller', 'jobAPIService', function($scope, $location, $controller, jobAPIService){
                 /*Declaration*/
                 $scope.jobsList = [];
                 $scope.loading = true;
-                $scope.newJob = false;
-                $scope.job = {};
-                $scope.job.hosts = [];
-                $scope.checkboxModel = {
-                    runImmediate: false
-                };
+                // $scope.newJob = false;
+                // $scope.job = {};
+                // $scope.job.hosts = [];
+                // $scope.checkboxModel = {
+                //     runImmediate: false
+                // };
 
+                $controller('createJobController', {$scope: $scope});
                 $scope.template = {
                     "createJob": "views/wfaas/createJob.html"
                 };
@@ -34,11 +35,11 @@
                 });
 
                 
-                $scope.createJob = function (){
-                    jobAPIService.createJob($scope.job, $scope.checkboxModel.runImmediate).success(function (response){
-                        $location.path("/status/" + response.id);
-                    });
-                };
+                // $scope.createJob = function (){
+                //     jobAPIService.createJob($scope.job, $scope.checkboxModel.runImmediate).success(function (response){
+                //         $location.path("/status/" + response.id);
+                //     });
+                // };
 
                 $scope.startJob = function(jobId){
                     jobAPIService.startJob(jobId).success(function (response){
@@ -51,11 +52,11 @@
                         $scope.jobsList.splice($scope.jobsList.indexOf(job), 1);
                     });
                 };
-                $scope.cancelJob = function(){
-                    $scope.newJob = false;
-                };
+                // $scope.cancelJob = function(){
+                //     $scope.newJob = false;
+                // };
             }])
-
+            
             /*Get Job Status Controller*/
             .controller("statusController", ['$scope', '$interval', '$routeParams', 'statusAPIService', function($scope, $interval, $routeParams, statusAPIService){
                 $scope.jobId = $routeParams.jobId;
