@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-		app.controller('pbBuilderController', ['$scope', '$location', 'pbBuilderService', '$compile','$sce', '$interpolate', function($scope, $location, pbBuilderService, $compile, $sce, $interpolate) {
+		app.controller('pbBuilderController', ['$scope', '$location', 'pbBuilderService','$sce', '$timeout', function($scope, $location, pbBuilderService, $sce, $timeout) {
 			$scope.os_List = [];
 			$scope.os_script = $scope.server_script = $scope.db_script = $scope.ext_script = "";
 
@@ -21,18 +21,13 @@
 			$scope.openTag = '<pre class="brush: yml">--- ';
 			$scope.closeTag = '</pre>';
 			
-			SyntaxHighlighter;
-			SyntaxHighlighter.all();
-
 			$scope.scriptBlock = scriptDefaultText;
 
-			// $scope.scriptBlock = $scope.openTag + '\n- name: Build Servers \n  hosts: localhost \n  connection: local \n  roles: \n     - build_clc_server' + $scope.closeTag;
-			
 			$scope.scriptRestart = function() {
 				$scope.scriptBlock = scriptDefaultText;
+				$scope.os_script = $scope.server_script = $scope.db_script = $scope.ext_script ="";
 			}
 			$scope.renderScript = function (itemType, item) {
-				SyntaxHighlighter.highlight();
 				switch(itemType){
 					case "os":
 						$scope.os_script = item.scriptTag;
@@ -48,13 +43,12 @@
 						break;
 				}
 				$scope.scriptBlock = $scope.openTag + $scope.os_script +  $scope.server_script +  $scope.db_script +  $scope.ext_script + $scope.closeTag;
-				
-				SyntaxHighlighter.highlight();
-				$scope.showScript =true;
-			};
 
-			$scope.highlight = function(){
-				SyntaxHighlighter.highlight();
+				$timeout(function ($scope) {
+					SyntaxHighlighter.highlight();
+				});
+
+				$scope.showScript =true;
 			};
 		}]);
 }) ();
