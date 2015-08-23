@@ -25,6 +25,7 @@
 			$scope.scriptRestart = function() {
 				$scope.scriptBlock = scriptDefaultText;
 				$scope.os_script = $scope.server_script = $scope.db_script = $scope.ext_script ="";
+				$scope.osSelected = $scope.svrSelected = $scope.dbSelected = $scope.extSelected = "";
 			}
 			$scope.renderScript = function (itemType, item) {
 				switch(itemType){
