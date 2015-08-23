@@ -23,6 +23,9 @@
                 //     runImmediate: false
                 // };
 
+                $scope.toggleClass1 = "fa-star-o fa-star";
+                $scope.toggleClass2 = "fa-star-none fa-star-fav";
+
                 $controller('createJobController', {$scope: $scope});
                 $scope.template = {
                     "createJob": "views/wfaas/createJob.html"

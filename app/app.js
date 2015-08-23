@@ -45,7 +45,7 @@
                 restrict: 'A',
                 link: function($scope, element){
                     element.bind('click', function(){
-                        element.toggleClass('fa-star-o fa-star').toggleClass('fa-star-none fa-star-fav');
+                        element.toggleClass($scope.toggleClass1).toggleClass($scope.toggleClass2);
                     })
                 }
             }
