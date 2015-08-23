@@ -17,7 +17,8 @@
             };
 
             $scope.cancelJob = function(){
-                $scope.newJob = false;
+                $scope.newJob = $scope.checkboxModel.runImmediate = false;
+                $scope.job = {};
             };
 		}]);
 
