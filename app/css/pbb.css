@@ -39,7 +39,7 @@ h2 { color: #77d42a; font-weight: 100; margin }
     background-image: -webkit-linear-gradient(top, lightgray, lightgray);
     background-image: -ms-linear-gradient(top, lightgray, lightgray);
     background-image: -o-linear-gradient(top, lightgray, lightgray);
-    background-image: linear-gradient(to bottom, lightgray, #313538);
+    background-image: linear-gradient(to bottom, gray, gray);
     -webkit-border-radius: 5;
     -moz-border-radius: 5;
     border-radius: 5px;
