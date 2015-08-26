@@ -1,4 +1,3 @@
-## Testing Auto Build
 ## Getting Started
 
 ### Clone the repository
