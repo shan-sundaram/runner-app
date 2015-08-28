@@ -2,39 +2,40 @@
     'use strict';
 
     //    angular.module('wfaas.service',[])
-            app.factory('jobAPIService',['$http', 'authService', function($http, authService){
+            app.factory('jobAPIService',['$http', '$location', 'authService', function($http, $location, authService){
                 var jobAPI = {};
                 var accountAlias = authService.authentication.accountAlias;
-
+                var devAutomationUrl = "https://api.dev.automation.ctl.io";
+                var qaAutomationUrl = "https://api.qa.automation.ctl.io";
+                
+                var apiHostUrl = ($location.host().indexOf("dev.automation.ctl.io")===0) ? devAutomationUrl : qaAutomationUrl;
+                
                 jobAPI.getAllJobs = function(){
                     return $http({
                         method: 'GET',
-                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/' + accountAlias //Dev url
-                       // url: 'http://64.15.188.230/jobs/wfaq', //QA url
+                        url: apiHostUrl+ '/jobs/' + accountAlias
                     });
                 };
 
                 jobAPI.createJob = function (jobData, immediate) {
+                    console.log(apiHostUrl);
                     return $http({
                         method: 'PUT',
-                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/' + accountAlias + '?immediate=' + immediate, //Dev url
-                        // url: 'http://64.15.188.230/jobs/wfaq?immediate=' + immediate, //QA url
+                        url: apiHostUrl+ '/jobs/' + accountAlias + '?immediate=' + immediate,
                         data: jobData
                     });
                 };
                 jobAPI.startJob = function(jobId){
                     return $http({
                         method: 'POST',
-                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/' + accountAlias + '/' + jobId + '/start', //Dev url
-                        // url: 'http://64.15.188.230/jobs/wfaq/' + jobId + '/start', //QA url
+                        url: apiHostUrl+ '/jobs/' + accountAlias + '/' + jobId + '/start',
                         data: '{}'
                     });
                 };
                 jobAPI.deleteJob = function(jobId){
                     return $http({
                         method: 'DELETE',
-                        url: 'http://wfaas-job-api-svc-v1.service.consul:30000/jobs/' + accountAlias + '/' + jobId //Dev url
-                        // url: 'http://64.15.188.230/jobs/wfaq/' + jobId //QA url
+                        url: apiHostUrl+ '/jobs/' + accountAlias + '/' + jobId
                     });
                 };
                 return jobAPI;
@@ -46,22 +47,9 @@
                 statusAPI.getJobDetails = function(jobId){
                     return $http({
                         method: 'GET',
-                        url: 'http://wfaas-status-api-svc-v1.service.consul:30003/status/' + accountAlias + '/job/' + jobId //Dev url
-                       // url: 'http://64.15.188.230/status/wfaq/job/' + jobId //QA url
+                        url: apiHostUrl+ '/status/' + accountAlias + '/job/' + jobId
                     });
                 };
                 return statusAPI;
             }]);
-            // .factory('clcAPIService',['$http', function($http){
-            //     var clcAPI = {};
-
-            //     clcAPI.getAuthenticationToken = function(loginData){
-            //         return $http({
-            //             method: 'POST',
-            //             url: 'https://api.ctl.io/v2/authentication/login',
-            //             data: loginData
-            //         });
-            //     }
-            //     return  clcAPI;
-            // }]);
 }) ();
