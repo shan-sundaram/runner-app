@@ -23,12 +23,12 @@
                     <th>Status</th>
                     <th>Repository</th>
                     <th>Playbook</th>
-                    <th>Last Executed</th>
+                    <th>Last Updated</th>
                     <th style="width: 45px;">Action</th>
                 </tr>
             </thead>
             <tbody style="max-height:100px; overflow-y:scroll;">
-            <tr ng-repeat="job in jobsList | orderBy:'details.lastRun' | filter: searchData">
+            <tr ng-repeat="job in jobsList | orderBy: 'lastUpdatedTime' | filter: searchData">
             <!--<tr ng-repeat="job in jobsList">-->
                 <td>{{$index + 1}}</td>
                 <td><a href="#/status/{{job.id}}">{{job.id}}</a></td>
@@ -36,7 +36,7 @@
                 <td>{{job.status}}</td>
                 <td><a ng-href="{{job.repository.url}}" target="_blank">{{job.repository.url}}</a></td>
                 <td>{{job.repository.defaultPlaybook}}</td>
-                <td>{{job.details.lastRun | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
+                <td>{{job.lastUpdatedTime | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
                 <td>
                     <span title="add to favourites" class="fa fa-star-o fa-star-none" highlight-on-click></span>
                     <span title="play this job" ng-click="startJob(job.id)" class="fa fa-play fa-lg" style="color: #5bb75b;"></span>
