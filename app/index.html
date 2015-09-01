@@ -77,10 +77,12 @@
         </div>
     </section>
     <!-- Page Title & Tab navigation -->
-    <div class="container-fluid page-title" ng-controller="indexController">
+    <div class="container-fluid dashboard-title" ng-controller="indexController">
         <ul class="breadcrumb"></ul>
-        <h1 id="body-title">Automation / Playbook Builder</h1>
-
+        <div class="col-md-12">
+            <div class="col-md-9"><h1 id="body-title">Automation / Playbook Builder</h1></div>
+            <div class="col-md-2"><a>logout</a></div>
+        </div>
         <ul class="nav nav-tabs ">  
             <li ng-class="{ active: getClass('/login')}"><a href="#/">Home</a></li>
             <li ng-class="{ active: getClass('/playbookBuilder')}"><a href="#/playbookBuilder">Playbook Builder</a></li>

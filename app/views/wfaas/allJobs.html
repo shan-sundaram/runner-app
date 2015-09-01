@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody style="max-height:100px; overflow-y:scroll;">
-            <tr ng-repeat="job in jobsList | orderBy: 'lastUpdatedTime' | filter: searchData">
+            <tr ng-repeat="job in jobsList | orderBy: 'lastUpdatedTime':true | filter: searchData">
             <!--<tr ng-repeat="job in jobsList">-->
                 <td>{{$index + 1}}</td>
                 <td><a href="#/status/{{job.id}}">{{job.id}}</a></td>
