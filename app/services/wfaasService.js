@@ -6,7 +6,7 @@
                 var jobAPI = {};
                 var accountAlias = authService.authentication.accountAlias;
                 var devAutomationUrl = "https://api.dev.automation.ctl.io";
-                var qaAutomationUrl = "https://api.dev.automation.ctl.io";
+                var qaAutomationUrl = "https://api.qa.automation.ctl.io";
                 
                 var apiHostUrl = ($location.host().indexOf("dev.automation.ctl.io")===0) ? devAutomationUrl : qaAutomationUrl;
                 
