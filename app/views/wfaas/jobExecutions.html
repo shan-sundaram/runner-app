@@ -1,0 +1,16 @@
+<div class="data">
+	<div class="job-results">
+		<ul class="job-header">
+	        <li>Job Run ID</li>
+	        <li>Date/Time Ran</li>
+	        <li>Job Duration</li>
+	        <li>Status</li>
+	    </ul>
+	    <ul class="exec-item" ng-repeat="execution in executionList | orderBy: 'start':true">
+	        <li>{{execution.id}}</li>
+	        <li>{{execution.start | date: 'MM/dd/yyyy HH:mm:sss'}}</li>
+	        <li>{{(execution.end - execution.start) | date: 'sss'}}</li>
+	        <li ng-class="getExecutionStatusStyle(execution.exit_status);"><i ng-class="executionStatusIcon"></i></li>
+	    </ul>
+	</div>
+</div>

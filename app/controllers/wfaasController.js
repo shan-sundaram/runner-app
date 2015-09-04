@@ -16,16 +16,19 @@
                 /*Declaration*/
                 $scope.jobsList = [];
                 $scope.loading = true;
+                $scope.selectedJob = {};
+                $scope.selectedIndex = 0;
                 // $scope.newJob = false;
                 // $scope.job = {};
                 // $scope.job.hosts = [];
                 // $scope.checkboxModel = {
                 //     runImmediate: false
                 // };
-
+                
                 $scope.toggleClass1 = "fa-star-o fa-star";
                 $scope.toggleClass2 = "fa-star-none fa-star-fav";
 
+                
                 $controller('createJobController', {$scope: $scope});
                 $scope.template = {
                     "createJob": "views/wfaas/createJob.html"
@@ -44,17 +47,27 @@
                 //     });
                 // };
 
-                $scope.startJob = function(jobId){
-                    jobAPIService.startJob(jobId).success(function (response){
-                        $location.path("/status/"+jobId);
-                    });
+                $scope.startJob = function(){
+                    // jobAPIService.startJob(jobId).success(function (response){
+                    //     $location.path("/status/"+jobId);
+                    // });
+                };
+                // alert($scope.selectedIndex);
+                $scope.loadJobMainSection = function(job, $index){
+                    $scope.selectedJob = job;
+                    $scope.selectedIndex = $index;
+                    $controller('executionController', {$scope: $scope});
+                    $scope.template = {
+                        "jobExecutions": "views/wfaas/jobExecutions.html"
+                    };
                 };
                 //TODO- Refresh table scope again after deletion
                 $scope.deleteJob = function(job){
-                    jobAPIService.deleteJob(job.id).success(function (response){
-                        $scope.jobsList.splice($scope.jobsList.indexOf(job), 1);
-                    });
+                    // jobAPIService.deleteJob(job.id).success(function (response){
+                    //     $scope.jobsList.splice($scope.jobsList.indexOf(job), 1);
+                    // });
                 };
+
                 // $scope.cancelJob = function(){
                 //     $scope.newJob = false;
                 // };
