@@ -3,14 +3,17 @@
 		<ul class="job-header">
 	        <li>Job Run ID</li>
 	        <li>Date/Time Ran</li>
-	        <li>Job Duration</li>
+	        <li>Job Duration (in ms)</li>
 	        <li>Status</li>
 	    </ul>
-	    <ul class="exec-item" ng-repeat="execution in executionList | orderBy: 'start':true">
+	    <ul ng-show="isExecloading" style="text-align: center;"><i class="fa fa-refresh fa-spin fa-2x"></i></ul>
+	    
+	    <ul ng-show="(executionList.length > 0)" class="exec-item" ng-repeat="execution in executionList" ng-click="loadExecDetails(execution);" ng-class="{selected: execution.id === idSelectedItem}">
 	        <li>{{execution.id}}</li>
 	        <li>{{execution.start | date: 'MM/dd/yyyy HH:mm:sss'}}</li>
 	        <li>{{(execution.end - execution.start) | date: 'sss'}}</li>
-	        <li ng-class="getExecutionStatusStyle(execution.exit_status);"><i ng-class="executionStatusIcon"></i></li>
+	        <li ng-class="((execution.exit_status=='SUCCESS') ? 'noerror' : 'error')"><i ng-class="((execution.exit_status=='SUCCESS') ? 'fa fa-check-circle fa-lg' : 'fa fa-times-circle fa-lg')"></i></li>
 	    </ul>
+	    <ul ng-show="(!isExecloading && executionList.length===0)" class="selected" style="text-align: center;">There are no executions for this Job.<ul>
 	</div>
 </div>

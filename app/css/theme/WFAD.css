@@ -176,27 +176,33 @@ a {
   padding: 110px 0 0 ;  
 }
 
-.header-all-jobs { padding: 10px; background: #333; color: #529E3D; font-weight: bolds;}
-.header-fave { padding: 10px; background: #333; color: #529E3D; font-weight: bolds; }
+.header-all-jobs { padding: 10px; background: #333; margin-tops: 100px; color: #529E3D; font-weight: bolds; }
+.items li {width: 280px;}
+.header-fave { padding: 10px; background: #333; margin-top: 100px; color: #529E3D; font-weight: bolds; }
 .header-fave .fa, .header-all-jobs .fa { color: #529E3D; padding-right: 5px;}
 .job-title .fa { color: #99ff33; font-size: 85%}
 .job-results ul { width: 100%; margin: 0; padding: 0;display: table; }
-.job-results li { display: table-cell; margin: 0; padding: 0; border-bottom: 1px solid #ddd; border-top: 1px solid #fff }
+.job-results li { display: table-cell; margin: 0; padding: 0; border-bottom: 1px solid #eee; border-top: 1px solid #fff }
 .job-results li { padding: 5px; borders: 1px solid red;}
 .job-results li:nth-child(1) { padding-left: 15px; }
 
-.exec-item li { cursor: pointer; }
+
+
 .job-results ul { width: 100%; display: table;}
-.job-results ul:nth-child(even){ background-color: #eaeaea; }
-.job-results ul:nth-child(odd){ background-color: #f9f9f9; }
+.job-results ul:nth-child(odd){ background-color: #fff; }
+.job-results ul:nth-child(even){ background-color: #f9f9f9; }
 .job-results ul li { width: 20%;}
 .job-results ul li:nth-child(1) { width: 40%;}
 .job-results .exec-item:hover{ background-color: #529E3D; color: white; }
 .job-results .job-header { font-weight: bold; background: #fff !important}
 
+.job-results .exec-item.selected { background: #e5e5e5; }
+.job-results .exec-item:hover.selected { color: black; }
+.exec-item li { cursor: pointer; }
+
 .job-results .all-jobs { width: 100%; text-align: center; }
-.job-results .all-jobs a { display: block; text-decoration: none; padding: 10px; background: #aaa; color: white;}
-.job-results .all-jobs a { border-top: 1px solid #999; }
+.job-results .all-jobs a { display: block; text-decoration: none; padding: 10px; background: #ddd; color: #333; font-weight: normal; }
+.job-results .all-jobs a { border-top: 1px solid #eee; border-bottom: 1px solid #ccc }
 .job-results .all-jobs a:hover { background-color: #333; color: white; }
 
 .activity-large .subject { font-weight: bold; }
@@ -223,5 +229,22 @@ a {
 .edetails .noerror { color: green !important; border-left: 20px solid green }
 .edetails .running { color: #4772c9 !important; border-left: 20px solid #4772c9 }
 .edetails .suspended { color: #999 !important; border-left: 20px solid #999 }
-.sub-content { background: #333; color: #ccc !important; font-size: 12px; padding-left: 30px !important;}
+.sub-content { color: #529E3D !important; font-size: 12px; padding-left: 30px !important; padding-right: -30px;}
 .sub-content .fa { padding-right: 5px; color: #529E3D !important; }
+
+
+/* PBB Styles */
+#build_view { color: #aaa; font-weight: 100; letter-spacing: 0px; font-size: 12px;  }
+#build_view { msargin: 0 auto !important; background-colors: #eee !important; border: 10px solid #eee; }
+#build_view .toolbar { display: none;}
+.playbook-results { display: none; padding: 20px 50px;  }
+.playbook-results .disclaimer { font-size: 10px; font-weight: normal }
+.playbook-results span { color: #999;}
+/*.status-results { display: none; }*/
+.status-display { font-size: 12px; font-weight: normal; line-height: 14px; height: 500px; overflow: auto; height: 500px; }
+/*.status-display pre { overflow: auto; height: 500px; }*/
+.status-display strong { font-size: 12px; text-transform: uppercase;}
+.status-display .id { border: 1px solid #ddd; border-radius: 5px; padding: 15px; 20px; width: 50%; background: #fff; font-weight: sbold; color: #333;}
+.status-display .scroll { width: 100px; background: #333; color: #fff; padding: 10px; border-top-left-radius: 5px; border-top-right-radius: 5px; margin-top: -45px; margin-left: 200px; position: relative; z-index: 1; text-align: center; top: 395px;}
+.scroll-animate-show { -webkit-transition:all linear 0.5s; -moz-transition:all linear 0.5s; -o-transition:all linear 0.5s; transition:all linear 0.5s; display:block!important; opacity: 1; }
+.scroll-animate-hide { -webkit-transition:all linear 0.5s; -moz-transition:all linear 0.5s; -o-transition:all linear 0.5s; transition:all linear 0.5s; display:block!important; opacity: 0; }

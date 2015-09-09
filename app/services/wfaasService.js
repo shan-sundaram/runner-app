@@ -7,7 +7,7 @@
                 var jobAPI = {};
                 accountAlias = authService.authentication.accountAlias;
                 var devAutomationUrl = "https://api.dev.automation.ctl.io";
-                var qaAutomationUrl = "https://api.qa.automation.ctl.io";
+                var qaAutomationUrl = "https://api.dev.automation.ctl.io";
                 
                 apiHostUrl = ($location.host().indexOf("dev.automation.ctl.io")===0) ? devAutomationUrl : qaAutomationUrl;
                 
@@ -51,7 +51,7 @@
             .factory('statusAPIService',['$http',function($http){
                 var statusAPI = {};
 
-                statusAPI.getJobDetails = function(jobId){
+                statusAPI.getJobStatus = function(jobId){
                     return $http({
                         method: 'GET',
                         url: apiHostUrl+ '/status/' + accountAlias + '/job/' + jobId
