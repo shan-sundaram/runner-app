@@ -12,22 +12,7 @@
                 $scope.selectedJob = {};
                 $scope.selectedJob.hosts = [];
                 $scope.selectedJobId = null;
-                $scope.activeSection = "";
-                // $scope.newJob = false;
-                // $scope.job = {};
-                // $scope.job.hosts = [];
-                // $scope.checkboxModel = {
-                //     runImmediate: false
-                // };
-                
-                $scope.toggleClass1 = "fa-star-o fa-star";
-                $scope.toggleClass2 = "fa-star-none fa-star-fav";
-
-                
-                $controller('createJobController', {$scope: $scope});
-                $scope.template = {
-                    "createJob": "views/wfaas/createJob.html"
-                };
+                $scope.activeLeftMenuIcon = "jobs";
 
                 jobAPIService.getAllJobs().success(function (response){
                     //Get all jobs for an account Alias
@@ -43,66 +28,36 @@
                     $scope.selectedJobId = idSelectedItem;
                 };
                 
-                $scope.loadJobMainSection = function(job){
-                    $scope.selectedJob = job;
-                    _setSelectedJob(job.id);
-                    $scope.jobDetailSelection('executions'); 
-                    // $scope.loadExecutions();                                        
-                };
-
-                $scope.jobDetailSelection = function(selectedSection){
-                    switch(selectedSection){
-                        case "playbook":
-                            $scope.activeSection = "playbook";
+                $scope.loadMainSection = function(sectionName){
+                    switch(sectionName){
+                        case "createJob":
+                            $scope.loadCreateJobSection();
+                            $scope.activeLeftMenuIcon = "createJob";
                             break;
 
-                        case "status":
-                            $scope.loadStatus(); 
-                            $scope.activeSection = "status"; 
+                        case "pbBuilder":
+                            $scope.loadpbBuilderSection(); 
+                            $scope.activeLeftMenuIcon = "pbBuilder"; 
                             break;
 
                         default:
-                            $scope.loadExecutions();
-                            $scope.activeSection = "executions";  
+                            $scope.loadJobMainSection($scope.selectedJob);
+                            $scope.activeLeftMenuIcon = "jobs";  
                     }
+                }
+                $scope.loadCreateJobSection = function(){
+                    //TODO: Implementation for create job section
                 };
-
-                $scope.loadExecutions = function(){
-                    $controller('executionController', {$scope: $scope});
-                    $scope.template = {
-                        "jobExecutions": "views/wfaas/jobExecutions.html",
-                        "jobRecentActivity": "views/wfaas/jobRecentActivity.html"
-                    };
+                $scope.loadJobMainSection = function(job){
+                    $scope.selectedJob = job;
+                    _setSelectedJob(job.id);
+                    $controller('jobMainSectionController', {$scope: $scope});
+                    $scope.mainSectiontemplate = {
+                        "jobMainSection":  "views/wfaas/jobMainSection.html"
+                    };                                    
                 };
-
-                $scope.loadStatus = function(){
-                    $controller('statusController', {$scope: $scope});
-                    $scope.template = {
-                        "jobStatus":  "views/wfaas/jobStatus.html"
-                    };
-                };
-
-                $scope.createJob = function (){
-                    // jobAPIService.createJob($scope.job, $scope.checkboxModel.runImmediate).success(function (response){
-                    //     $location.path("/status/" + response.id);
-                    // });
-                };
-
-                $scope.startJob = function(){
-                    // jobAPIService.startJob(jobId).success(function (response){
-                    //     $location.path("/status/"+jobId);
-                    // });
-                };
-
-                //TODO- Refresh table scope again after deletion
-                $scope.deleteJob = function(job){
-                    // jobAPIService.deleteJob(job.id).success(function (response){
-                    //     $scope.jobsList.splice($scope.jobsList.indexOf(job), 1);
-                    // });
-                };
-
-                $scope.cancelJob = function(){
-                    // $scope.newJob = false;
+                $scope.loadpbBuilderSection = function(){
+                    //TODO: Implementation for playbook builder section
                 };
             }])
             

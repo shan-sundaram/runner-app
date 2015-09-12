@@ -7,16 +7,14 @@
         $scope.selectedExecution = {};
         $scope.idSelectedItem = null;
         $scope.isExecloading = true;
+
 		//Get all job executions for a job
         jobAPIService.getExecutions($scope.selectedJob.id).success(function (response){
-            // alert('request complete');
             $scope.executionList = $filter('orderBy')(response, new Date('start'), true);
             $scope.selectedExecution = $scope.executionList[0];
             if ($scope.executionList.length > 0) {
-                // $scope.idSelectedItem = $scope.selectedExecution.id;
                 $scope.loadExecDetails($scope.selectedExecution);                
             }
-            // alert($scope.executionList.length);
             $scope.isExecloading = false;
         });
 
