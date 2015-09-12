@@ -1,4 +1,4 @@
-<div class="col-md-5 items">
+<div class="col-md-5 pbitems">
 	<ul>
 		<h2>Select {{os_List.name}} to build:</h2>
 		<li ng-class="isActiveOs(osItem) ? 'selectedItem' : 'unSelectedItem'" ng-repeat="osItem in os_List.list" ng-click="renderScript(os_List.type, osItem)">{{osItem.name}}</li>

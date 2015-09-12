@@ -28,5 +28,7 @@
     </div>
 </nav>
 <main id="shellContentWithNewLeftNav" class="nav-expanded" style="transition: left 0.4s; display: block;">
-  <div class="container2-fluid" ng-include="mainSectiontemplate.jobMainSection"></div>
+  <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'createJob'" ng-include="mainSectiontemplate.createJobMainSection"></div>
+  <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'jobs'" ng-include="mainSectiontemplate.jobMainSection"></div>
+  <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'pbBuilder'" ng-include="mainSectiontemplate.pbBuilderMainSection"></div>
 </main>

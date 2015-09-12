@@ -46,7 +46,10 @@
                     }
                 }
                 $scope.loadCreateJobSection = function(){
-                    //TODO: Implementation for create job section
+                    $controller('createJobController', {$scope: $scope});
+                    $scope.mainSectiontemplate = {
+                        "createJobMainSection":  "views/wfaas/createJob.html"
+                    }; 
                 };
                 $scope.loadJobMainSection = function(job){
                     $scope.selectedJob = job;
@@ -57,7 +60,10 @@
                     };                                    
                 };
                 $scope.loadpbBuilderSection = function(){
-                    //TODO: Implementation for playbook builder section
+                    $controller('pbBuilderController', {$scope: $scope});
+                    $scope.mainSectiontemplate = {
+                        "pbBuilderMainSection":  "views/wfaas/playbookBuilder.html"
+                    }; 
                 };
             }])
             
