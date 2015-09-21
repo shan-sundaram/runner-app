@@ -69,13 +69,12 @@
             
             /*Get Job Status Controller*/
             .controller("statusController", ['$scope', '$interval', '$routeParams', '$sce', '$timeout', 'statusAPIService', function($scope, $interval, $routeParams, $sce, $timeout, statusAPIService){
-                // $scope.jobId = $routeParams.jobId;
                 $scope.isStatusLoading = true;
                 $scope.trustAsHtml = $sce.trustAsHtml;
                 $scope.openTag = '<pre class="brush: javascript">';
                 $scope.closeTag = '</pre>';
-                /*Get job details for the first time*/
-                getJobStatus();
+                /*Get status details for a job execution*/
+                getExecutionStatus();
                 // SyntaxHighlighter.highlight();
                 /*Check for latest job status details for every 15 seconds and stop after 10 pings*/
                 // $interval(function(){
@@ -84,14 +83,22 @@
 
                 /*Get job details for the first time*/
                 function getJobStatus(){
-                    // $scope.loading = true;
                     statusAPIService.getJobStatus($scope.selectedJob.id).success(function (response){
                         //Get all jobs for an account Alias
                         $scope.scriptBlock = $scope.openTag + JSON.stringify(response, null, '\t') + $scope.closeTag;
                         $timeout(function ($scope) {
                             SyntaxHighlighter.highlight();
                         });
-                        // $scope.jobStatus = response;
+                        $scope.isStatusLoading = false;
+                    });
+                }
+                /*Get status details for a job execution*/
+                function getExecutionStatus(){
+                    statusAPIService.getExecutionStatus($scope.selectedJob.id, $scope.idSelectedItem).success(function (response){
+                        $scope.scriptBlock = $scope.openTag + JSON.stringify(response, null, '\t') + $scope.closeTag;
+                        $timeout(function ($scope) {
+                            SyntaxHighlighter.highlight();
+                        });
                         $scope.isStatusLoading = false;
                     });
                 }

@@ -11,6 +11,13 @@
 		//Get all job executions for a job
         jobAPIService.getExecutions($scope.selectedJob.id).success(function (response){
             $scope.executionList = $filter('orderBy')(response, new Date('start'), true);
+            
+            angular.forEach($scope.executionList, function (execItem) {
+                var executionStatusAttrs = _setExecutionStatusAttrs(execItem.status);
+                execItem.executionStatusStyle = executionStatusAttrs.executionStatusStyle;
+                execItem.executionStatusIcon = executionStatusAttrs.executionStatusIcon; 
+            });
+            
             $scope.selectedExecution = $scope.executionList[0];
             if ($scope.executionList.length > 0) {
                 $scope.loadExecDetails($scope.selectedExecution);                
@@ -20,11 +27,7 @@
 
         $scope.loadExecDetails = function(execution){
             $scope.selectedExecution = execution;
-
-            _setSelected(execution.id);
-            var executionStatusAttrs = _setExecutionStatusAttrs(execution.exit_status);
-            $scope.selectedStatusStyle = executionStatusAttrs.executionStatusStyle;
-            $scope.selectedStatusIcon = executionStatusAttrs.executionStatusIcon;            
+            _setSelected(execution.id);          
         };
 
         var _setSelected = function (idSelectedItem) {
@@ -32,35 +35,35 @@
         };
 	}]);
     var _setExecutionStatusAttrs = function(executionStatus){
-        var setExecutionStatusAttrs = {
+        var execution = {
             "executionStatusStyle": "",
             "executionStatusIcon": ""
         };
         switch (executionStatus)
         {
             //Below status is not valid for executions
-            case "RUNNING": 
-            setExecutionStatusAttrs.executionStatusStyle = "running";
-            setExecutionStatusAttrs.executionStatusIcon = "fa fa-cog fa-spin";
+            case "PENDING": 
+            execution.executionStatusStyle = "running";
+            execution.executionStatusIcon = "fa fa-cog fa-spin fa-lg";
             break;
 
             case "SUCCESS":
-            setExecutionStatusAttrs.executionStatusStyle = "noerror";
-            setExecutionStatusAttrs.executionStatusIcon = "fa fa-check-circle fa-lg"; 
+            execution.executionStatusStyle = "noerror";
+            execution.executionStatusIcon = "fa fa-check-circle fa-lg"; 
             break;
 
             case "FAILURE":
-            setExecutionStatusAttrs.executionStatusStyle = "error";
-            setExecutionStatusAttrs.executionStatusIcon = "fa fa-times-circle fa-lg";
+            execution.executionStatusStyle = "error";
+            execution.executionStatusIcon = "fa fa-times-circle fa-lg";
             break;
 
             //Below status is future feature.
             case "SUSPENDED":
-            setExecutionStatusAttrs.executionStatusStyle = "suspended";
-            setExecutionStatusAttrs.executionStatusIcon = "fa fa-clock-o";
+            sexecution.executionStatusStyle = "suspended";
+            sexecution.executionStatusIcon = "fa fa-clock-o fa-lg";
             break;
         }
-        return setExecutionStatusAttrs;
+        return execution;
     };
 
 }) ();

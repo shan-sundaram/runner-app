@@ -57,6 +57,13 @@
                         url: apiHostUrl+ '/status/' + accountAlias + '/job/' + jobId
                     });
                 };
+
+                statusAPI.getExecutionStatus = function(jobId, jobExecutionId){
+                    return $http({
+                        method: 'GET',
+                        url: apiHostUrl+ '/status/' + accountAlias + '/job/' + jobId + '/execution/' + jobExecutionId
+                    });
+                };
                 return statusAPI;
             }]);
 }) ();

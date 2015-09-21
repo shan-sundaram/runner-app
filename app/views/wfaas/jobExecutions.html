@@ -12,7 +12,7 @@
 	        <li>{{execution.id}}</li>
 	        <li>{{execution.start | date: 'MM/dd/yyyy HH:mm:sss'}}</li>
 	        <li>{{(execution.end - execution.start) | date: 'sss'}}</li>
-	        <li ng-class="((execution.exit_status=='SUCCESS') ? 'noerror' : 'error')"><i ng-class="((execution.exit_status=='SUCCESS') ? 'fa fa-check-circle fa-lg' : 'fa fa-times-circle fa-lg')"></i></li>
+	        <li ng-class="execution.executionStatusStyle"><i ng-class="execution.executionStatusIcon"></i></li>
 	    </ul>
 	    <ul ng-show="(!isExecloading && executionList.length===0)" class="selected" style="text-align: center;">There are no executions for this Job.<ul>
 	</div>
