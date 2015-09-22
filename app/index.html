@@ -12,22 +12,22 @@
     <link rel="stylesheet" href="css/theme/font-awesome.css">
     <!-- endbuild -->
     
+    <link href="https://control.ctl.io/css?v=hsOQhKxgCHhEuPYY2-PNhy_VHmBS6k2IPKEKqRE4Ojg1" rel="stylesheet">
+    <link href="https://control.ctl.io/css2?v=isryxm-fl2yCJRYYty-voL2P1MF8JNRMEWupPYpOC9M1" rel="stylesheet">
+    
     <!-- build:css styles/dashboard.css -->
-    <link rel="stylesheet" href="css/clc.css">
-    <link rel="stylesheet" href="css/clc2.css">
     <link rel="stylesheet" href="css/theme/WFAD.css">
     <link rel="stylesheet" href="css/theme/genericons/genericons.css">
-    <link rel="stylesheet" href="css/pbb.css">
     <link rel="stylesheet" href="css/shCoreDefault.css"> 
     <!-- endbuild -->
-    
+    <!-- <link rel="stylesheet" href="css/pbb.css"> -->
     <!-- <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css"> -->
     <!--<link href="content/css/loading-bar.css" rel="stylesheet" />-->
     <!--<link href="content/css/social-buttons.css" rel="stylesheet" />-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
-<body>
+<body ng-controller="indexController">
     <section id="shellHeader">
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -50,12 +50,12 @@
                         </div>
                         <div class="queue"><a href="" title="Queue"><i class="fa fa-tasks"></i></a></div>
                         <div class="help"><a href="" id="auxNavSupport" title="Support"><i class="fa fa-question"></i></a></div>
-                        <div class="account dropdown">
+                        <div class="account dropdown" highlight-on-click>
                             <a class="dropdown-toggle" data-toggle="dropdown" href="" title="Profile"><i class="fa fa-user"></i></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li class="nav-header"></li>
+                                <li class="nav-header">{{authentication.userName}}</li>
                                 <li><a href="">Profile</a></li>
-                                <li><a href="">Sign Out</a></li>
+                                <li><a href="" ng-click="logOut()">Sign Out</a></li>
                             </ul>
                         </div>
                     </div>
@@ -77,24 +77,18 @@
         </div>
     </section>
     <!-- Page Title & Tab navigation -->
-    <div class="container-fluid page-title" ng-controller="indexController">
+   <!--  <div class="row dashboard-title">
         <ul class="breadcrumb"></ul>
         <h1 id="body-title">Automation / Playbook Builder</h1>
-
         <ul class="nav nav-tabs ">  
             <li ng-class="{ active: getClass('/login')}"><a href="#/">Home</a></li>
             <li ng-class="{ active: getClass('/playbookBuilder')}"><a href="#/playbookBuilder">Playbook Builder</a></li>
             <li ng-class="{ active: getClass('/allJobs')}"><a href="#/allJobs">Jobs</a></li>            
-            <!-- <li ng-class="{ active: getClass('/Status')}"><a href="">Statuses</a></li> -->
+            <li ng-class="{ active: getClass('/createJob')}"><a href="#/createJob">Create</a></li>
         </ul>
-    </div>
-    <div class="container-fluid tab-body">                
-        <div class="row">
-            <div class="col-md-12">
-                <div id="account-contacts" class="module col-md-11" ng-view="">
-                </div>
-            </div>
-        </div>
+    </div> -->
+    <div class="container-fluid" ng-view="" style="padding-left: 20px;">                
+        
     </div>
 <div class="row">&nbsp;</div>
 <div class="row">&nbsp;</div>
@@ -102,7 +96,7 @@
 
 <hr />
 
-<div id="footer">
+<!-- <div id="footer" class="row">
     <div class="container">
         <div class="row">
             <div class="col-md-11">
@@ -110,7 +104,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- 3rd party libraries -->
 <!-- build:js scripts/main.js -->
@@ -129,6 +123,7 @@
 <script src="scripts/shCore.js"></script>
 <script src="scripts/shBrushYaml.js"></script>
 <!-- endbuild -->
+<script src="http://agorbatchev.typepad.com/pub/sh/3_0_83/scripts/shBrushJScript.js"></script>
 
 <!-- build:js scripts/services.js-->
 <!-- Load services -->
@@ -141,10 +136,13 @@
 <!-- build:js scripts/controllers.js -->
 <!-- Load controllers -->
 <script src="controllers/wfaasController.js"></script>
+<script src="controllers/newJobController.js"></script>
 <script src="controllers/indexController.js"></script>
 <script src="controllers/homeController.js"></script>
 <script src="controllers/loginController.js"></script>
 <script src="controllers/pbBuilderController.js"></script>
+<script src="controllers/jobMainSectionController.js"></script>
+<script src="controllers/jobExecutionController.js"></script>
 <!-- endbuild -->
 
 <!-- Load custom filters -->

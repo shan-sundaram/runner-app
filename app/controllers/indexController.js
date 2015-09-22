@@ -10,5 +10,7 @@
 	        	return viewLocation === $location.path();
 		    };
 		   	$scope.authentication = authService.authentication;
+		   	$scope.toggleClass1 = "dropdown dropdown open";
 	    }]);
+
 }) ();

@@ -1,49 +1,34 @@
-<div class="bg-default" ng-include="template.createJob" ng-show="newJob"></div>
-<div class="panel panel-success">
-    <div class="container-fluid panel-heading">
-        <div class="row">
-            <div class="panel-title col-md-5">List of Jobs</div>
-            <div class="col-md-6">
-                <div class="col-md-3 form-control-static text-right">Search : </div>
-                <div class="col-md-5 col-xs-push-1"><input ng-model="searchData" class="form-control container-fluid col-md-12"/></div>
-                <div class="col-md-1 col-xs-push-2">
-                    <button ng-click="newJob = true" type="button" class="btn btn-success"><span class="genericon genericon-plus"></span></button>
-                </div>
+<nav class="left-nav row">
+    <div class="top-pane collapsed">
+        <ol class="items">
+           <li><div title="Create Job" ng-class="{selected: activeLeftMenuIcon === 'createJob'}" ng-click="loadMainSection('createJob');"><i class="fa fa-plus-circle"></i>Create</div></li>
+           <li><div title="Jobs" ng-class="{selected: activeLeftMenuIcon === 'jobs'}" ng-click="loadMainSection('jobs');"><i class="fa fa-suitcase"></i>Jobs</div></li>
+           <!-- class="selected shown"  -->
+           <!-- <li><a href="#" title="AppFog"><i class="fa fa-star"></i>Favorites</a></li> -->
+           <li><a href="" title="Playbook Builder" ng-class="{selected: activeLeftMenuIcon === 'pbBuilder'}" ng-click="loadMainSection('pbBuilder');"><i class="fa fa-book"></i>Playbook Builder</a></li>
+           <li><a href="" title="Status"><i class="fa fa-heartbeat"></i>Status</a></li>
+       </ol>
+    </div>
+    <div class="pane for-infrastructureMenu" data-bind="css: t.secondPaneClass" style="z-index: 1011; left: 0px;">
+        <div class="header-all-jobs" style="position: fixed;width: 260px;"><i class="fa fa-cog"></i> All Jobs</div>
+        <ol class="items" style="position: fixed;bottom: 170px;top: 140px;overflow-y: auto;">
+          <li ng-show="isJobloading" style="text-align: center;"><i class="fa fa-refresh fa-spin fa-2x"></i></li>
+          <li ng-hide="isJobloading" ng-repeat="job in jobsList">
+            <div class="item-hover" ng-class="{selected: job.id === selectedJobId}" ng-click="loadJobMainSection(job, $index);">
+               <div class="item-status"></div>
+               <a class="item-content">
+                  <i class="fa fa-caret-right"></i>
+                  <i class="fa fa-dot-circle-o" title=""></i>
+                  <p>{{(job.description == "") ? job.id : job.description}}</p>
+               </a>
             </div>
-        </div>
+          </li>
+        </ol>
+        <div class="header-fave" style="position: fixed;width: 260px;bottom: 150px;overflow: auto;"><i class="fa fa-star"></i> Favorite Jobs</div>
     </div>
-    <div class="table-responsive">
-        <div class="alert alert-info" ng-show="loading">Loading...</div>
-        <table class="table table-striped table-condensed table-responsive" ng-hide="loading">
-            <thead >
-                <tr>
-                    <th style="width: 25px;">#</th>
-                    <th>Job Id</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Repository</th>
-                    <th>Playbook</th>
-                    <th>Last Executed</th>
-                    <th style="width: 45px;">Action</th>
-                </tr>
-            </thead>
-            <tbody style="max-height:100px; overflow-y:scroll;">
-            <tr ng-repeat="job in jobsList | orderBy:'details.lastRun' | filter: searchData">
-            <!--<tr ng-repeat="job in jobsList">-->
-                <td>{{$index + 1}}</td>
-                <td><a href="#/status/{{job.id}}">{{job.id}}</a></td>
-                <td>{{job.description}}</td>
-                <td>{{job.status}}</td>
-                <td><a ng-href="{{job.repository.url}}" target="_blank">{{job.repository.url}}</a></td>
-                <td>{{job.repository.defaultPlaybook}}</td>
-                <td>{{job.details.lastRun | date: 'MM/dd/yyyy HH:mm:ss'}}</td>
-                <td>
-                    <span title="add to favourites" class="fa fa-star-o fa-star-none" highlight-on-click></span>
-                    <span title="play this job" ng-click="startJob(job.id)" class="fa fa-play fa-lg" style="color: #5bb75b;"></span>
-                    <span title="remove this job" ng-click="deleteJob(job)" class="fa fa-trash-o fa-lg" style="color: #dc4a3c;"></span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+</nav>
+<main id="shellContentWithNewLeftNav" class="nav-expanded" style="transition: left 0.4s; display: block;">
+  <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'createJob'" ng-include="mainSectiontemplate.createJobMainSection"></div>
+  <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'jobs'" ng-include="mainSectiontemplate.jobMainSection"></div>
+  <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'pbBuilder'" ng-include="mainSectiontemplate.pbBuilderMainSection"></div>
+</main>

@@ -3,79 +3,103 @@
 
     //    angular.module('wfaas.controller',[])
             /**/
-            app.controller("clcController", ['$scope', '$interval', 'clcAPIService', function($scope, $interval, clcAPIService){
-                $scope.accessToken = [];
-
-                $interval(function(){
-                });
-                return clcAPIService.getAuthenticationToken();
-
-            }])
+            app
             /*Get all Jobs Controller*/
-            .controller("jobsController", ['$scope', '$location', 'jobAPIService', function($scope, $location, jobAPIService){
+            .controller("jobsController", ['$scope', '$location', '$controller', '$filter', 'jobAPIService', function($scope, $location, $controller, $filter, jobAPIService){
                 /*Declaration*/
                 $scope.jobsList = [];
-                $scope.loading = true;
-                $scope.newJob = false;
-                $scope.job = {};
-                $scope.job.hosts = [];
-                $scope.checkboxModel = {
-                    runImmediate: false
-                };
-
-                $scope.template = {
-                    "createJob": "views/wfaas/createJob.html"
-                };
+                $scope.isJobloading = true;
+                $scope.selectedJob = {};
+                $scope.selectedJob.hosts = [];
+                $scope.selectedJobId = null;
+                $scope.activeLeftMenuIcon = "jobs";
 
                 jobAPIService.getAllJobs().success(function (response){
                     //Get all jobs for an account Alias
-                    $scope.jobsList = response;
-                    $scope.loading = false;
+                    $scope.jobsList = $filter('orderBy')(response, 'lastUpdatedTime', true);
+                    $scope.selectedJob = $scope.jobsList[0];
+                    if($scope.jobsList.length > 0){
+                        $scope.loadJobMainSection($scope.selectedJob);
+                    }
+                    $scope.isJobloading = false;
                 });
 
+                var _setSelectedJob = function (idSelectedItem) {
+                    $scope.selectedJobId = idSelectedItem;
+                };
                 
-                $scope.createJob = function (){
-                    jobAPIService.createJob($scope.job, $scope.checkboxModel.runImmediate).success(function (response){
-                        $location.path("/status/" + response.id);
-                    });
-                };
+                $scope.loadMainSection = function(sectionName){
+                    switch(sectionName){
+                        case "createJob":
+                            $scope.loadCreateJobSection();
+                            $scope.activeLeftMenuIcon = "createJob";
+                            break;
 
-                $scope.startJob = function(jobId){
-                    jobAPIService.startJob(jobId).success(function (response){
-                        $location.path("/status/"+jobId);
-                    });
+                        case "pbBuilder":
+                            $scope.loadpbBuilderSection(); 
+                            $scope.activeLeftMenuIcon = "pbBuilder"; 
+                            break;
+
+                        default:
+                            $scope.loadJobMainSection($scope.selectedJob);
+                            $scope.activeLeftMenuIcon = "jobs";  
+                    }
+                }
+                $scope.loadCreateJobSection = function(){
+                    $controller('createJobController', {$scope: $scope});
+                    $scope.mainSectiontemplate = {
+                        "createJobMainSection":  "views/wfaas/createJob.html"
+                    }; 
                 };
-                //TODO- Refresh table scope again after deletion
-                $scope.deleteJob = function(job){
-                    jobAPIService.deleteJob(job.id).success(function (response){
-                        $scope.jobsList.splice($scope.jobsList.indexOf(job), 1);
-                    });
+                $scope.loadJobMainSection = function(job){
+                    $scope.selectedJob = job;
+                    _setSelectedJob(job.id);
+                    $controller('jobMainSectionController', {$scope: $scope});
+                    $scope.mainSectiontemplate = {
+                        "jobMainSection":  "views/wfaas/jobMainSection.html"
+                    };                                    
                 };
-                $scope.cancelJob = function(){
-                    $scope.newJob = false;
+                $scope.loadpbBuilderSection = function(){
+                    $controller('pbBuilderController', {$scope: $scope});
+                    $scope.mainSectiontemplate = {
+                        "pbBuilderMainSection":  "views/wfaas/playbookBuilder.html"
+                    }; 
                 };
             }])
-
+            
             /*Get Job Status Controller*/
-            .controller("statusController", ['$scope', '$interval', '$routeParams', 'statusAPIService', function($scope, $interval, $routeParams, statusAPIService){
-                $scope.jobId = $routeParams.jobId;
-                $scope.jobDetails = [];
-
-                /*Get job details for the first time*/
-                getJobStatus();
-
+            .controller("statusController", ['$scope', '$interval', '$routeParams', '$sce', '$timeout', 'statusAPIService', function($scope, $interval, $routeParams, $sce, $timeout, statusAPIService){
+                $scope.isStatusLoading = true;
+                $scope.trustAsHtml = $sce.trustAsHtml;
+                $scope.openTag = '<pre class="brush: javascript">';
+                $scope.closeTag = '</pre>';
+                /*Get status details for a job execution*/
+                getExecutionStatus();
+                // SyntaxHighlighter.highlight();
                 /*Check for latest job status details for every 15 seconds and stop after 10 pings*/
-                $interval(function(){
-                    getJobStatus();
-                }, 5000, 36);
+                // $interval(function(){
+                //     getJobStatus();
+                // }, 5000, 36);
 
                 /*Get job details for the first time*/
                 function getJobStatus(){
-                    $scope.loading = true;
-                    statusAPIService.getJobDetails($scope.jobId).success(function (response){
+                    statusAPIService.getJobStatus($scope.selectedJob.id).success(function (response){
                         //Get all jobs for an account Alias
-                        $scope.jobDetails = response;
-                        $scope.loading = false;
+                        $scope.scriptBlock = $scope.openTag + JSON.stringify(response, null, '\t') + $scope.closeTag;
+                        $timeout(function ($scope) {
+                            SyntaxHighlighter.highlight();
+                        });
+                        $scope.isStatusLoading = false;
+                    });
+                }
+                /*Get status details for a job execution*/
+                function getExecutionStatus(){
+                    statusAPIService.getExecutionStatus($scope.selectedJob.id, $scope.idSelectedItem).success(function (response){
+                        $scope.scriptBlock = $scope.openTag + JSON.stringify(response, null, '\t') + $scope.closeTag;
+                        $timeout(function ($scope) {
+                            SyntaxHighlighter.highlight();
+                        });
+                        $scope.isStatusLoading = false;
                     });
                 }
             }]);
