@@ -36,10 +36,11 @@
           <!-- <span>Job:</span>  Create LAMP Server<br /> -->
           <span>Execution ID:</span>  {{selectedExecution.id}} <br />
           <span>Job ID:</span>  {{selectedJob.id}} <br />
-          <span>Playbook:</span>  {{selectedJob.repository.defaultPlaybook}} &nbsp;&nbsp;&nbsp;<a href="#">view here</a><br />
+          <span>Playbook:</span>  {{selectedJob.repository.defaultPlaybook}} &nbsp;&nbsp;&nbsp;<a ng-href="{{selectedJob.repository.url}}" target="_blank">view here</a><br />
           <span>Hosts:</span> <span id="hosts" style="font-weight: 100">{{(selectedJob.hosts | map:'id').join(', ')}}</span><br /><br />
 
-          <span>Executed By:</span>  John Doe<br />
+          <!-- <span>Executed By:</span>  John Doe<br /> -->
+          <span>Job Last Updated:</span>  {{selectedJob.lastUpdatedTime | date: 'MM/dd/yyyy HH:mm'}}<br />
           <span>Job Started:</span>  {{selectedExecution.start | date: 'MM/dd/yyyy HH:mm:sss'}}<br />
           <span>Job Completed:</span>  {{selectedExecution.end | date: 'MM/dd/yyyy HH:mm:sss'}}<br />
           <span>Job Run-time:</span>  {{(selectedExecution.end - selectedExecution.start) | date: 'sss'}}<br /><br />
