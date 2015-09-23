@@ -27,27 +27,27 @@
 </div>
 <div class="row" ng-include="template.jobExecutions">Executioin</div>
 <div class="row" ng-include="template.jobStatus"></div>
-<div ng-show="(executionList.length > 0)" class="row history">
+<div class="row history">
 
   <div class="activity col-sm-7">
       <h5 class="content-header">JOB EXECUTION DETAILS</h5>
       <div class="empty-upcoming-events edetails">
-          <div class="detail-status" ng-class="selectedExecution.executionStatusStyle"><span>STATUS:</span> {{selectedExecution.exit_status}} <i ng-class="selectedExecution.executionStatusIcon"></i></div>
+          <div ng-show="(executionList.length > 0)" class="detail-status" ng-class="selectedExecution.executionStatusStyle"><span>STATUS:</span> {{selectedExecution.exit_status}} <i ng-class="selectedExecution.executionStatusIcon"></i></div>
           <!-- <span>Job:</span>  Create LAMP Server<br /> -->
-          <span>Execution ID:</span>  {{selectedExecution.id}} <br />
+          <div ng-show="(executionList.length > 0)"><span>Execution ID:</span>  {{selectedExecution.id}} </div>
           <span>Job ID:</span>  {{selectedJob.id}} <br />
           <span>Playbook:</span>  {{selectedJob.repository.defaultPlaybook}} &nbsp;&nbsp;&nbsp;<a ng-href="{{selectedJob.repository.url}}" target="_blank">view here</a><br />
           <span>Hosts:</span> <span id="hosts" style="font-weight: 100">{{(selectedJob.hosts | map:'id').join(', ')}}</span><br /><br />
 
           <!-- <span>Executed By:</span>  John Doe<br /> -->
-          <span>Job Last Updated:</span>  {{selectedJob.lastUpdatedTime | date: 'MM/dd/yyyy HH:mm'}}<br />
-          <span>Job Started:</span>  {{selectedExecution.start | date: 'MM/dd/yyyy HH:mm:sss'}}<br />
-          <span>Job Completed:</span>  {{selectedExecution.end | date: 'MM/dd/yyyy HH:mm:sss'}}<br />
-          <span>Job Run-time:</span>  {{(selectedExecution.end - selectedExecution.start) | date: 'sss'}}<br /><br />
+          <div ng-show="(executionList.length > 0)"><span>Job Last Updated:</span>  {{selectedJob.lastUpdatedTime | date: 'MM/dd/yyyy HH:mm'}}</div>
+          <div ng-show="(executionList.length > 0)"><span>Job Started:</span>  {{selectedExecution.start | date: 'MM/dd/yyyy HH:mm:sss'}}</div>
+          <div ng-show="(executionList.length > 0)"><span>Job Completed:</span>  {{selectedExecution.end | date: 'MM/dd/yyyy HH:mm:sss'}}</div>
+          <div ng-show="(executionList.length > 0)"><span>Job Run-time:</span>  {{(selectedExecution.end - selectedExecution.start) | date: 'sss'}}</div>
 
           <span>Description:</span><br />Some description here Some description here Some description here Some description here Some description here Some description here Some description here Some description here <br />
 
-          <a href="#" class="view">View Status Real-time</a>
+          <a href="" class="view">View Status Real-time</a>
       </div>
   </div>
   <div class="upcoming-events col-sm-5" ng-include="template.jobRecentActivity"></div>
