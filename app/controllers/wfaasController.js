@@ -16,7 +16,7 @@
 
                 jobAPIService.getAllJobs().success(function (response){
                     //Get all jobs for an account Alias
-                    $scope.jobsList = $filter('orderBy')(response, 'lastUpdatedTime', true);
+                    $scope.jobsList = $filter('orderBy')(response, 'lastUpdatedTime', true).results;
                     $scope.selectedJob = $scope.jobsList[0];
                     if($scope.jobsList.length > 0){
                         $scope.loadJobMainSection($scope.selectedJob);

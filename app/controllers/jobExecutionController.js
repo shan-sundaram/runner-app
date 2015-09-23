@@ -10,7 +10,7 @@
 
 		//Get all job executions for a job
         jobAPIService.getExecutions($scope.selectedJob.id).success(function (response){
-            $scope.executionList = $filter('orderBy')(response, new Date('start'), true);
+            $scope.executionList = $filter('orderBy')(response, new Date('start'), true).results;
             
             angular.forEach($scope.executionList, function (execItem) {
                 var executionStatusAttrs = _setExecutionStatusAttrs(execItem.status);
@@ -27,7 +27,7 @@
 
         $scope.loadExecDetails = function(execution){
             $scope.selectedExecution = execution;
-            _setSelected(execution.id);          
+            _setSelected(execution.execution_id);          
         };
 
         var _setSelected = function (idSelectedItem) {
@@ -42,7 +42,7 @@
         switch (executionStatus)
         {
             //Below status is not valid for executions
-            case "PENDING": 
+            case "RUNNING": 
             execution.executionStatusStyle = "running";
             execution.executionStatusIcon = "fa fa-cog fa-spin fa-lg";
             break;
@@ -58,9 +58,9 @@
             break;
 
             //Below status is future feature.
-            case "SUSPENDED":
-            sexecution.executionStatusStyle = "suspended";
-            sexecution.executionStatusIcon = "fa fa-clock-o fa-lg";
+            case "PENDING":
+            execution.executionStatusStyle = "suspended";
+            execution.executionStatusIcon = "fa fa-clock-o fa-lg";
             break;
         }
         return execution;

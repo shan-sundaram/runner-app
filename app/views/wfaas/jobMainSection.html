@@ -34,7 +34,7 @@
       <div class="empty-upcoming-events edetails">
           <div ng-show="(executionList.length > 0)" class="detail-status" ng-class="selectedExecution.executionStatusStyle"><span>STATUS:</span> {{selectedExecution.exit_status}} <i ng-class="selectedExecution.executionStatusIcon"></i></div>
           <!-- <span>Job:</span>  Create LAMP Server<br /> -->
-          <div ng-show="(executionList.length > 0)"><span>Execution ID:</span>  {{selectedExecution.id}} </div>
+          <div ng-show="(executionList.length > 0)"><span>Execution ID:</span>  {{selectedExecution.execution_id}} </div>
           <span>Job ID:</span>  {{selectedJob.id}} <br />
           <span>Playbook:</span>  {{selectedJob.repository.defaultPlaybook}} &nbsp;&nbsp;&nbsp;<a ng-href="{{selectedJob.repository.url}}" target="_blank">view here</a><br />
           <span>Hosts:</span> <span id="hosts" style="font-weight: 100">{{(selectedJob.hosts | map:'id').join(', ')}}</span><br /><br />
