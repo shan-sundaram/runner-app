@@ -14,7 +14,7 @@
                 jobAPI.getAllJobs = function(){
                     return $http({
                         method: 'GET',
-                        url: apiHostUrl+ '/jobs/' + accountAlias
+                        url: apiHostUrl+ '/jobs/' + accountAlias + '?page=0&size=100'
                     });
                 };
 
