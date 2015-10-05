@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="row">
         <form role="form" class="form-horizontal">
-            <fieldset>
-                <legend class="header"><h2>Create Job<button class="close" type="button" aria-label="Close" ng-show="newJob" ng-click="cancelJob()"><span class="genericon genericon-close-alt"></span></button></h2></legend>
+            <legend class="header"><h2>Create Job<button class="close" type="button" aria-label="Close" ng-show="newJob" ng-click="cancelJob()"><span class="genericon genericon-close-alt"></span></button></h2></legend></br>
+            <!-- <fieldset ng-hide="true">
                 <div class="form-group">
                     <label class="control-label" for="jobName">Job Name</label>
                     <div class="controls">
@@ -27,16 +27,9 @@
                         <label class="col-md-6">
                             <input type="checkbox" ng-model="checkboxModel.runImmediate">Run Immediate
                         </label>
-                    <!-- <label class="control-label">Run Immediate</label>
-                    <input type="checkbox" data-toggle="toggle" ng-model="checkboxModel.runImmediate"><strong>Immediate</strong> -->
-                    <!-- <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-toggle="toggle" ng-model="checkboxModel.runImmediate"><strong>Immediate</strong>
-                        </label>
-                    </div> -->
                     </div>
                 </div>            
-                <fieldset>
+                <fieldset ng-hide="true">
                     <legend>Repository details</legend>
                     <div class="form-group">
                         <label class="control-label" for="repoUrl">Git repository link</label>
@@ -75,8 +68,8 @@
                         <input type="text" class="form-control col-md-6" name="repoSSHKey" id="repoSSHKey" ng-model="job.repository.credentials.sshPrivateKey" placeholder="Git SSH Private Key">
                     </div>
                 </div>
-            </fieldset>
-            <fieldset>
+            </fieldset> -->
+          <!--   <fieldset ng-hide="true">
                 <legend>Host details</legend>
                 <div class="form-group">
                     <label class="control-label" for="hostId">Host</label>
@@ -94,13 +87,19 @@
                     <div class="controls">
                     </div>
                 </div>
-            </fieldset>
-            <div class="form-actions">
-                <button class="btn btn-success" type="submit" ng-click="createJob()">Create Job</button>
-                <button type="button" class="btn btn-link" ng-click="cancelJob()">Cancel</button>
-            </div>
-            <!-- <textarea class="form-control" rows="5" id="comment">{{job | json}}</textarea> -->
-        </form>
+            </fieldset> -->
+            <div class="">
+                <label class="col-sm-4">
+                    <input style="margin-right: 5px;" type="checkbox" ng-model="checkboxModel.runImmediate">Run Immediate
+                </label>
+                <button class="btn btn-success col-xsm-1" type="submit" ng-click="createJob()">Create Job</button>
+                <button type="button" class="btn btn-link col-xsm-3" ng-click="cancelJob()">Cancel</button>
+                </br></br>
+                <textarea ng-model="job.jobDocument" rows="30" id="comment" style="resize: both;" class="col-md-6"></textarea>    
+                <textarea ng-show="isError" class="error col-md-4 col-sm-push-1" rows="10" style="resize: both;">{{jobCreationError | json}}</textarea>
+                <textarea ng-show="isSuccess" class="success col-md-4 col-sm-push-1" rows="10" style="width: 750px;resize: both;">{{jobResponseDocument | json}}</textarea>
+            </div></br>
+        </form> </br>
     </div>
 </div>
 <div class="row">&nbsp;</div>

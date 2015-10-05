@@ -11,10 +11,10 @@
                 
                 apiHostUrl = ($location.host().indexOf("dev.automation.ctl.io")===0) ? devAutomationUrl : qaAutomationUrl;
                 
-                jobAPI.getAllJobs = function(){
+                jobAPI.getAllJobs = function(fetchPage){
                     return $http({
                         method: 'GET',
-                        url: apiHostUrl+ '/jobs/' + accountAlias + '?page=0&size=100'
+                        url: apiHostUrl+ '/jobs/' + accountAlias + '?page=' + fetchPage + '&size=100'
                     });
                 };
 

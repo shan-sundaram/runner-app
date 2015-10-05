@@ -13,8 +13,10 @@
                 $scope.selectedJob.hosts = [];
                 $scope.selectedJobId = null;
                 $scope.activeLeftMenuIcon = "jobs";
+                $scope.currentPage = -1;
 
-                jobAPIService.getAllJobs().success(function (response){
+                var fetchPage = $scope.currentPage + 1;
+                jobAPIService.getAllJobs(fetchPage).success(function (response){
                     //Get all jobs for an account Alias
                     $scope.jobsList = $filter('orderBy')(response, 'lastUpdatedTime', true).results;
                     $scope.selectedJob = $scope.jobsList[0];
