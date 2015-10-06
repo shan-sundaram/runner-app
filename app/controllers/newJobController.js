@@ -12,7 +12,7 @@
             $scope.jobCreationError = {};
 
 		    $scope.createJob = function (){
-                $scope.isError = isSuccess = false;
+                $scope.isError = $scope.isSuccess = false;
                 jobAPIService.createJob($scope.job.jobDocument, $scope.checkboxModel.runImmediate).then(function (response){
                     $scope.jobResponseDocument = response.data;
                     $scope.isSuccess = true;                    
