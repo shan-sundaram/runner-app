@@ -2,7 +2,7 @@
     <div class="row">
         <form role="form" class="form-horizontal">
             <legend class="header"><h2>Create Job<button class="close" type="button" aria-label="Close" ng-show="newJob" ng-click="cancelJob()"><span class="genericon genericon-close-alt"></span></button></h2></legend></br>
-            <!-- <fieldset ng-hide="true">
+            <!-- <fieldset ng-hide="">
                 <div class="form-group">
                     <label class="control-label" for="jobName">Job Name</label>
                     <div class="controls">
@@ -18,18 +18,18 @@
                 <div class="form-group">
                     <label class="control-label" for="sshPrivateKey">SSH Private Key(s)</label>
                     <div class="controls">
-                        <input type="text" class="form-control col-md-6" name="sshPrivateKey" id="sshPrivateKey" ng-model="job.sshPrivateKey" placeholder="Provide SSH Keys">
+                        <input type="text" class="form-control col-md-6" name="sshPrivateKey" id="sshPrivateKey" ng-model="job.sshPrivateKey" placeholder="Provide SSH Key(s)">
                     </div>
                 </div>
-                <div class="form-group">
+<!--                 <div class="form-group">
                     <label class="control-label"></label>
                     <div class="checkbox">
                         <label class="col-md-6">
                             <input type="checkbox" ng-model="checkboxModel.runImmediate">Run Immediate
                         </label>
                     </div>
-                </div>            
-                <fieldset ng-hide="true">
+                </div>           
+                <fieldset ng-hide="">
                     <legend>Repository details</legend>
                     <div class="form-group">
                         <label class="control-label" for="repoUrl">Git repository link</label>
@@ -50,6 +50,30 @@
                         <input type="text" class="form-control col-md-6" name="playbookName" id="playbookName" ng-model="job.repository.defaultPlaybook" placeholder="Playbook Name" required>                        
                     </div>
                 </div>
+                <fieldset data-bind="fadeSlide: ttlSupported">
+                    <div class="form-group">
+                        <label class="control-label">set time to live</label>
+                        <div class="controls">
+                            <div toggleSwitch class="ibutton-container">
+                                <input name="ttlEnabled" type="checkbox" ng-bind="checked: ttl.enabled, widget: { name: 'iButton', options: { labelOn: 'ON', labelOff: 'OFF', resizeHandle: false, resizeContainer: false, init: false } }">
+                                <input  type="checkbox">
+                                <div class="ibutton-handle" style="left: 41px;">
+                                    <div class="ibutton-handle-right">
+                                        <div class="ibutton-handle-middle"></div>
+                                    </div>
+                                </div>
+                                <div class="ibutton-label-off" ng-hide="false">
+                                    <span style="margin-right: -41px;"><label>OFF</label></span>
+                                </div>
+                                <div class="ibutton-label-on" style="width: 45px;" ng-hide="false">
+                                    <span style="margin-left: 0px;"><label>ON</label></span>
+                                </div>
+                                <div class="ibutton-padding-left"></div>
+                                <div class="ibutton-padding-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
                 <div class="form-group">
                     <label class="control-label" for="repoUserName">User Name</label>
                     <div class="controls">
@@ -69,7 +93,7 @@
                     </div>
                 </div>
             </fieldset> -->
-          <!--   <fieldset ng-hide="true">
+            <!-- <fieldset ng-hide="">
                 <legend>Host details</legend>
                 <div class="form-group">
                     <label class="control-label" for="hostId">Host</label>
@@ -95,11 +119,16 @@
                 <button class="btn btn-success col-xsm-1" type="submit" ng-click="createJob()">Create Job</button>
                 <button type="button" class="btn btn-link col-xsm-3" ng-click="cancelJob()">Cancel</button>
                 </br></br>
-                <textarea ng-model="job.jobDocument" rows="30" id="comment" style="resize: both;" class="col-md-6"></textarea>    
-                <textarea ng-show="isError" class="error col-md-4 col-sm-push-1" rows="10" style="resize: both;">{{jobCreationError | json}}</textarea>
-                <textarea ng-show="isSuccess" class="success col-md-4 col-sm-push-1" rows="10" style="width: 750px;resize: both;">{{jobResponseDocument | json}}</textarea>
+                <div class="col-sm-6">
+                    <legend>Job Payload</legend>
+                    <textarea ng-model="job.jobDocument" rows="30" id="comment" style="resize: both;" class="col-sm-12"></textarea>    
+                </div>
+                <div class="col-sm-6">
+                    <legend>Response</legend>
+                    <textarea ng-class="responseStyle" class="col-sm-12" rows="30" style="resize: both;">{{(isNewJobInProgress) ? "Processing..." : (jobResponseDocument | json)}}</textarea>
+                </div>
+                <!-- <textarea ng-show="isSuccess" class="success col-md-4 col-sm-push-1" rows="10" style="resize: both;">{{jobResponseDocument | json}}</textarea> -->
             </div></br>
         </form> </br>
     </div>
 </div>
-<div class="row">&nbsp;</div>

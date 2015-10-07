@@ -3,8 +3,10 @@
 
 		/*New job creation*/
 		app.controller("createJobController", ['$scope', '$location', 'jobAPIService', function($scope, $location, jobAPIService) {
-			$scope.newJob = $scope.isError = $scope.isSuccess = false;
-			$scope.job = {};
+			$scope.isNewJobInProgress = false;
+            $scope.jobResponseDocument = {};
+            $scope.job = {}
+            $scope.responseStyle = "";
             // $scope.job.hosts = [];
             $scope.checkboxModel = {
                 runImmediate: false
@@ -12,14 +14,16 @@
             $scope.jobCreationError = {};
 
 		    $scope.createJob = function (){
-                $scope.isError = isSuccess = false;
+                $scope.isNewJobInProgress = true;
                 jobAPIService.createJob($scope.job.jobDocument, $scope.checkboxModel.runImmediate).then(function (response){
+                    $scope.isNewJobInProgress = false;
                     $scope.jobResponseDocument = response.data;
-                    $scope.isSuccess = true;                    
+                    $scope.responseStyle = "success";                 
                 },
                 function (err) {
-                    $scope.jobCreationError = err.data;
-                    $scope.isError = true;                    
+                    $scope.isNewJobInProgress = false;
+                    $scope.jobResponseDocument = err.data;
+                    $scope.responseStyle = "error";                  
                 });
             };
 

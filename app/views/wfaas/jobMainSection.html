@@ -40,7 +40,7 @@
           <span>Hosts:</span> <span id="hosts" style="font-weight: 100">{{(selectedJob.hosts | map:'id').join(', ')}}</span><br /><br />
 
           <!-- <span>Executed By:</span>  John Doe<br /> -->
-          <div ng-show="(executionList.length > 0)"><span>Job Last Updated:</span>  {{selectedJob.lastUpdatedTime | date: 'MM/dd/yyyy HH:mm'}}</div>
+          <div><span>Job Last Updated:</span>  {{selectedJob.lastUpdatedTime | date: 'MM/dd/yyyy HH:mm'}}</div>
           <div ng-show="(executionList.length > 0)"><span>Job Started:</span>  {{selectedExecution.start | date: 'MM/dd/yyyy HH:mm:sss'}}</div>
           <div ng-show="(executionList.length > 0)"><span>Job Completed:</span>  {{selectedExecution.end | date: 'MM/dd/yyyy HH:mm:sss'}}</div>
           <div ng-show="(executionList.length > 0)"><span>Job Run-time:</span>  {{(selectedExecution.end - selectedExecution.start) | date: 'sss'}}</div>

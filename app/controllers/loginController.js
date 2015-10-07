@@ -14,7 +14,7 @@
                     $location.path('/allJobs');
                 },
                  function (err) {
-                     $scope.message = err.error_description;
+                    $scope.message = err.message;
                  });
             };
         }]);
