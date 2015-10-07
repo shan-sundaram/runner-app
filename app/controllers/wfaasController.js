@@ -5,7 +5,7 @@
             /**/
             app
             /*Get all Jobs Controller*/
-            .controller("jobsController", ['$scope', '$location', '$controller', '$filter', 'jobAPIService', function($scope, $location, $controller, $filter, jobAPIService){
+            .controller("jobsController", ['$scope', '$location', '$controller', '$filter', '$q', 'jobAPIService', function($scope, $location, $controller, $filter, $q, jobAPIService){
                 /*Declaration*/
                 $scope.jobsList = [];
                 $scope.isJobloading = true;
@@ -13,19 +13,46 @@
                 $scope.selectedJob.hosts = [];
                 $scope.selectedJobId = null;
                 $scope.activeLeftMenuIcon = "jobs";
-                $scope.currentPage = -1;
+                var currentPage = -1;
+                var totalJobs = 0;
 
-                var fetchPage = $scope.currentPage + 1;
-                jobAPIService.getAllJobs(fetchPage).success(function (response){
-                    //Get all jobs for an account Alias
-                    $scope.jobsList = $filter('orderBy')(response, 'lastUpdatedTime', true).results;
-                    $scope.selectedJob = $scope.jobsList[0];
-                    if($scope.jobsList.length > 0){
-                        $scope.loadJobMainSection($scope.selectedJob);
-                    }
-                    $scope.isJobloading = false;
-                });
+                var _fetchMoreJobs = function(isDefaultPage){
+                    (isDefaultPage) ? currentPage = 0 : currentPage += 1;
+                    var deferred = $q.defer();
+                    jobAPIService.getAllJobs(currentPage).success(function (response){
+                        //Get all jobs for an account Alias
+                        //$scope.jobsList = $filter('orderBy')(response, 'lastUpdatedTime', true).results;
+                        // $scope.selectedJob = $scope.jobsList[0];
+                        // if($scope.jobsList.length > 0){
+                        //     $scope.loadJobMainSection($scope.selectedJob);
+                        // }
+                        // $scope.isJobloading = false;
+                        if(totalJobs === 0) {
+                            totalJobs = response.totalSize;
+                        }
+                        deferred.resolve(response.results);
+                    });
+                    return deferred.promise;
+                };
+                $scope.getJobsOnScroll = function(){
+                    _fetchMoreJobs().then(function(moreJobs){
+                        $scope.jobsList.push.apply($scope.jobsList, moreJobs);
+                    });
+                };
+                $scope.getAllJobs = function(){
+                    _fetchMoreJobs(true).then(function(allJobs){
+                        $scope.jobsList = [];
+                        $scope.jobsList.push.apply($scope.jobsList, allJobs);
+                        $scope.selectedJob = $scope.jobsList[0];
+                        if($scope.jobsList.length > 0){
+                            $scope.loadJobMainSection($scope.selectedJob);
+                        }
+                        $scope.isJobloading = false;    
+                    });                    
+                };
 
+                $scope.getAllJobs();
+                
                 var _setSelectedJob = function (idSelectedItem) {
                     $scope.selectedJobId = idSelectedItem;
                 };
@@ -43,7 +70,7 @@
                             break;
 
                         default:
-                            $scope.loadJobMainSection($scope.selectedJob);
+                            $scope.getAllJobs();
                             $scope.activeLeftMenuIcon = "jobs";  
                     }
                 }

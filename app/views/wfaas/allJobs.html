@@ -11,7 +11,7 @@
     </div>
     <div class="pane for-infrastructureMenu" data-bind="css: t.secondPaneClass" style="z-index: 1011; left: 0px;">
         <div class="header-all-jobs" style="position: fixed;width: 260px;"><i class="fa fa-cog"></i> All Jobs</div>
-        <ol class="items" style="position: fixed;bottom: 200px;top: 140px;overflow-y: auto;">
+        <ol class="items" infinitescroll="getJobsOnScroll()" style="position: fixed;bottom: 200px;top: 140px;overflow-y: auto;">
           <li ng-show="isJobloading" style="text-align: center;"><i class="fa fa-refresh fa-spin fa-2x"></i></li>
           <li ng-hide="isJobloading" ng-repeat="job in jobsList">
             <div class="item-hover" ng-class="{selected: job.id === selectedJobId}" ng-click="loadJobMainSection(job, $index);">
