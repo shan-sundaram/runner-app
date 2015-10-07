@@ -49,9 +49,9 @@
         };
 
         $scope.startJob = function(){
-            // jobAPIService.startJob(jobId).success(function (response){
-            //     $location.path("/status/"+jobId);
-            // });
+            jobAPIService.startJob($scope.selectedJobId).success(function (response){
+                $scope.loadExecutions();
+            });
         };
 
         //TODO- Refresh table scope again after deletion
