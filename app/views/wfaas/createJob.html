@@ -128,6 +128,9 @@
                     <textarea ng-class="responseStyle" class="col-sm-12" rows="30" style="resize: both;">{{(isNewJobInProgress) ? "Processing..." : (jobResponseDocument | json)}}</textarea>
                 </div>
                 <!-- <textarea ng-show="isSuccess" class="success col-md-4 col-sm-push-1" rows="10" style="resize: both;">{{jobResponseDocument | json}}</textarea> -->
+                <textarea ng-model="job.jobDocument" rows="30" id="comment" style="resize: both;" class="col-md-6"></textarea>    
+                <textarea ng-show="isError" class="error col-md-4 col-sm-push-1" rows="10" style="resize: both;">{{jobCreationError | json}}</textarea>
+                <textarea ng-show="isSuccess" class="success col-md-4 col-sm-push-1" rows="10" style="resize: both;">{{jobResponseDocument | json}}</textarea>
             </div></br>
         </form> </br>
     </div>
