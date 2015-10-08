@@ -1,7 +1,7 @@
 (function () {
     'use strict';
         /*Todo - Lot of clean up to be done*/
-        app.factory('authService',['$http', '$q', 'localStorageService', function($http, $q, localStorageService){
+        app.factory('authService',['$http', '$q', 'localStorageService', 'commonService', function($http, $q, localStorageService, commonService){
             var authServiceFactory = {};
             var clcAuthenticationUrl = 'https://api.ctl.io/v2/authentication/login';
 
@@ -31,6 +31,7 @@
 
             var _logOut = function(){
                 localStorageService.remove('authorizationData');
+                commonService.removeEnvironment();
 
                 _authentication.isAuth = false;
                 _authentication.userName = _authentication.accountAlias = _authentication.bearerToken = "";
@@ -56,6 +57,7 @@
                     _authentication.accountAlias = authData.accountAlias;
                     _authentication.bearerToken = authData.bearerToken;
                     localStorageService.set('authorizationData', _authentication);
+                    commonService.setDefaultEnvironment();
                 }
             };
 

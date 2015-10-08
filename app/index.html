@@ -39,9 +39,8 @@
                     <div id="auxNav" class="pull-right">
                         <div class="search">
                             <form>
-                                <div class="search-box">
-                                    <input type="text" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">
-                                    <i class="fa fa-search" title="Search"></i>
+                                <div class="search-box dropdown">
+                                    <input type="text" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" ng-model="environments.url">
                                 </div>
                                 <div class="search-box-navigating">
                                     <i class="icon-refresh icon-white"></i> Loading...
@@ -128,6 +127,7 @@
 <!-- build:js scripts/services.js-->
 <!-- Load services -->
 <script src="services/wfaasService.js"></script>
+<script src="services/commonService.js"></script>
 <script src="services/authService.js"></script>
 <script src="services/authInterceptorService.js"></script>
 <script src="services/pbBuilderService.js"></script>
