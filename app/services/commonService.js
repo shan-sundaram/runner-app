@@ -21,7 +21,7 @@
             };
 
             var _getSelectedEnvironment = function(){
-                return localStorageService.get('targetAPIEndpoint');
+                return ((localStorageService.get('targetAPIEndpoint')) ? localStorageService.get('targetAPIEndpoint') : environments[0]);
             };
 
             var _removeEnvironment = function () {

@@ -6,7 +6,6 @@
 	            authService.logOut();
 	            $location.path('/home');
 	        };
-	        $scope.environments = commonService.getSelectedEnvironment();
 	        
 	        $scope.getClass = function (viewLocation) { 
 	        	return viewLocation === $location.path();
