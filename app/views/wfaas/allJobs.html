@@ -14,9 +14,10 @@
             <div class="content">
                 <a href="" class="filter-toggle" ng-click="isFilterOn = !isFilterOn">filter</a>                
             </div>
-            <div class="filter-window" ng-show="isFilterOn">
-                <i class="pull-right fa fa-times" ng-click="isFilterOn = !isFilterOn"></i>
-                <input type="text" ng-model="searchData" data-bind="value: filterText, valueUpdate: 'keyup'">
+            <div class="filter-window" ng-show="true">
+                <!-- <i class="pull-right fa fa-search" ng-click="isFilterOn = !isFilterOn"></i> -->
+                <i class="pull-right fa fa-times" ng-click="searchData = ''"></i>
+                <input type="text" ng-model="searchData" placeholder="search" data-bind="value: filterText, valueUpdate: 'keyup'">
             </div>
         </div>
         <div class="header-all-jobs" style="position: fixed;width: 260px;"><i class="fa fa-cog"></i> All Jobs</div>
