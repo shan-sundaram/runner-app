@@ -24,7 +24,7 @@
                         <li style="width: 210px;" ng-repeat="environment in environments" class="input-lg"><a href="" ng-click="changeEnvironment(environment)">{{environment.name}}</a></li>
                     </ul>
                 </div>
-                <input ng-show="(defaultEnvironment.id == 2)" name="localhost" type="text" class="form-control col-md-9" placeholder="localhost url" ng-change="setlocalhosturlEnvironment()" ng-model="localhostUrl">
+                <input ng-show="(defaultEnvironment.id == 2)" name="localhost" type="text" class="form-control col-md-9" placeholder="url endpoint (http://<host>:<port>)" ng-change="setlocalhosturlEnvironment()" ng-model="localhostUrl">
                 <button class="btn btn-md btn-info btn-block col-md-9" type="submit" ng-click="login()">Login</button>
             </div>
             <div ng-hide="message == ''" class="alert alert-danger col-md-8">

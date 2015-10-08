@@ -23,7 +23,7 @@
             };
             $scope.login = function(){
                 if(($scope.defaultEnvironment.id == 2) && ($scope.localhostUrl == "")) {
-                    $scope.message = "localhost url is required."; 
+                    $scope.message = "url is required.";
                 } else {
                     authService.login($scope.loginData).then(function (response) {
                         $location.path('/allJobs');
