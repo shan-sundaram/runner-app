@@ -4,7 +4,7 @@
         app.factory('commonService',['$http', '$location', '$q', 'localStorageService', function($http, $location, $q, localStorageService){
             var commonServiceFactory = {};
 
-            var environments = [{"id": 0, "name": "WFAD", "url": "https://api.dev.automation.ctl.io"},{"id": 1, "name": "WFAQ", "url": "https://api.qa.automation.ctl.io"},{"id": 2, "name": "localhost", "url": ""}];
+            var environments = [{"id": 0, "name": "WFAD", "url": "https://api.dev.automation.ctl.io"},{"id": 1, "name": "WFAQ", "url": "https://api.qa.automation.ctl.io"},{"id": 2, "name": "Other", "url": ""}];
             
             var _getEnvironments = function(){
                 return environments;
