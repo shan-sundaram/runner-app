@@ -17,9 +17,17 @@
             <div class="form-group">
                 <input type="text" class="form-control col-md-9" placeholder="Username" ng-model="loginData.userName" required autofocus>
                 <input type="password" class="form-control col-md-9" placeholder="Password" ng-model="loginData.password" required>
+                <div class="col-md-8 environment-box dropdown" highlight-on-click style="padding-left: 0px;width: 500px;">
+                    <input type="text" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" ng-model="defaultEnvironment.name" style="width: 420px;padding-right: 0px;">
+                    <i class="btn btn-default" title="Select Environment" style="height: 25px;vertical-align: middle;margin-bottom: 10px;left: 80%;"><span class="caret"></span></i>
+                    <ul id="color-dropdown-menu" class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li style="width: 210px;" ng-repeat="environment in environments" class="input-lg"><a href="" ng-click="changeEnvironment(environment)">{{environment.name}}</a></li>
+                    </ul>
+                </div>
+                <input ng-show="(defaultEnvironment.id == 2)" name="localhost" type="text" class="form-control col-md-9" placeholder="url endpoint (http://<host>:<port>)" ng-change="setlocalhosturlEnvironment()" ng-model="localhostUrl">
                 <button class="btn btn-md btn-info btn-block col-md-9" type="submit" ng-click="login()">Login</button>
             </div>
-            <div ng-hide="message == ''" class="alert alert-danger">
+            <div ng-hide="message == ''" class="alert alert-danger col-md-8">
                 {{message}}
             </div>
         </div>

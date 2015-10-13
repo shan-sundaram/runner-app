@@ -302,3 +302,33 @@ h2 { color: #77d42a; font-weight: 100; margin }
 .disclaimer { margin-top: 50px; font-size: 10px; line-height: 10px; font-weight: normal; color: #bbb; font-style: italic }
 .form-actions { display: block; width: 47%; float: left; }
 .btn-menus { min-width: 93%; text-align: center; }
+.environment-box {background-attachment: scroll;
+background-clip: border-box;
+/*background-color: rgb(38, 78, 27);*/
+background-image: none;
+background-origin: padding-box;
+background-size: auto;
+border-bottom-left-radius: 3px;
+border-bottom-right-radius: 3px;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+color: rgb(255, 255, 255);
+display: block;
+font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+font-size: 14px;
+font-weight: 300;
+height: 21px;
+line-height: 19px;
+margin-bottom: 16px;
+/*margin-left: 16px;*/
+margin-right: 16px;
+/*margin-top: 16px;*/
+padding-bottom: 13px;
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 4px;
+position: relative;
+vertical-align: middle;
+width: 420px;}
+
+.add-list {margin: 2px 0px 0px 5px;}

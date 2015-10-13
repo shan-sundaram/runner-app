@@ -1,11 +1,12 @@
 ( function () {
 	'use strict';
 
-	    app.controller('indexController',['$scope','$location','authService', function($scope, $location, authService){
+	    app.controller('indexController',['$scope','$location','authService', 'commonService', function($scope, $location, authService, commonService){
 	        $scope.logOut = function () {
 	            authService.logOut();
 	            $location.path('/home');
 	        };
+	        
 	        $scope.getClass = function (viewLocation) { 
 	        	return viewLocation === $location.path();
 		    };

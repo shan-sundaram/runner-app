@@ -10,10 +10,20 @@
        </ol>
     </div>
     <div class="pane for-infrastructureMenu" data-bind="css: t.secondPaneClass" style="z-index: 1011; left: 0px;">
+        <div class="header">
+            <div class="content">
+                <a href="" class="filter-toggle" ng-click="isFilterOn = !isFilterOn">filter</a>                
+            </div>
+            <div class="filter-window" ng-show="true">
+                <!-- <i class="pull-right fa fa-search" ng-click="isFilterOn = !isFilterOn"></i> -->
+                <i class="pull-right fa fa-times" ng-click="searchData = ''"></i>
+                <input type="text" ng-model="searchData" placeholder="search" data-bind="value: filterText, valueUpdate: 'keyup'">
+            </div>
+        </div>
         <div class="header-all-jobs" style="position: fixed;width: 260px;"><i class="fa fa-cog"></i> All Jobs</div>
-        <ol class="items" style="position: fixed;bottom: 170px;top: 140px;overflow-y: auto;">
-          <li ng-show="isJobloading" style="text-align: center;"><i class="fa fa-refresh fa-spin fa-2x"></i></li>
-          <li ng-hide="isJobloading" ng-repeat="job in jobsList">
+        <ol class="items" infinitescroll="getJobsOnScroll()" style="position: fixed;bottom: 200px;top: 170px;overflow-y: auto;">
+          <li ng-show="isJobloading" style="top: 10px;text-align: center;"><i class="fa fa-refresh fa-spin fa-2x"></i></li>
+          <li ng-hide="isJobloading" ng-repeat="job in jobsList | filter: searchData">
             <div class="item-hover" ng-class="{selected: job.id === selectedJobId}" ng-click="loadJobMainSection(job, $index);">
                <div class="item-status"></div>
                <a class="item-content">
@@ -24,7 +34,7 @@
             </div>
           </li>
         </ol>
-        <div class="header-fave" style="position: fixed;width: 260px;bottom: 150px;overflow: auto;"><i class="fa fa-star"></i> Favorite Jobs</div>
+        <div class="header-fave" style="position: fixed;width: 260px;bottom: 155px;overflow: auto;"><i class="fa fa-star"></i> Favorite Jobs</div>
     </div>
 </nav>
 <main id="shellContentWithNewLeftNav" class="nav-expanded" style="transition: left 0.4s; display: block;">

@@ -49,16 +49,18 @@
         };
 
         $scope.startJob = function(){
-            // jobAPIService.startJob(jobId).success(function (response){
-            //     $location.path("/status/"+jobId);
-            // });
+            jobAPIService.startJob($scope.selectedJobId).success(function (response){
+                $scope.addNewExecutiontoList(response);
+            });
         };
 
         //TODO- Refresh table scope again after deletion
         $scope.deleteJob = function(job){
-            // jobAPIService.deleteJob(job.id).success(function (response){
-            //     $scope.jobsList.splice($scope.jobsList.indexOf(job), 1);
-            // });
+            jobAPIService.deleteJob(job.id).success(function (response){
+                var nextJobtoSelect = $scope.jobsList.indexOf(job);
+                $scope.jobsList.splice($scope.jobsList.indexOf(job), 1);
+                $scope.loadJobMainSection($scope.jobsList[nextJobtoSelect]);
+            });
         };
 
         $scope.cancelJob = function(){
