@@ -40,6 +40,7 @@
                 }
             }
 		    $scope.createJob = function (){
+                $scope.responseStyle = "success"; 
                 $scope.isNewJobInProgress = true;
                 jobAPIService.createJob($scope.job.jobDocument, $scope.checkboxModel.runImmediate).then(function (response){
                     $scope.isNewJobInProgress = false;
