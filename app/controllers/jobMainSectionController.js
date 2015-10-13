@@ -50,7 +50,7 @@
 
         $scope.startJob = function(){
             jobAPIService.startJob($scope.selectedJobId).success(function (response){
-                $scope.loadExecutions();
+                $scope.addNewExecutiontoList(response);
             });
         };
 

@@ -32,7 +32,7 @@
   <div class="activity col-sm-7">
       <h5 class="content-header">JOB EXECUTION DETAILS</h5>
       <div class="empty-upcoming-events edetails">
-          <div ng-show="(executionList.length > 0)" class="detail-status" ng-class="selectedExecution.executionStatusStyle"><span>STATUS:</span> {{selectedExecution.exit_status}} <i ng-class="selectedExecution.executionStatusIcon"></i></div>
+          <div ng-show="(executionList.length > 0)" class="detail-status" ng-class="selectedExecution.executionStatusStyle"><span>STATUS:</span> {{selectedExecution.status}} <i ng-class="selectedExecution.executionStatusIcon"></i></div>
           <!-- <span>Job:</span>  Create LAMP Server<br /> -->
           <div ng-show="(executionList.length > 0)"><span>Execution ID:</span>  {{selectedExecution.execution_id}} </div>
           <span>Job ID:</span>  {{selectedJob.id}} <br />

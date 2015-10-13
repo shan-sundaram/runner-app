@@ -21,12 +21,6 @@
                     var deferred = $q.defer();
                     jobAPIService.getAllJobs(currentPage).success(function (response){
                         //Get all jobs for an account Alias
-                        //$scope.jobsList = $filter('orderBy')(response, 'lastUpdatedTime', true).results;
-                        // $scope.selectedJob = $scope.jobsList[0];
-                        // if($scope.jobsList.length > 0){
-                        //     $scope.loadJobMainSection($scope.selectedJob);
-                        // }
-                        // $scope.isJobloading = false;
                         if(totalJobs === 0) {
                             totalJobs = response.totalSize;
                         }
@@ -45,7 +39,7 @@
                         $scope.jobsList.push.apply($scope.jobsList, allJobs);
                         $scope.selectedJob = $scope.jobsList[0];
                         if($scope.jobsList.length > 0){
-                            $scope.loadJobMainSection($scope.selectedJob);
+                            $scope.loadJobMainSection($scope.selectedJob);                            
                         }
                         $scope.isJobloading = false;    
                     });                    
@@ -70,8 +64,7 @@
                             break;
 
                         default:
-                            $scope.getAllJobs();
-                            $scope.activeLeftMenuIcon = "jobs";  
+                            $scope.getAllJobs();                              
                     }
                 }
                 $scope.loadCreateJobSection = function(){
@@ -81,12 +74,16 @@
                     }; 
                 };
                 $scope.loadJobMainSection = function(job){
+                    $scope.activeLeftMenuIcon = "jobs";
                     $scope.selectedJob = job;
                     _setSelectedJob(job.id);
                     $controller('jobMainSectionController', {$scope: $scope});
                     $scope.mainSectiontemplate = {
                         "jobMainSection":  "views/wfaas/jobMainSection.html"
                     };                                    
+                };
+                $scope.addNewJobtoList = function(newJob) {
+                    $scope.jobsList.unshift(newJob);
                 };
                 $scope.loadpbBuilderSection = function(){
                     $controller('pbBuilderController', {$scope: $scope});

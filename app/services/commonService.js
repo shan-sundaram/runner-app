@@ -17,7 +17,6 @@
                 if (selectedEnvironment) {
                     localStorageService.set('targetAPIEndpoint', selectedEnvironment);
                 }
-                // localStorageService.remove('targetAPIEndpoint');
             };
 
             var _getSelectedEnvironment = function(){

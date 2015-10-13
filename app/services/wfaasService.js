@@ -46,7 +46,7 @@
                 return jobAPI;
 
             }])
-            .factory('statusAPIService',['$http',function($http){
+            .factory('statusAPIService',['$http', 'commonService', function($http, commonService){
                 var statusAPI = {};
 
                 statusAPI.getJobStatus = function(jobId){
