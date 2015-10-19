@@ -1,7 +1,7 @@
 ( function(){
 	'use strict';
 
-	app.controller('jobMainSectionController', ['$scope', '$location', '$controller', '$filter', 'jobAPIService', function($scope, $location, $controller, $filter, jobAPIService){
+	app.controller('jobMainSectionController', ['$scope', '$location', '$controller', '$filter', '$interval', 'jobAPIService', function($scope, $location, $controller, $filter, $interval, jobAPIService){
 		$scope.activeSection = "";
         $controller('createJobController', {$scope: $scope});
         $scope.template = {
@@ -50,10 +50,10 @@
 
         $scope.startJob = function(){
             jobAPIService.startJob($scope.selectedJobId).success(function (response){
-                $scope.addNewExecutiontoList(response);
+                // $scope.addNewExecutiontoList(response);
+                $scope.executionsLiveFeedStart();
             });
         };
-
         //TODO- Refresh table scope again after deletion
         $scope.deleteJob = function(job){
             jobAPIService.deleteJob(job.id).success(function (response){
