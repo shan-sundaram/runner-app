@@ -27,7 +27,7 @@
 						<executions>
 							<execution>
 								<id>NPM Install</id>
-								<phase>install</phase>
+								<phase>generate-sources</phase>
 								<goals>
 									<goal>exec</goal>
 								</goals>
@@ -38,15 +38,9 @@
 									</arguments>
 								</configuration>
 							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<artifactId>exec-maven-plugin</artifactId>
-						<groupId>org.codehaus.mojo</groupId>
-						<executions>
 							<execution>
 								<id>Install Angular</id>
-								<phase>install</phase>
+								<phase>generate-sources</phase>
 								<goals>
 									<goal>exec</goal>
 								</goals>
@@ -57,12 +51,6 @@
 									</arguments>
 								</configuration>
 							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<artifactId>exec-maven-plugin</artifactId>
-						<groupId>org.codehaus.mojo</groupId>
-						<executions>
 							<execution>
 								<id>Grunt Build</id>
 								<phase>install</phase>
