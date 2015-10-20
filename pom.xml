@@ -54,67 +54,6 @@
 									<executable>bower</executable>
 									<arguments>
 										<argument>install</argument>
-										<argument>angular</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<artifactId>exec-maven-plugin</artifactId>
-						<groupId>org.codehaus.mojo</groupId>
-						<executions>
-							<execution>
-								<id>Install Angular-Route</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<executable>bower</executable>
-									<arguments>
-										<argument>install</argument>
-										<argument>angular-route</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<artifactId>exec-maven-plugin</artifactId>
-						<groupId>org.codehaus.mojo</groupId>
-						<executions>
-							<execution>
-								<id>Install Angular Local Storage</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<executable>bower</executable>
-									<arguments>
-										<argument>install</argument>
-										<argument>angular-local-storage</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<artifactId>exec-maven-plugin</artifactId>
-						<groupId>org.codehaus.mojo</groupId>
-						<executions>
-							<execution>
-								<id>Install BootStrap</id>
-								<phase>install</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<executable>bower</executable>
-									<arguments>
-										<argument>install</argument>
-										<argument>bootstrap</argument>
 									</arguments>
 								</configuration>
 							</execution>
