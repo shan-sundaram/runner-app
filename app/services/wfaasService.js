@@ -8,7 +8,7 @@
                 accountAlias = authService.authentication.accountAlias;
                 var devAutomationUrl = "https://api.dev.automation.ctl.io";
                 var qaAutomationUrl = "https://api.dev.automation.ctl.io";
-                
+
                 // apiHostUrl = ($location.host().indexOf("dev.automation.ctl.io")===0) ? devAutomationUrl : qaAutomationUrl;
                 jobAPI.getAllJobs = function(fetchPage){
                     return $http({
@@ -19,7 +19,7 @@
 
                 jobAPI.createJob = function (jobData, immediate) {
                     return $http({
-                        method: 'PUT',
+                        method: 'POST',
                         url: commonService.getSelectedEnvironment().url+ '/jobs/' + accountAlias + '?immediate=' + immediate,
                         data: jobData
                     });
