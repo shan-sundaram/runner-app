@@ -6,10 +6,7 @@
             app.factory('jobAPIService',['$http', '$location', 'authService', 'commonService', function($http, $location, authService, commonService){
                 var jobAPI = {};
                 accountAlias = authService.authentication.accountAlias;
-                var devAutomationUrl = "https://api.dev.automation.ctl.io";
-                var qaAutomationUrl = "https://api.dev.automation.ctl.io";
-
-                // apiHostUrl = ($location.host().indexOf("dev.automation.ctl.io")===0) ? devAutomationUrl : qaAutomationUrl;
+                
                 jobAPI.getAllJobs = function(fetchPage){
                     return $http({
                         method: 'GET',

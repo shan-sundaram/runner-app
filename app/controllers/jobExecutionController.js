@@ -9,35 +9,20 @@
         $scope.isExecloading = true;
         $scope.executionList = [];
         
-		//Get all job executions for a job
-        // jobAPIService.getExecutions($scope.selectedJob.id).success(function (response){
-        //     $scope.executionList = $filter('orderBy')(response, new Date('start'), true).results;
-            
-        //     angular.forEach($scope.executionList, function (execItem) {
-        //         var executionStatusAttrs = _setExecutionStatusAttrs(execItem.status);
-        //         execItem.executionStatusStyle = executionStatusAttrs.executionStatusStyle;
-        //         execItem.executionStatusIcon = executionStatusAttrs.executionStatusIcon; 
-        //     });
-        //     $scope.selectedExecution = $scope.executionList[0];
-        //     if ($scope.executionList.length > 0) {
-        //         $scope.loadExecDetails($scope.selectedExecution);                
-        //     }
-        //     $scope.isExecloading = false;
-        // });
         $scope.executionsLiveFeed = null;
         var iCounter = 0;
         
         $scope.executionsLiveFeedStart = function(){
             $scope.executionsLiveFeed = $interval(function(){
                 iCounter++;
-                console.log('start feed - ' + iCounter);
                 $scope.fetchExecutions();
             }, 2000);
         };
         $scope.executionsLiveFeedStop = function (){
-            // if (angular.isDefined($scope.executionsLiveFeedStart)) {
+            if (angular.isDefined($scope.executionsLiveFeedStart)) {
                 $interval.cancel($scope.executionsLiveFeed);
-            // };
+                $scope.executionsLiveFeed=undefined;                
+            };
         };
         $scope.fetchExecutions = function(){
             // $scope.isExecloading = true;
@@ -63,7 +48,6 @@
                 });
                 deferred.resolve(responseExecutionList); 
                 if(!anyPendingExecution){
-                    console.log('anyPendingExecution - ' + anyPendingExecution);
                     $scope.executionsLiveFeedStop();
                 };
             });
@@ -87,7 +71,6 @@
     var _setExecutionStatusAttrs = function(execItem){
         switch (execItem.status)
         {
-            //Below status is not valid for executions
             case "RUNNING": 
             anyPendingExecution = true;
             execItem.executionStatusStyle = "running";
@@ -104,7 +87,6 @@
             execItem.executionStatusIcon = "fa fa-times-circle fa-lg";
             break;
 
-            //Below status is future feature.
             case "PENDING":
             anyPendingExecution = true;
             execItem.executionStatusStyle = "suspended";

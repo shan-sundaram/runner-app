@@ -10,7 +10,7 @@
             $scope.message = "";
             $scope.localhostUrl = "";
             $scope.environments = commonService.getEnvironments();
-            $scope.defaultEnvironment = $scope.environments[0];
+            $scope.defaultEnvironment = commonService.getSelectedEnvironment();
             commonService.removeEnvironment();
 
             $scope.changeEnvironment = function(selectedEnvironment){
