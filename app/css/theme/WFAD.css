@@ -43,10 +43,10 @@
   color: white;
 }
 #shellHeader #brandBar {
-  background-color: #306122;
+  background-color: #262626;
 }
 #shellHeader #brandBar #brand #logo {
-  border-right: solid 1px #29521d;
+  border-right: solid 1px white;
 }
 #shellHeader #brandBar #brand #siteName {
   border-left: solid 1px #387128;
@@ -85,7 +85,7 @@
 #shellHeader #brandBar #auxNav .admin,
 #shellHeader #brandBar #auxNav .queue,
 #shellHeader #brandBar #auxNav .account {
-  border-left: solid 1px #387128;
+  border-left: solid 1px white;
   border-right: solid 1px #29521d;
 }
 #shellHeader #brandBar #auxNav .search {
@@ -186,7 +186,7 @@ a {
 .job-results li { padding: 5px; borders: 1px solid red;}
 .job-results li:nth-child(1) { padding-left: 15px; }
 
-
+.left-nav .pane li .item-hover.selected { background: #529E3D; color: white; }
 
 .job-results ul { width: 100%; display: table;}
 .job-results ul:nth-child(odd){ background-color: #fff; }

@@ -8,7 +8,7 @@
 	    </ul>
 	    <ul ng-show="isExecloading" style="text-align: center;"><i class="fa fa-refresh fa-spin fa-2x"></i></ul>
 	    
-	    <ul ng-show="(executionList.length > 0)" class="exec-item" ng-repeat="execution in executionList" ng-click="loadExecDetails(execution);" ng-class="{selected: execution.id === idSelectedItem}">
+	    <ul ng-show="(executionList.length > 0)" class="exec-item" ng-repeat="execution in executionList" ng-click="loadExecDetails(execution);" ng-class="{selected: execution.execution_id === idSelectedItem}">
 	        <li>{{execution.execution_id}}</li>
 	        <li>{{execution.timers[0].start | date: 'MM/dd/yyyy HH:mm:ss'}}</li>
 	        <li>{{(execution.timers[0].end - execution.timers[0].start) | date: 'ss'}}</li>
