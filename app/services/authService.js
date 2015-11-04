@@ -30,11 +30,12 @@
             };
 
             var _logOut = function(){
+                _authentication.isAuth = false;
+                _authentication.userName = "";
+                _authentication.accountAlias = "";
+                _authentication.bearerToken = "";
                 localStorageService.remove('authorizationData');
                 commonService.removeEnvironment();
-
-                _authentication.isAuth = false;
-                _authentication.userName = _authentication.accountAlias = _authentication.bearerToken = "";
             };
 
             var _fillAuthData = function () {
