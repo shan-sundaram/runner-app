@@ -41,6 +41,9 @@
                         if($scope.jobsList.length > 0){
                             $scope.loadJobMainSection($scope.selectedJob);                            
                         }
+                        else {
+                            $scope.loadMainSection('createJob');
+                        }
                         $scope.isJobloading = false;    
                     });                    
                 };
