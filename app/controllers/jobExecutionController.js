@@ -69,6 +69,8 @@
                 else {
                     $scope.executionsLiveFeedStart();
                 }
+            }).error(function (response){
+                $scope.executionsLiveFeedStop();
             });
             return deferred.promise;
         };
