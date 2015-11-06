@@ -41,14 +41,14 @@
 
           <!-- <span>Executed By:</span>  John Doe<br /> -->
           <div><span>Job Last Updated:</span>  {{selectedJob.lastUpdatedTime | date: 'MM/dd/yyyy HH:mm'}}</div>
-          <div ng-show="(executionList.length > 0)"><span>Job Started:</span>  {{selectedExecution.start | date: 'MM/dd/yyyy HH:mm:sss'}}</div>
-          <div ng-show="(executionList.length > 0)"><span>Job Completed:</span>  {{selectedExecution.end | date: 'MM/dd/yyyy HH:mm:sss'}}</div>
-          <div ng-show="(executionList.length > 0)"><span>Job Run-time:</span>  {{(selectedExecution.end - selectedExecution.start) | date: 'sss'}}</div>
+          <div ng-show="(executionList.length > 0)"><span>Job Started:</span>  {{selectedExecution.timers[0].start | date: 'MM/dd/yyyy HH:mm:ss'}}</div>
+          <div ng-show="(executionList.length > 0)"><span>Job Completed:</span>  {{selectedExecution.timers[0].end | date: 'MM/dd/yyyy HH:mm:ss'}}</div>
+          <div ng-show="(executionList.length > 0)"><span>Job Run-time (in seconds):</span>  {{(selectedExecution.timers[0].end - selectedExecution.timers[0].start) | date: 'ss'}}</div>
 
-          <span>Description:</span><br />Some description here Some description here Some description here Some description here Some description here Some description here Some description here Some description here <br />
+          <!-- <span>Description:</span><br />Some description here Some description here Some description here Some description here Some description here Some description here Some description here Some description here <br /> -->
 
-          <a href="" class="view">View Status Real-time</a>
+          <a href="" class="view" ng-hide="true">View Status Real-time</a>
       </div>
   </div>
-  <div class="upcoming-events col-sm-5" ng-include="template.jobRecentActivity"></div>
+  <div class="upcoming-events col-sm-5" ng-include="template.jobRecentActivity" ng-hide="true"></div>
 </div> 

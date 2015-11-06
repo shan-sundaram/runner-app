@@ -1,15 +1,15 @@
 <nav class="left-nav row">
-    <div class="top-pane collapsed">
+    <div class="top-pane collapsed"  style="top: 60px;">
         <ol class="items">
            <li><div title="Create Job" ng-class="{selected: activeLeftMenuIcon === 'createJob'}" ng-click="loadMainSection('createJob');"><i class="fa fa-plus-circle"></i>Create</div></li>
            <li><div title="Jobs" ng-class="{selected: activeLeftMenuIcon === 'jobs'}" ng-click="loadMainSection('jobs');"><i class="fa fa-suitcase"></i>Jobs</div></li>
            <!-- class="selected shown"  -->
            <!-- <li><a href="#" title="AppFog"><i class="fa fa-star"></i>Favorites</a></li> -->
-           <li><a href="" title="Playbook Builder" ng-class="{selected: activeLeftMenuIcon === 'pbBuilder'}" ng-click="loadMainSection('pbBuilder');"><i class="fa fa-book"></i>Playbook Builder</a></li>
+           <li><a href="" title="Playbook Builder" ng-class="{selected: activeLeftMenuIcon === 'pbBuilder'}"><i class="fa fa-book"></i>Playbook Builder</a></li>
            <li><a href="" title="Status"><i class="fa fa-heartbeat"></i>Status</a></li>
        </ol>
     </div>
-    <div class="pane for-infrastructureMenu" data-bind="css: t.secondPaneClass" style="z-index: 1011; left: 0px;">
+    <div class="pane for-infrastructureMenu" data-bind="css: t.secondPaneClass" style="z-index: 1011; left: 0px;top: 62px;">
         <div class="header">
             <div class="content">
                 <a href="" class="filter-toggle" ng-click="isFilterOn = !isFilterOn">filter</a>                
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="header-all-jobs" style="position: fixed;width: 260px;"><i class="fa fa-cog"></i> All Jobs</div>
-        <ol class="items" infinitescroll="getJobsOnScroll()" style="position: fixed;bottom: 200px;top: 170px;overflow-y: auto;">
+        <ol class="items" infinitescroll="getJobsOnScroll()" style="position: fixed;bottom: 200px;top: 132px;overflow-y: auto;">
           <li ng-show="isJobloading" style="top: 10px;text-align: center;"><i class="fa fa-refresh fa-spin fa-2x"></i></li>
           <li ng-hide="isJobloading" ng-repeat="job in jobsList | filter: searchData">
             <div class="item-hover" ng-class="{selected: job.id === selectedJobId}" ng-click="loadJobMainSection(job, $index);">
@@ -37,7 +37,7 @@
         <div class="header-fave" style="position: fixed;width: 260px;bottom: 155px;overflow: auto;"><i class="fa fa-star"></i> Favorite Jobs</div>
     </div>
 </nav>
-<main id="shellContentWithNewLeftNav" class="nav-expanded" style="transition: left 0.4s; display: block;">
+<main id="shellContentWithNewLeftNav" class="nav-expanded" style="transition: left 0.4s; display: block;top: 50px;">
   <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'createJob'" ng-include="mainSectiontemplate.createJobMainSection"></div>
   <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'jobs'" ng-include="mainSectiontemplate.jobMainSection"></div>
   <div class="container2-fluid" ng-show="activeLeftMenuIcon == 'pbBuilder'" ng-include="mainSectiontemplate.pbBuilderMainSection"></div>

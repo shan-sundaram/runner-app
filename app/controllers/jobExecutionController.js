@@ -1,55 +1,56 @@
 ( function() {
-	'use strict';
+    'use strict';
     var anyPendingExecution = true;
-	app.controller("executionController", ['$scope', '$filter', '$q', '$interval', 'jobAPIService', function($scope, $filter, $q, $interval, jobAPIService){
-		// $scope.executionList = [];
-		$scope.selectedStatusStyle = $scope.selectedStatusIcon = "";
+    app.controller("executionController", ['$scope', '$filter', '$q', '$interval', 'jobAPIService', function($scope, $filter, $q, $interval, jobAPIService){
+        // $scope.executionList = [];
+        $scope.selectedStatusStyle = $scope.selectedStatusIcon = "";
         $scope.selectedExecution = {};
         $scope.idSelectedItem = null;
         $scope.isExecloading = true;
         $scope.executionList = [];
         
-		//Get all job executions for a job
-        // jobAPIService.getExecutions($scope.selectedJob.id).success(function (response){
-        //     $scope.executionList = $filter('orderBy')(response, new Date('start'), true).results;
-            
-        //     angular.forEach($scope.executionList, function (execItem) {
-        //         var executionStatusAttrs = _setExecutionStatusAttrs(execItem.status);
-        //         execItem.executionStatusStyle = executionStatusAttrs.executionStatusStyle;
-        //         execItem.executionStatusIcon = executionStatusAttrs.executionStatusIcon; 
-        //     });
-        //     $scope.selectedExecution = $scope.executionList[0];
-        //     if ($scope.executionList.length > 0) {
-        //         $scope.loadExecDetails($scope.selectedExecution);                
-        //     }
-        //     $scope.isExecloading = false;
-        // });
-        $scope.executionsLiveFeed = null;
         var iCounter = 0;
-        
+        var fetchExecutions = false;
         $scope.executionsLiveFeedStart = function(){
-            $scope.executionsLiveFeed = $interval(function(){
-                iCounter++;
-                console.log('start feed - ' + iCounter);
-                $scope.fetchExecutions();
-            }, 2000);
+            if(!$scope.executionsLiveFeed){
+                $scope.executionsLiveFeed = $interval(function(){
+                    iCounter++;
+                    $scope.fetchExecutions();
+                }, 2000);
+            }
         };
-        $scope.executionsLiveFeedStop = function (){
-            // if (angular.isDefined($scope.executionsLiveFeedStart)) {
+        var _executionsLiveFeedStop = function (){
+            if (angular.isDefined($scope.executionsLiveFeed)) {
                 $interval.cancel($scope.executionsLiveFeed);
-            // };
+                $scope.executionsLiveFeed=undefined;                
+            };
+        }
+        $scope.executionsLiveFeedStop = function (){
+            _executionsLiveFeedStop();
         };
+        $scope.executionsLiveFeedStop();
+        $scope.executionsLiveFeed = null;
         $scope.fetchExecutions = function(){
-            // $scope.isExecloading = true;
             anyPendingExecution = false;
+            fetchExecutions = false;
             _getExecutions().then(function(jobExecutions){
                 $scope.executionList = [];
                 $scope.executionList.push.apply($scope.executionList, jobExecutions);
-                $scope.selectedExecution = $scope.executionList[0];
-                if ($scope.executionList.length > 0) {
-                    $scope.loadExecDetails($scope.selectedExecution);                
+                if (angular.isUndefined($scope.selectedExecution) || ($scope.selectedExecution.execution_id === undefined) || ($scope.executionList.length === 1)) {
+                    fetchExecutions = true;
                 }
-                $scope.isExecloading = false;
+                if (($scope.executionList.length > 1) && angular.isDefined($scope.executionList[0].execution_id) && (angular.isDefined($scope.selectedExecution.execution_id))) {
+                    if($scope.selectedExecution.execution_id === $scope.executionList[0].execution_id){ 
+                        fetchExecutions = true;
+                    }
+                } 
+                if(fetchExecutions){
+                    $scope.selectedExecution = $scope.executionList[0];
+                    if ($scope.executionList.length > 0) {
+                        $scope.loadExecDetails($scope.selectedExecution);                
+                    };
+                }
+                $scope.isExecloading = false;                
             });           
         };
         var _getExecutions = function(){
@@ -63,9 +64,13 @@
                 });
                 deferred.resolve(responseExecutionList); 
                 if(!anyPendingExecution){
-                    console.log('anyPendingExecution - ' + anyPendingExecution);
                     $scope.executionsLiveFeedStop();
-                };
+                }
+                else {
+                    $scope.executionsLiveFeedStart();
+                }
+            }).error(function (response){
+                $scope.executionsLiveFeedStop();
             });
             return deferred.promise;
         };
@@ -83,11 +88,10 @@
         var _setSelected = function (idSelectedItem) {
             $scope.idSelectedItem = idSelectedItem;
         };
-	}]);
+    }]);
     var _setExecutionStatusAttrs = function(execItem){
         switch (execItem.status)
         {
-            //Below status is not valid for executions
             case "RUNNING": 
             anyPendingExecution = true;
             execItem.executionStatusStyle = "running";
@@ -104,7 +108,6 @@
             execItem.executionStatusIcon = "fa fa-times-circle fa-lg";
             break;
 
-            //Below status is future feature.
             case "PENDING":
             anyPendingExecution = true;
             execItem.executionStatusStyle = "suspended";
