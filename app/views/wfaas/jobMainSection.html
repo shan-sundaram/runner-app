@@ -40,9 +40,9 @@
 
           <!-- <span>Executed By:</span>  John Doe<br /> -->
           <div><span>Job Last Updated:</span>  {{selectedJob.lastUpdatedTime | date: 'MM/dd/yyyy HH:mm'}}</div>
-          <div ng-show="(executionList.length > 0)"><span>Job Started:</span>  {{selectedExecution.timeStarted | date: 'MM/dd/yyyy HH:mm:ss'}}</div>
-          <div ng-show="(executionList.length > 0)"><span>Job Completed:</span>  {{selectedExecution.timeCompleted | date: 'MM/dd/yyyy HH:mm:ss'}}</div>
-          <div ng-show="(executionList.length > 0)"><span>Job Run-time (in minutes):</span>  {{selectedExecution.duration}}</div>
+          <div ng-show="(selectedExecution.timeStarted)"><span>Job Started:</span>  {{selectedExecution.timeStarted | date: 'MM/dd/yyyy HH:mm:ss'}}</div>
+          <div ng-show="(selectedExecution.timeCompleted)"><span>Job Completed:</span>  {{selectedExecution.timeCompleted | date: 'MM/dd/yyyy HH:mm:ss'}}</div>
+          <div ng-show="(selectedExecution.timeCompleted)"><span>Job Run-time (in minutes):</span>  {{selectedExecution.duration}}</div>
 
           <!-- <span>Description:</span><br />Some description here Some description here Some description here Some description here Some description here Some description here Some description here Some description here <br /> -->
 

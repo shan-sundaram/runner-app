@@ -61,9 +61,12 @@
                 
                 angular.forEach(responseExecutionList, function (execItem) {
                     execItem = _setExecutionStatusAttrs(execItem);
-                    execItem.timeStarted = new Date(execItem.timers[0].start);
-                    execItem.timeCompleted = new Date(execItem.timers[0].end);
-                    execItem.duration = new Date(execItem.timeCompleted.getTime() - execItem.timeStarted.getTime()).getMinutes();
+                    execItem.timeStarted = (execItem.timers[0]) ? (new Date(execItem.timers[0].start)) : undefined;
+                    execItem.timeCompleted = (execItem.timers[0]) ? ((execItem.timers[0].end) ? (new Date(execItem.timers[0].end)) : undefined) : undefined;
+                    execItem.duration = undefined;
+                    if(angular.isDefined(execItem.timeStarted) && angular.isDefined(execItem.timeCompleted)){
+                        execItem.duration = new Date(execItem.timeCompleted.getTime() - execItem.timeStarted.getTime()).getMinutes();
+                    }
                 });
                 deferred.resolve(responseExecutionList); 
                 if(!anyPendingExecution){

@@ -10,8 +10,8 @@
 	    
 	    <ul ng-show="(executionList.length > 0)" class="exec-item" ng-repeat="execution in executionList" ng-click="loadExecDetails(execution);" ng-class="{selected: execution.execution_id === idSelectedItem}">
 	        <li>{{execution.execution_id}}</li>
-	        <li>{{execution.timeStarted | date: 'MM/dd/yyyy HH:mm:ss'}}</li>
-	        <li>{{execution.duration}}</li>
+	        <li>{{(execution.timeStarted) ? (execution.timeStarted | date: 'MM/dd/yyyy HH:mm:ss') : ""}}</li>
+	        <li>{{(execution.timeCompleted) ? execution.duration : ""}}</li>
 	        <li ng-class="execution.executionStatusStyle"><i ng-class="execution.executionStatusIcon"></i></li>
 	    </ul>
 	    <ul ng-show="(!isExecloading && executionList.length===0)" class="selected" style="text-align: center;">There are no executions for this Job.<ul>
