@@ -61,6 +61,9 @@
                 
                 angular.forEach(responseExecutionList, function (execItem) {
                     execItem = _setExecutionStatusAttrs(execItem);
+                    execItem.timeStarted = new Date(execItem.timers[0].start);
+                    execItem.timeCompleted = new Date(execItem.timers[0].end);
+                    execItem.duration = new Date(execItem.timeCompleted.getTime() - execItem.timeStarted.getTime()).getMinutes();
                 });
                 deferred.resolve(responseExecutionList); 
                 if(!anyPendingExecution){
