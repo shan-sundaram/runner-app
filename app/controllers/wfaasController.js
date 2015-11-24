@@ -39,21 +39,21 @@
                         $scope.jobsList.push.apply($scope.jobsList, allJobs);
                         $scope.selectedJob = $scope.jobsList[0];
                         if($scope.jobsList.length > 0){
-                            $scope.loadJobMainSection($scope.selectedJob);                            
+                            $scope.loadJobMainSection($scope.selectedJob);
                         }
                         else {
                             $scope.loadMainSection('createJob');
                         }
-                        $scope.isJobloading = false;    
-                    });                    
+                        $scope.isJobloading = false;
+                    });
                 };
 
                 $scope.getAllJobs();
-                
+
                 var _setSelectedJob = function (idSelectedItem) {
                     $scope.selectedJobId = idSelectedItem;
                 };
-                
+
                 $scope.loadMainSection = function(sectionName){
                     switch(sectionName){
                         case "createJob":
@@ -62,19 +62,19 @@
                             break;
 
                         case "pbBuilder":
-                            $scope.loadpbBuilderSection(); 
-                            $scope.activeLeftMenuIcon = "pbBuilder"; 
+                            $scope.loadpbBuilderSection();
+                            $scope.activeLeftMenuIcon = "pbBuilder";
                             break;
 
                         default:
-                            $scope.getAllJobs();                              
+                            $scope.getAllJobs();
                     }
                 }
                 $scope.loadCreateJobSection = function(){
                     $controller('createJobController', {$scope: $scope});
                     $scope.mainSectiontemplate = {
                         "createJobMainSection":  "views/wfaas/createJob.html"
-                    }; 
+                    };
                 };
                 $scope.loadJobMainSection = function(job){
                     $scope.activeLeftMenuIcon = "jobs";
@@ -83,7 +83,7 @@
                     $controller('jobMainSectionController', {$scope: $scope});
                     $scope.mainSectiontemplate = {
                         "jobMainSection":  "views/wfaas/jobMainSection.html"
-                    };                                    
+                    };
                 };
                 $scope.addNewJobtoList = function(newJob) {
                     $scope.jobsList.unshift(newJob);
@@ -92,10 +92,10 @@
                     $controller('pbBuilderController', {$scope: $scope});
                     $scope.mainSectiontemplate = {
                         "pbBuilderMainSection":  "views/wfaas/playbookBuilder.html"
-                    }; 
+                    };
                 };
             }])
-            
+
             /*Get Job Status Controller*/
             .controller("statusController", ['$scope', '$interval', '$routeParams', '$sce', '$timeout', '$filter', 'statusAPIService', function($scope, $interval, $routeParams, $sce, $timeout, $filter, statusAPIService){
                 $scope.isStatusLoading = true;
@@ -108,22 +108,25 @@
                     if(!$scope.statusLiveFeed){
                         $scope.statusLiveFeed = $interval(function(){
                             _getLiveExecutionStatus();
-                        }, 2000);
+                        }, 3000);
                     }
                 };
                 var _statusLiveFeedStop = function (){
                     if (angular.isDefined($scope.statusLiveFeed)) {
                         $interval.cancel($scope.statusLiveFeed);
-                        $scope.statusLiveFeed=undefined;                
+                        $scope.statusLiveFeed=undefined;
                     };
                 }
                 /*Get status details for a job execution*/
                 var _getExecutionStatus = function(){
                     statusAPIService.getExecutionStatus($scope.selectedJob.id, $scope.idSelectedItem).success(function (response){
-                        $scope.executionStatusList = response;
-                        $timeout(function ($scope) {
-                            SyntaxHighlighter.highlight();
-                        });
+                        if($scope.executionStatusList.length != response.length){
+                          console.log('length not equal');
+                          $scope.executionStatusList = response;
+                          $timeout(function ($scope) {
+                              SyntaxHighlighter.highlight();
+                          });
+                        }
                         if(response){
                             $scope.isStatusLoading = false;
                         }
@@ -156,6 +159,6 @@
                 }
                 function getExecutionStatus(){
                     _statusLiveFeedStart();
-                }                
+                }
             }]);
 }) ();
