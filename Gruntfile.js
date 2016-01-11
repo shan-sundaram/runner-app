@@ -6,14 +6,14 @@
 			 	cssDest = 'build/styles', 
 			 	jsminExt = '.<%= pkg.version %>.min.js', 
 			 	cssminExt = '.<%= pkg.version %>.min.css',
-			 	appRoot = 'app';
+			 	appRoot = 'runner';
 
 			//Project configuration.
 			grunt.initConfig({
 				pkg: grunt.file.readJSON('package.json'),
 				clean: ['build', '.tmp'],
 				useminPrepare: {
-					html: 'app/index.html',
+					html: 'runner/index.html',
 					options: {
 						dest: 'build'
 					}
@@ -23,19 +23,25 @@
 				},
 				copy: {
 					mainCopy: {
-						src: 'app/index.html', dest: 'build/index.html'
+						src: 'runner/index.html', dest: 'build/index.html'
 					},
 					appCopy: {
 						expand: true,
-		                cwd: 'app/views',
-		                src: ['**/*.html'],
-		                dest: 'build/views'
+		                cwd: 'runner',
+		                src: ['*.html'],
+		                dest: 'build'
 					},
 					fontsCopy: {
 						expand: true,
-		                cwd: 'app/css/fonts',
+		                cwd: 'app/css',
+		                src: ['*.css'],
+		                dest: 'build/styles'
+					}
+					assetsCopy: {
+						expand: true,
+		                cwd: 'runner/assets',
 		                src: ['**/*'],
-		                dest: 'build/styles/fonts'
+		                dest: 'build/assets'
 					}
 				},
 				uglify: {
@@ -50,7 +56,7 @@
 							spawn: false,
 							event: ['all']
 						},
-						files: ['app/**/*.html','app/**/*.js','app/**/*.css', '!e2e-tests/*'],
+						files: ['runner/*.html','runner/**/*.js','runner/**/*.css', '!e2e-tests/*'],
 					    tasks: ['build']
 					    // , 'css/**/*.scss', '!lib/dontwatch.js'],
 						// dev: {
@@ -63,7 +69,7 @@
 					}
 				},
 				jshint: {
-					all: ['Gruntfile.js', 'app/services/**/*.js', 'app/controllers/**/*.js']
+					all: ['Gruntfile.js']
 				}
 			});
 			
