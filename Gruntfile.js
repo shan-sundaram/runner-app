@@ -36,11 +36,11 @@
 		                cwd: 'app/css',
 		                src: ['*.css'],
 		                dest: 'build/styles'
-					}
+					},
 					assetsCopy: {
 						expand: true,
 		                cwd: 'runner/assets',
-		                src: ['*'],
+		                src: ['**/*'],
 		                dest: 'build/assets'
 					}
 				},
