@@ -33,9 +33,9 @@
 					},
 					fontsCopy: {
 						expand: true,
-		                cwd: 'app/css',
+		                cwd: 'runner/css',
 		                src: ['*.css'],
-		                dest: 'build/styles'
+		                dest: 'build/css'
 					},
 					assetsCopy: {
 						expand: true,
