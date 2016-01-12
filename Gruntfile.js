@@ -6,14 +6,14 @@
 			 	cssDest = 'build/styles', 
 			 	jsminExt = '.<%= pkg.version %>.min.js', 
 			 	cssminExt = '.<%= pkg.version %>.min.css',
-			 	appRoot = 'runner';
+			 	appRoot = 'app';
 
 			//Project configuration.
 			grunt.initConfig({
 				pkg: grunt.file.readJSON('package.json'),
 				clean: ['build', '.tmp'],
 				useminPrepare: {
-					html: 'runner/index.html',
+					html: 'app/index.html',
 					options: {
 						dest: 'build'
 					}
@@ -23,25 +23,25 @@
 				},
 				copy: {
 					mainCopy: {
-						src: 'runner/index.html', dest: 'build/index.html'
+						src: 'app/index.html', dest: 'build/index.html'
 					},
 					appCopy: {
 						expand: true,
-		                cwd: 'runner',
-		                src: ['*.html'],
-		                dest: 'build'
+		                cwd: 'app/views',
+		                src: ['**/*.html'],
+		                dest: 'build/views'
 					},
 					fontsCopy: {
 						expand: true,
-		                cwd: 'runner/css',
-		                src: ['*.css'],
-		                dest: 'build/css'
-					},
-					assetsCopy: {
-						expand: true,
-		                cwd: 'runner/assets',
+		                cwd: 'app/css/fonts',
 		                src: ['**/*'],
-		                dest: 'build/assets'
+		                dest: 'build/styles/fonts'
+					},
+					runnerCopy: {
+						expand: true
+						cwd: 'app/runner',
+						src: ['**/*'],
+						dest: 'build/runner'
 					}
 				},
 				uglify: {
@@ -56,7 +56,7 @@
 							spawn: false,
 							event: ['all']
 						},
-						files: ['runner/*.html','runner/**/*.js','runner/**/*.css', '!e2e-tests/*'],
+						files: ['app/**/*.html','app/**/*.js','app/**/*.css', '!e2e-tests/*'],
 					    tasks: ['build']
 					    // , 'css/**/*.scss', '!lib/dontwatch.js'],
 						// dev: {
@@ -69,13 +69,13 @@
 					}
 				},
 				jshint: {
-					all: ['Gruntfile.js']
+					all: ['Gruntfile.js', 'app/services/**/*.js', 'app/controllers/**/*.js']
 				}
 			});
 			
 			grunt.event.on('watch', function(action, filepath, target) {
 			  	grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
-			  	grunt.config(['clean', 'copy', 'useminPrepare', 'uglify', 'usemin'], filepath);
+			  	grunt.config(['clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'usemin'], filepath);
 			});
 			//Load the plugin that provides the "uglify" task
 			require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -83,6 +83,6 @@
 			//Default task(s).
 			grunt.registerTask('default', ['jshint']);
 			
-			grunt.registerTask('build', ['clean', 'copy', 'useminPrepare', 'uglify', 'usemin']);
+			grunt.registerTask('build', ['clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'usemin']);
 		};
 }) ();
