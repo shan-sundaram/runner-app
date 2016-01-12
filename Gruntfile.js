@@ -75,7 +75,7 @@
 			
 			grunt.event.on('watch', function(action, filepath, target) {
 			  	grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
-			  	grunt.config(['clean', 'copy', 'useminPrepare', 'cssmin', 'uglify', 'usemin'], filepath);
+			  	grunt.config(['clean', 'copy', 'useminPrepare', 'uglify', 'usemin'], filepath);
 			});
 			//Load the plugin that provides the "uglify" task
 			require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -83,6 +83,6 @@
 			//Default task(s).
 			grunt.registerTask('default', ['jshint']);
 			
-			grunt.registerTask('build', ['clean', 'copy', 'useminPrepare', 'cssmin', 'uglify', 'usemin']);
+			grunt.registerTask('build', ['clean', 'copy', 'useminPrepare', 'uglify', 'usemin']);
 		};
 }) ();
