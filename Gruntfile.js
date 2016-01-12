@@ -75,7 +75,7 @@
 			
 			grunt.event.on('watch', function(action, filepath, target) {
 			  	grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
-			  	grunt.config(['clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'usemin'], filepath);
+			  	grunt.config(['clean', 'copy', 'useminPrepare', 'cssmin', 'uglify', 'usemin'], filepath);
 			});
 			//Load the plugin that provides the "uglify" task
 			require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
