@@ -83,6 +83,6 @@
 			//Default task(s).
 			grunt.registerTask('default', ['jshint']);
 			
-			grunt.registerTask('build', ['clean', 'copy', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'usemin']);
+			grunt.registerTask('build', ['clean', 'copy', 'useminPrepare', 'cssmin', 'uglify', 'usemin']);
 		};
 }) ();
