@@ -38,7 +38,7 @@
 		                dest: 'build/styles/fonts'
 					},
 					runnerCopy: {
-						expand: true
+						expand: true,
 						cwd: 'app/runner',
 						src: ['**/*'],
 						dest: 'build/runner'
