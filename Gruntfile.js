@@ -40,7 +40,7 @@
 					assetsCopy: {
 						expand: true,
 		                cwd: 'runner/assets',
-		                src: ['**/*'],
+		                src: ['*'],
 		                dest: 'build/assets'
 					}
 				},
