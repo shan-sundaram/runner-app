@@ -104,7 +104,7 @@ runner.loginViewModel = function () {
             self.alertVisibleVar(false);
 
             //redirect when login is successful
-            window.location.replace("/app/runner/index.html");
+            window.location.replace("/app/runner/main.html");
         });
 
         jqxhr.fail(function (jqXHR, textStatus, errorThrown) {
