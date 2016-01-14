@@ -70,15 +70,17 @@
             <div class="col-sm-offset-3 col-sm-6">
 
                 <div id="alert-console">
-                    <div class="alert alert-success" role="alert" style="visibility: hidden;">
-                        <div class="alert-icon ">
+
+                    <div class="" role="alert" data-bind="visible: isAlertVisible, css: alertClass" style="display: none;">
+                        <div class="alert-icon">
                             <svg class="cyclops-icon">
-                                <use xlink:href='#icon-plus-circle'>
+                                <use xlink:href='#icon-centurylink' data-bind="attr: { 'xlink:href': alertIconHref }">
                             </svg>
                         </div>
-                        <h4>Success!</h4>
-                        <p>This is a successful message.</p>
+                        <h4 data-bind="text: alertTitle"></h4>
+                        <p data-bind="text: alertMessage"></p>
                     </div>
+
                 </div>
 
                 <div class="card">
@@ -101,7 +103,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button id="btnLoginSubmit" type="submit" class="btn btn-primary btn-lg btn-block" data-bind="text: submitButtonText, click: loginUser, enable: isFormValid" disabled>
+                                        <button id="btnLoginSubmit" type="button" class="btn btn-primary btn-lg btn-block" data-bind="text: submitButtonText, click: loginUser, enable: isFormValid" disabled>
                                             Sign In
                                         </button>
                                     </div>
