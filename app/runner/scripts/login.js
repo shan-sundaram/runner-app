@@ -22,23 +22,58 @@ runner.loginViewModel = function () {
     console.log("runner.LoginViewModel");
     var self = this;
 
-    self.submitting = ko.observable(false);
-    self.formComplete = ko.observable(false);
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //  Begin Dynamic Alerts
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    self.alertVisibleVar = ko.observable(false);
+    self.isAlertVisible = ko.pureComputed(function () {
+        console.log("runner.LoginViewModel.isAlertVisible");
+        return self.alertVisibleVar();
+    }, self);
+
+    self.alertClassVar = ko.observable('alert alert-success');
+    self.alertClass = ko.pureComputed(function () {
+        return self.alertClassVar();
+    }, self);
+
+    self.alertIconHrefVar = ko.observable('#icon-plus-circle');
+    self.alertIconHref = ko.pureComputed(function () {
+        console.log("runner.LoginViewModel.alertIconHref");
+        return self.alertIconHrefVar();
+    }, self);
+
+    self.alertTitleVar = ko.observable('Success!');
+    self.alertTitle = ko.pureComputed(function () {
+        console.log("runner.LoginViewModel.alertTitle");
+        return self.alertTitleVar();
+    }, self);
+
+    self.alertMessageVar = ko.observable('This is a successful message.');
+    self.alertMessage = ko.pureComputed(function () {
+        console.log("runner.LoginViewModel.alertMessage");
+        return self.alertMessageVar();
+    }, self);
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //  End Dynamic Alerts
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     self.user = {
         username: ko.observable(''),
         password: ko.observable('')
     };
 
+    self.submitting = ko.observable(false);
     self.submitButtonText = ko.pureComputed(function () {
         console.log("runner.LoginViewModel.submitButtonText");
         return self.submitting() ? "Processing..." : "Sign In";
-    });
+    }, self);
 
     self.isFormValid = ko.pureComputed(function () {
         console.log("runner.LoginViewModel.isFormValid");
         return self.user.username() && self.user.password();
-    });
+    }, self);
 
     self.loginUser = function () {
         console.log("runner.LoginViewModel.loginUser");
@@ -66,6 +101,8 @@ runner.loginViewModel = function () {
             //example retrieve from local storage
             console.log(self.getAuthFromLocalStorage());
 
+            self.alertVisibleVar(false);
+
             //redirect when login is successful
             window.location.replace("/app/runner/index.html");
         });
@@ -75,7 +112,16 @@ runner.loginViewModel = function () {
             //console.log(jqXHR);
             //console.log("textStatus: " + textStatus);
             //console.log("errorThrown: " + errorThrown);
-            self.displayAlertForJqxhr(jqXHR);
+
+            var thisAlertTitle = jqXHR.statusText;
+            var thisAlertMessage = JSON.parse(jqXHR.responseText).message;
+
+            self.alertClassVar('alert alert-danger');
+            self.alertIconHrefVar('#icon-ban');
+            self.alertTitleVar(thisAlertTitle);
+            self.alertMessageVar(thisAlertMessage);
+
+            self.alertVisibleVar(true);
         });
 
         jqxhr.always(function () {
@@ -83,48 +129,6 @@ runner.loginViewModel = function () {
             self.submitting(false);
         });
 
-    };
-
-    self.displayAlertForJqxhr = function (jqXHR) {
-        console.log("displayAlertForJsonResponse");
-
-        var failMessage = JSON.parse(jqXHR.responseText).message;
-        var statusText = jqXHR.statusText;
-
-        //console.log(failMessage);
-
-        var $alertConsole = $("#alert-console");
-
-        var $alert = $("<div/>", {
-            class: "alert alert-danger",
-            role: "alert"
-        });
-
-        var $alertIconDiv = $("<div/>", {
-            class: "alert-icon"
-        });
-
-        var $alertIconSvgDiv = $("<svg/>", {
-            class: "cyclops-icon"
-        });
-
-        var $alertIconUse = "<use xlink:href='#icon-plus-circle'>";
-
-        var $alerth4 = $("<h4/>", {
-            text: statusText
-        });
-
-        var $alertP = $("<p/>", {
-            text: failMessage
-        });
-
-        $alertIconSvgDiv.append($alertIconUse);
-        $alertIconDiv.append($alertIconSvgDiv);
-        $alert.append($alertIconDiv);
-        $alert.append($alerth4);
-        $alert.append($alertP);
-
-        $alertConsole.html($alert);
     };
 
     self.setResponseToLocalStorage = function (response) {
