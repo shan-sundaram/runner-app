@@ -1,0 +1,292 @@
+html.cyclops #runner .playbook-logo {
+  width: 100px;
+  float: right;
+}
+html.cyclops #runner .playbook-title {
+  margin-right: 110px;
+}
+html.cyclops #runner .btn-menu {
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+html.cyclops #runner .card {
+  margin-bottom: 30px;
+}
+html.cyclops #runner .card-block {
+  padding: 15px;
+}
+html.cyclops #runner .card-header {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+html.cyclops #runner .git-stats {
+  margin-bottom: 0;
+}
+html.cyclops #runner .filter-panel {
+  background-color: #e8e8e8;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #d9d9d9;
+  font-size: 12px;
+}
+html.cyclops #runner .filter-panel a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 12px 10px;
+  color: #888;
+  margin-bottom: -2px;
+}
+html.cyclops #runner .filter-panel a svg {
+  fill: #999;
+}
+html.cyclops #runner .filter-panel a:hover,
+html.cyclops #runner .filter-panel a.active {
+  color: #333;
+  border-bottom: 2px solid #333;
+}
+html.cyclops #runner .filter-panel a:hover svg,
+html.cyclops #runner .filter-panel a.active svg {
+  fill: #333;
+}
+html.cyclops #runner .filter-panel a.active {
+  font-weight: 600;
+}
+html.cyclops #runner .filter-panel .search-input {
+  margin-top: 8px;
+}
+html.cyclops #runner .queue {
+  display: block;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+html.cyclops #runner .queue > li,
+html.cyclops #runner .job-status {
+  background-color: #f5f5f5;
+  margin-bottom: 3px;
+  padding: 10px 16px;
+  position: relative;
+}
+html.cyclops #runner .queue > li a,
+html.cyclops #runner .job-status a {
+  display: block;
+  text-decoration: none;
+}
+html.cyclops #runner .queue > li a:hover .details .playbook,
+html.cyclops #runner .job-status a:hover .details .playbook {
+  text-decoration: underline;
+}
+html.cyclops #runner .queue > li .status,
+html.cyclops #runner .job-status .status {
+  float: left;
+  margin-right: 10px;
+}
+html.cyclops #runner .queue > li .status-bar,
+html.cyclops #runner .job-status .status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  padding: 9px;
+  background-color: #c1c1c1;
+}
+html.cyclops #runner .queue > li .status-bar svg,
+html.cyclops #runner .job-status .status-bar svg {
+  fill: #ffffff;
+}
+html.cyclops #runner .queue > li.success .status-bar,
+html.cyclops #runner .job-status.success .status-bar {
+  background-color: #00853f;
+}
+html.cyclops #runner .queue > li.running .status-bar,
+html.cyclops #runner .job-status.running .status-bar {
+  background-color: #E09D00;
+}
+html.cyclops #runner .queue > li.error .status-bar,
+html.cyclops #runner .job-status.error .status-bar {
+  background-color: #e43b34;
+}
+html.cyclops #runner .queue > li .details,
+html.cyclops #runner .job-status .details {
+  margin-left: 12px;
+}
+html.cyclops #runner .queue > li .playbook,
+html.cyclops #runner .job-status .playbook {
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+html.cyclops #runner .queue > li .playbook:hover,
+html.cyclops #runner .job-status .playbook:hover {
+  text-decoration: underline;
+}
+html.cyclops #runner .queue > li .id,
+html.cyclops #runner .job-status .id {
+  margin-bottom: 5px;
+}
+html.cyclops #runner .queue > li .playbook + .duration,
+html.cyclops #runner .job-status .playbook + .duration {
+  margin-top: 10px;
+}
+html.cyclops #runner .queue > li svg,
+html.cyclops #runner .job-status svg {
+  fill: #999999;
+}
+html.cyclops #runner .queue-preview .playbook + .user {
+  margin-top: 5px;
+}
+html.cyclops #runner .queue-preview > li .details .playbook {
+  font-size: 14px;
+}
+html.cyclops #runner .queue-preview > li .details .duration,
+html.cyclops #runner .queue-preview > li .details .finished,
+html.cyclops #runner .queue-preview > li .details .user,
+html.cyclops #runner .queue-preview > li .details .id {
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+html.cyclops #runner .queue-preview > li .details .duration,
+html.cyclops #runner .queue-preview > li .details .finished {
+  line-height: 15px;
+}
+html.cyclops #runner .library-runner-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding: 9px 0;
+}
+html.cyclops #runner .library-runner {
+  list-style: none;
+  padding-left: 0;
+}
+html.cyclops #runner .library-runner a {
+  display: block;
+  text-decoration: none;
+}
+html.cyclops #runner .library-runner a:hover {
+  color: #000000;
+}
+html.cyclops #runner .library-runner .card {
+  -webkit-transition: border 300ms linear;
+  -moz-transition: border 300ms linear;
+  transition: border 300ms linear;
+  text-align: center;
+}
+html.cyclops #runner .library-runner .card:hover {
+  border-color: #888;
+}
+html.cyclops #runner .library-runner .card .card-title {
+  margin-bottom: 10px;
+}
+html.cyclops #runner .library-runner .card .card-text {
+  font-size: 12px;
+}
+html.cyclops #runner .brand {
+  text-align: center;
+  height: 30px;
+}
+html.cyclops #runner #featuredPlaybooks h4 {
+  display: none;
+}
+html.cyclops #runner #featuredPlaybooks a {
+  display: block;
+  text-decoration: none;
+}
+html.cyclops #runner #featuredPlaybooks .card-featured {
+  background-color: #292929;
+  border-color: #292929;
+  text-align: center;
+}
+html.cyclops #runner #featuredPlaybooks .card-featured.nginx {
+  background-color: #009647;
+  border-color: #009647;
+  background-image: url(../assets/images/bg-nginx.png);
+}
+html.cyclops #runner #featuredPlaybooks .card-featured.kubernetes {
+  background-color: #326de6;
+  border-color: #326de6;
+  background-image: url(../assets/images/hexegon_texture_hero-01.png);
+}
+html.cyclops #runner #featuredPlaybooks .card-featured .card-header {
+  background-color: rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 10px;
+}
+html.cyclops #runner #featuredPlaybooks .card-header {
+  background-color: #313131;
+  border-bottom: #313131;
+  padding: 7px 20px;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 1px;
+}
+html.cyclops #runner #featuredPlaybooks .card-text {
+  font-size: 13px;
+}
+html.cyclops #runner #featuredPlaybooks .git-stats li,
+html.cyclops #runner #featuredPlaybooks .git-stats li a {
+  color: rgba(255, 255, 255, 0.65);
+}
+html.cyclops #runner #featuredPlaybooks .git-stats {
+  border-top-color: rgba(255, 255, 255, 0.25);
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+  margin: 0;
+}
+html.cyclops #runner #featuredPlaybooks .git-stats li svg {
+  fill: #ffffff;
+}
+html.cyclops #runner #featuredPlaybooks .git-stats a:hover,
+html.cyclops #runner #featuredPlaybooks .library-runner .git-stats a:hover {
+  text-decoration: underline;
+}
+html.cyclops #runner .job-output-header {
+  background: #211920;
+  color: #afafaf;
+  padding: 7px 15px;
+  height: 40px;
+  position: relative;
+}
+html.cyclops #runner .job-output-header + pre {
+  margin-top: 0px;
+}
+@media (min-width: 768px) {
+  html.cyclops #runner .card-featured {
+    height: 238px;
+    /*account for 3 lines of description text*/
+  }
+}
+@media (min-width: 992px) {
+  html.cyclops #runner .card-featured {
+    height: 218px;
+  }
+}
+html.cyclops #runner .nav-tabs {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+html.cyclops #runner .nav-tabs > li {
+  float: left;
+}
+html.cyclops #runner .nav-tabs > li > a {
+  border-bottom: 2px solid #ccc;
+  padding: 10px 15px;
+  margin-bottom: -2px;
+}
+html.cyclops #runner .nav-tabs > li > a:hover,
+html.cyclops #runner .nav-tabs > li > a:focus {
+  border-bottom: 2px solid #222;
+  background-color: none;
+}
+html.cyclops #runner .nav-tabs > li + li {
+  margin-left: 4px;
+}
+html.cyclops #runner .nav-tabs > li.active > a,
+html.cyclops #runner .nav-tabs > li.active > a:hover,
+html.cyclops #runner .nav-tabs > li.active > a:focus {
+  border-bottom: 2px solid #222;
+}

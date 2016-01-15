@@ -36,6 +36,12 @@
 		                cwd: 'app/css/fonts',
 		                src: ['**/*'],
 		                dest: 'build/styles/fonts'
+					},
+					runnerCopy: {
+						expand: true,
+						cwd: 'app/runner',
+						src: ['**/*'],
+						dest: 'build/runner'
 					}
 				},
 				uglify: {
