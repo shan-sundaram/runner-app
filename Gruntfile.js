@@ -68,7 +68,8 @@ module.exports = function (grunt) {
             js: {
                 files: [
                     '<%= jshint.js.src %>',
-                    'app/scripts/components/*.js'
+                    '/app/components/*/*.js',
+                    '/app/scripts/*.js'
                 ],
                 tasks: ['jshint:js']
             },

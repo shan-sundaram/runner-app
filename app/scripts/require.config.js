@@ -9,15 +9,15 @@ console.log("require.config.js");
 requirejs.config({
     //"baseUrl": "/scripts/",
     "paths": {
-        "jquery": "/vendor/jquery/dist/jquery",
+        "jquery": "/assets/vendor/jquery/dist/jquery",
         //"knockout": "/vendor/knockout/dist/knockout",
         "knockout": "https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0",
-        "knockout-projections": "/vendor/knockout-projections/dist/knockout-projections",
+        "knockout-projections": "/assets/vendor/knockout-projections/dist/knockout-projections",
         "cyclops": "https://assets.ctl.io/cyclops/1.1.2/scripts/cyclops.min",
-        "crossroads": "/vendor/crossroads/dist/crossroads",
-        "hasher": "/vendor/hasher/dist/js/hasher",
-        "signals": "/vendor/js-signals/dist/signals",
-        "text": "/vendor/text/text",
+        "crossroads": "/assets/vendor/crossroads/dist/crossroads",
+        "hasher": "/assets/vendor/hasher/dist/js/hasher",
+        "signals": "/assets/vendor/js-signals/dist/signals",
+        "text": "/assets/vendor/text/text",
         "router": "/scripts/router",
         "fixtures": "fixtures"
     }
