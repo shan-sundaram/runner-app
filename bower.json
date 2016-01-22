@@ -1,0 +1,28 @@
+{
+  "name": "wfDashboard",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.22",
+    "text": "^2.0.14"
+
+    "jquery": "^2.1.0",
+
+    "knockout": "^3.4.0",
+    "knockout.validation": "^1.0.2",
+    "knockout-projections": "^1.1.0",
+
+    "bootstrap-sass-official": "^3.2.0",
+    "bootbox": "^4.2.0",
+
+    "crossroads": "^0.12.2",
+    "js-signals": "signals#^1.0.0",
+    "hasher": "^1.2.0",
+  }
+}

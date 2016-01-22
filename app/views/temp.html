@@ -1,0 +1,327 @@
+<script id="cyclops.accountSwitcher" type="text/html">
+    <div class="header">
+        <button class="btn btn-link" data-bind="click: toggleHandler">
+            <!-- ko ifnot: loading -->
+            <span class="current" data-bind="text: getImpersonatedOrgDiaplayText(impersonatedOrg()), title: impersonatedOrg().pathDisplayText"></span>
+            <!-- /ko -->
+            <!-- ko if: loading -->
+            <span class="current">fetching current account&hellip;</span>
+            <!-- /ko -->
+        </button>
+        <button class="btn btn-link pull-right toggle-btn" data-bind="click: toggleHandler">
+            <svg class="cyclops-icon md">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-angle-down"></use>
+            </svg>
+        </button>
+    </div>
+    <div class="take-over">
+        <form class="search">
+            <div class="form-group">
+                    <span class="search-input">
+                        <input type="text" palceholder="search" data-bind="disable: loading, textInput: flatOrgList.query">
+                        <svg class="cyclops-icon">
+                            <!-- ko ifnot: flatOrgList.query -->
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
+                            <!-- /ko -->
+                            <!-- ko if: flatOrgList.query -->
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" class="clear" xlink:href='#icon-times' data-bind="click: clearSearch"></use>
+                            <!-- /ko -->
+                        </svg>
+                    </span>
+            </div>
+        </form>
+        <span class="org-message" data-bind="text: limitedOrgsDisplayedMessage"></span>
+        <button class="btn btn-link" data-bind="visible: !showingAllOrgs(), click: showAllOrgsHandler" title="depending on your account hierarchy, this may take a moment to display">
+            show all
+        </button>
+        <div class="new-list-view-header">
+            <div class="col col-active-item"></div>
+            <h3 class="col col-alias">Alias</h3>
+            <h3 class="col col-dc">Data Center</h3>
+            <h3 class="col col-60">Business Name</h3>
+        </div>
+        <div class="scroll-area">
+            <ul class="new-list-view" data-bind="">
+                <!-- ko if: loading -->
+                <li class="loading-list-view-items"> fetching account list&hellip; </li>
+                <!-- /ko -->
+                <!-- ko foreach: displayOrgs -->
+                <li>
+                    <div class="list-view-item" data-bind="event: {mouseover: $component.hoverHandler}, title: pathDisplayText, scrollTo: $component.isActiveItem($data), css: {'active-item': $component.isActiveItem($data), 'current': $component.isCurrentItem($data)}, click: $component.impersonateOrg">
+                        <div class="col col-active-item">
+                            <svg class="cyclops-icon">
+                                <use xlink:href='#icon-arrow-right'></use>
+                            </svg>
+                        </div>
+                        <div class="col col-alias" data-bind="text: alias"></div>
+                        <div class="col col-dc" data-bind="text: primaryDatacenter"></div>
+                        <div class="col col-60">
+                            <!-- ko if: $component.isSearching -->
+                            <!-- ko text: pathDisplayText -->
+                            <!-- /ko -->
+                            <!-- /ko -->
+                            <!-- ko ifnot: $component.isSearching -->
+                            <span class="indent" data-bind=" html: depthHtml"></span>
+                            <span data-bind="text: name"></span>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+    </div>
+</script>
+
+<script id="cyclops.templateSwitcherLoadingTemplate" type="text/html">
+    <div class="loading-list-view-items"> fetching</div>
+</script>
+
+<script id="cyclops.templateSwitcherEmptyTemplate" type="text/html">
+    <div class="empty-list-view-item"> empty</div>
+</script>
+
+<script id="cyclops.templateSwitcherErrorTemplate" type="text/html">
+    <div class="empty-list-view-item"> unable to fetch</div>
+</script>
+
+<script id="cyclops.empty" type="text/html"></script>
+<script id="cyclops.groupPicker" type="text/html">
+    <div class="picker">
+        <!-- ko if: isLoading -->
+        <p class="loading" data-bind="html: loadingHtmlMessage"></p>
+        <!-- /ko -->
+        <!-- ko ifnot: isLoading -->
+        <!-- ko empty: groups -->
+        <p class="empty" data-bind="html: emptyHtmlMessage"></p>
+        <!-- /ko --> <!-- ko any: groups -->
+        <ol data-bind="template: {name: 'cyclops.groupPicker.group', foreach: groups}"></ol>
+        <!-- /ko --> <!-- /ko -->
+    </div>
+</script>
+
+<script id="cyclops.groupPicker.group" type="text/html">
+    <!-- ko if: $component.shouldShow($data) -->
+    <li>
+        <label class="item-hover" data-bind="attr: { title: $data.description }">
+            <input type="radio" name="group" data-bind="checkedValue: $data, checked: $component.selected"/>
+                <span class="content">
+                    <svg class="cyclops-icon">
+                        <use xlink:href='#icon-folder'></use>
+                    </svg>
+                    <span data-bind="text: name"></span>
+                </span>
+        </label>
+        <!-- ko any: $data.groups -->
+        <ol data-bind="template: {name: 'cyclops.groupPicker.group', foreach: groups}"></ol>
+        <!-- /ko -->
+    </li>
+    <!-- /ko -->
+</script>
+
+<script id="cyclops.serverPicker" type="text/html">
+    <div class="picker">
+        <!-- ko if: isLoading -->
+        <p class="loading" data-bind="html: loadingHtmlMessage"></p>
+        <!-- /ko -->
+        <!-- ko ifnot: isLoading -->
+        <!-- ko empty: groups -->
+        <p class="empty" data-bind="html: emptyHtmlMessage"></p>
+        <!-- /ko -->
+        <!-- ko any: groups -->
+        <ol data-bind="template: { name: $component.templateName, foreach: groups }"></ol>
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+</script>
+
+<script id="cyclops.serverPicker.group.multi" type="text/html">
+    <li>
+        <label class="item-hover" data-bind="css : { 'unselectable': !selectable()}, attr: { title: title }">
+            <!-- ko if: selectable -->
+            <input type="checkbox" name="group" data-bind="click: clickHandler, checked: isChecked, indeterminate: isIndeterminate"/>
+            <!-- /ko -->
+                <span class="content">
+                    <svg class="cyclops-icon">
+                        <use xlink:href='#icon-folder'></use>
+                    </svg>
+                    <span data-bind="text: rawGroup.name"></span>
+                </span>
+        </label>
+        <!-- ko any: groups -->
+        <ol data-bind="template: {name: 'cyclops.serverPicker.group.multi', foreach: groups}"></ol>
+        <!-- /ko -->
+        <!-- ko any: servers -->
+        <ol data-bind="template: {name: 'cyclops.serverPicker.server.multi', foreach: servers}"></ol>
+        <!-- /ko -->
+    </li>
+</script>
+
+<script id="cyclops.serverPicker.server.multi" type="text/html">
+    <li>
+        <label class="item-hover" data-bind="css : { 'unselectable': !selectable()}, attr: { title: title}">
+            <!-- ko if: selectable -->
+            <input type="checkbox" name="group" data-bind="checked: isChecked"/>
+            <!-- /ko -->
+                <span class="content">
+                    <svg class="cyclops-icon">
+                        <use xlink:href='#icon-question' data-bind="attr: { 'xlink:href': $component.getServerIcon(rawServer.state) }"></use>
+                    </svg>
+                    <span data-bind="text: displayName"></span>
+                </span>
+        </label>
+    </li>
+</script>
+
+<script id="cyclops.serverPicker.group.single" type="text/html">
+    <li>
+        <label class="item-hover" data-bind="attr: { title: title }">
+                <span class="content">
+                    <svg class="cyclops-icon">
+                        <use xlink:href='#icon-folder'></use>
+                    </svg>
+                    <span data-bind="text: rawGroup.name"></span>
+                </span>
+        </label>
+        <!-- ko any: groups -->
+        <ol data-bind="template: {name: 'cyclops.serverPicker.group.single', foreach: groups}"></ol>
+        <!-- /ko -->
+        <!-- ko any: servers -->
+        <ol data-bind="template: {name: 'cyclops.serverPicker.server.single', foreach: servers}"></ol>
+        <!-- /ko -->
+    </li>
+</script>
+
+<script id="cyclops.serverPicker.server.single" type="text/html">
+    <li>
+        <label class="item-hover" data-bind="css : { 'unselectable': !selectable()}, attr: { title: title}">
+            <!-- ko if: selectable -->
+            <input type="radio" name="group" data-bind="checked: $component.selected, checkedValue: $data.rawServer"/>
+            <!-- /ko -->
+                    <span class="content">
+                        <svg class="cyclops-icon">
+                            <use xlink:href='#icon-question' data-bind="attr: { 'xlink:href': $component.getServerIcon(rawServer.state) }"></use>
+                        </svg>
+                        <span data-bind="text: displayName"></span>
+                    </span>
+        </label>
+    </li>
+</script>
+
+<script id="cyclops.showPassword" type="text/html">
+    <span data-bind="event: { mouseover: mouseOver, mouseout: mouseExit }">
+            <!-- ko if: !showPassword() && !loading() -->
+            <button class="btn btn-inverse btn-sm" title="show password" data-bind="click: clickHandler"> show password
+                <!-- <svg class="cyclops-icon" ><use xlink:href='#icon-search'> </svg> &bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull; -->
+            </button>
+        <!-- /ko -->
+        <!-- ko if: loading -->
+            <svg class="cyclops-icon cyclops-spin">
+                <use xlink:href='#icon-refresh'>
+            </svg> fetching&hellip;
+        <!-- /ko -->
+        <!-- ko if: !loading() && showPassword() && !errored() -->
+            <span data-bind="text: password"></span>
+            <button class="btn btn-no-style" data-bind="click: clickHandler" title="hide password">
+                <svg class="cyclops-icon">
+                    <use xlink:href='#icon-times'>
+                </svg>
+            </button>
+        <!-- /ko -->
+        <!-- ko if: !loading() && showPassword() && errored() -->
+            <button class="btn btn-no-style" data-bind="click: retryHandler" title="retry">
+                <svg class="cyclops-icon">
+                    <use xlink:href='#icon-times'>
+                </svg>
+                unable to fetch.
+            </button>
+        <!-- /ko -->
+        </span>
+</script>
+
+<script type="text/html" id="cyclops.slider">
+    <!-- ko if: hasjQueryUi -->
+    <div class="slider-container" data-bind="css: mainClasses">
+        <div class="slider-track">
+            <!-- ko if: value.committedValue -->
+            <div class="slider-out-of-range">
+                <div data-bind="style: getCommitedValueStyles()" class="slider-out-of-range-value">
+                    <div class="slider-out-of-range-marker"></div>
+                    <span class="slider-out-of-range-number" data-bind="text: value.committedValue "></span>
+                </div>
+            </div>
+            <!-- /ko -->
+            <span class="slider-min-bound-label" data-bind="text: minBound"></span>
+            <span class="slider-max-bound-label" data-bind="text: maxBound"></span>
+            <div class="slider-valid-track" data-bind="style: { marginLeft: validTrackLeftMargin, marginRight: validTrackRightMargin }">
+                <div class="slider-value-fill" data-bind="style: { right: fillRightValue() }"></div>
+                <div class="slider-handle2" data-bind="click: $.noop, style: { left: currentValuePercentage() + '%' }, attr: {title: possibleValue}, widget: {name: 'draggable', options: {'axis': 'x', 'containment': 'parent', 'disabled': disabled(), 'drag': dragHandler, 'stop' : dragStopHandler, 'start': dragStartHandler}}">
+                    <div class="slider-tooltip tooltip top in fade">
+                        <div class="tooltip-inner" data-bind="text: possibleValue"></div>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 21 31" enable-background="new 0 0 21 31" xml:space="preserve">
+                            <g>
+                                <polygon class="handle-fill" fill="#FFFFFF" points="20,25.4 10.5,30 1,25.4 1,1 20,1" ></polygon>
+                            </g>
+                            <g opacity="0.2">
+                                <path d="M20,1v24.4l-9.5,4.5L1,25.4V1H20 M21,0H0v26l10.5,5L21,26V0L21,0z" ></path>
+                            </g>
+                            <g>
+                                <rect x="8" y="11" fill="#A7A9AC" width="1" height="1" ></rect>
+                                <rect x="10" y="11" fill="#A7A9AC" width="1" height="1" ></rect>
+                                <rect x="12" y="11" fill="#A7A9AC" width="1" height="1" ></rect>
+                                <rect x="8" y="13" fill="#A7A9AC" width="1" height="1" ></rect>
+                                <rect x="10" y="13" fill="#A7A9AC" width="1" height="1" ></rect>
+                                <rect x="12" y="13" fill="#A7A9AC" width="1" height="1" ></rect>
+                                <rect x="8" y="15" fill="#A7A9AC" width="1" height="1" ></rect>
+                                <rect x="10" y="15" fill="#A7A9AC" width="1" height="1" ></rect>
+                                <rect x="12" y="15" fill="#A7A9AC" width="1" height="1" ></rect>
+                            </g>
+                        </svg>
+                </div>
+            </div>
+            <div class="slider-track-click" data-bind="style: { marginLeft: validTrackLeftMargin, marginRight: validTrackRightMargin }, click: trackClick"></div>
+        </div>
+        <div class="slider-tick-container" data-bind="if: canShowTicks">
+            <!-- ko foreach: new Array(numberofTotalSteps()-1) -->
+            <span class="slider-tick-mark" data-bind="style: { left: $parent.getTickMarginPercentage($index) }"></span>
+            <!-- /ko -->
+        </div>
+    </div>
+    <input class="form-control slider-text-input" type="number" data-bind="value: value, disable: disabled, attr: {min : min, max: max, step: step }"/>
+    <!-- ko if: outOfRangeMessage -->
+    <div class="slider-out-of-range-message" data-bind="html: outOfRangeMessage"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko ifnot: hasjQueryUi -->
+    <input class="form-control" type="number" data-bind="value: value, disable: disabled, attr: {min : min, max: max, step: step }"/>
+    <!-- /ko -->
+</script>
+
+<script id="cyclops.toggle" type="text/html">
+    <div class="toggle" data-bind="css: {'disabled': disabled}">
+        <label>
+            <input type="checkbox" data-bind="checked:value, disable: disabled"/>
+            <!-- https://css-tricks.com/webkit-sibling-bug/ -->
+            <div class="bug-fix">
+                    <span class="text">
+                        <span class="affirmative" data-bind="text:affirmativeText">yes</span>
+                        <span class="negative" data-bind="text:negativeText">no</span>
+                    </span>
+                <svg class="handle" height="32" viewBox="0 0 28 32">
+                    <g>
+                        <rect x="10" y="12" fill="#777777" width="1" height="1"></rect>
+                        <rect x="17" y="12" fill="#777777" width="1" height="1"></rect>
+                        <rect x="13.5" y="12" fill="#777777" width="1" height="1"></rect>
+                        <rect x="10" y="15.5" fill="#777777" width="1" height="1"></rect>
+                        <rect x="17" y="15.5" fill="#777777" width="1" height="1"></rect>
+                        <rect x="13.5" y="15.5" fill="#777777" width="1" height="1"></rect>
+                        <rect x="10" y="19" fill="#777777" width="1" height="1"></rect>
+                        <rect x="17" y="19" fill="#777777" width="1" height="1"></rect>
+                        <rect x="13.5" y="19" fill="#777777" width="1" height="1"></rect>
+                    </g>
+                </svg>
+            </div>
+        </label>
+    </div>
+</script>

@@ -1,0 +1,136 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#library">
+                        <svg class="cyclops-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-left"></use>
+                        </svg>
+                        <span>library</span>
+                    </a>
+                </li>
+            </ol>
+            <h1>
+                <span data-bind="text: playbook.name()">[playbook.name]</span>
+                <small data-bind="text: playbook.version()">[playbook.version]</small>
+            </h1>
+            <p> by <a href="#">CenturyLink</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <a href="#playbook/999/run" class="btn btn-primary" data-bind="attr: { href: '#playbook/' + playbook.id() + '/run' }">
+                    <svg class="cyclops-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>
+                    </svg>
+                    <span>run</span>
+                </a>
+                <a href="#playbook/schedule" class="btn btn-default" data-bind="attr: { href: '#playbook/' + playbook.id() + '/schedule' }">
+                    <svg class="cyclops-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-scheduled-tasks"></use>
+                    </svg>
+                    <span>schedule</span>
+                </a>
+                <a href="#playbook/download" class="btn btn-default pull-right" data-bind="attr: { href: '#playbook/' + playbook.id() + '/download' }">
+                    <svg class="cyclops-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-download"></use>
+                    </svg>
+                    <span>download yml</span>
+                </a>
+
+                <hr>
+
+                <p>
+                    <a href="#" data-bind="attr: { href: playbook.githubUrlRepo() }, text: playbook.githubUrlRepo()">[playbook.githubUrlRepo]</a>
+                </p>
+                <img src="" class="playbook-logo" data-bind="attr: { src: playbook.image() }">
+                <svg class="cyclops-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-github"></use>
+                </svg>
+
+
+                <span>Github README.MD</span>
+
+                <div style="border: 1px dashed red;">
+                    need to grab this from github and parse it. maybe a markdown processor?
+                    https://github.com/showdownjs/showdown
+
+                    <h1>Nodejs Server Playbook</h1>
+                    <p>by CenturyLink</p>
+                    <h3>Overview</h3>
+                    <p>Create a lightweight server that can handle a great number of simultaneous requests.
+                        Node.js is
+                        an open-source, cross-platform runtime environment for developing server-side web
+                        applications.
+                        It provides an event-driven architecture and a non-blocking I/O API designed to optimize
+                        an
+                        application's throughput and scalability for real-time web applications. Node.js
+                        contains a
+                        built-in library to allow applications to act as a web server without software such as
+                        Apache
+                        HTTP Server, Nginx or IIS.</p>
+                    <h3>Development Tasks</h3>
+                    <p>
+                        <a href="http://gulpjs.com/">Gulp</a> is used to manage the majority of the project's
+                        development tasks. Below outlines the most important ones; inspect
+                        <code>Gulpfile.coffee</code>
+                        to see them all.
+                    </p>
+                    <p>Bower is used for client-side package management. Packages installed with Bower are
+                        stored in the
+                        <code>source/vendor</code> directory. The <code>gulp</code> and <code>gulp build</code>
+                        commands
+                        will automatically concatenate each package's "main" file into <code>vendor.js</code>.
+                    </p>
+                    <ul>
+                        <li>To search for packages: <code>bower search {package name}</code></li>
+                        <li>To install a package: <code>bower install {package name} --save</code></li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header">playbook stats</div>
+                    <div class="card-block">
+                        <div class="card-text">
+                            <p>
+                                <svg class="cyclops-icon">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cloud-upload"></use>
+                                </svg>
+                                <span data-bind="text: playbook.countDeploy() + ' deploys'">[playbook.deploys]</span>
+                            </p>
+                            <p>
+                                <a href="#">
+                                    <svg class="cyclops-icon">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-code-fork"></use>
+                                    </svg>
+                                    <span data-bind="text: playbook.countFork() + ' forks'">[playbook.forks]</span>
+                                </a>
+                            </p>
+                            <p>
+                                <a href="#">
+                                    <svg class="cyclops-icon">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-star"></use>
+                                    </svg>
+                                    <span data-bind="text: playbook.countStar() + ' stars'">[playbook.stars]</span>
+                                </a>
+                            </p>
+                            <p data-bind="text: 'updated ' + playbook.updated()">[playbook.updated]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>

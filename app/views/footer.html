@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- BEGIN: RECENT ACTIVITY -->
+            <div class="activity-history">
+                <h5 class="content-header">
+                    RECENT ACTIVITY
+                </h5>
+
+                <div class="" data-bind="foreach: activityItems">
+                    <!-- BEGIN: RECENT ACTIVITY ITEM -->
+                    <section class="day">
+                        <h5 class="content-header" data-bind="text: $data['date']">Tuesday Sep 29</h5>
+                        <ol>
+                            <li>
+                                <div class="timestamp" data-bind="text: $data['time']">2:50:05 PM</div>
+                                <div class="details">
+                                    <div class="subject" data-bind="text: $data['description']">"DB-Dev" was deleted.</div>
+                                    <div class="attribution">
+                                        <span class="createdBy" data-bind="text: $data['user']">mark.lee</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ol>
+                    </section>
+                    <!-- END: RECENT ACTIVITY ITEM -->
+                </div>
+            </div>
+            <!-- END: RECENT ACTIVITY -->
+        </div>
+    </div>
+</div>

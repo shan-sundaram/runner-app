@@ -1,0 +1,80 @@
+<div class="container" style="">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="content-header">
+                <h1>Jobs Queue</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="primary" style="">
+    <div class="container" style="">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="filter-panel">
+                    <div class="pull-right">
+                        <span class="search-input">
+                            <input type="text">
+                            <svg class="cyclops-icon">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
+                            </svg>
+                        </span>
+                    </div>
+                    <a href="#jobs/mine">My Jobs</a>
+                    <a href="#jobs/active">Active (3)</a>
+                    <a href="#jobs/errored">Errored (1)</a>
+                    <a href="#jobs/successful">Successful (3)</a>
+                    <a href="#jobs" class="active">All</a>
+                </div>
+
+                <!-- BEGIN: JOBS QUEUE -->
+                <ol class="queue queue-preview" data-bind="foreach: { data: jobs, as: 'job' }">
+                    <!-- BEGIN: JOB ITEM -->
+                    <li class="" data-bind="css: job.status()">
+                        <div class="status-bar">
+                            <svg class="cyclops-icon" title="queued">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': job.icon() }"></use>
+                            </svg>
+                        </div>
+                        <div class="new-list-view-responsive new-list-view-responsive-sm details clearfix">
+                            <div class="col col-40">
+                                <a href="#job/999" class="playbook" data-bind="attr: { href: '#job/' + job.id() }, text: job.name()">[job.name]</a>
+                                <div class="user">
+                                    <svg class="cyclops-icon">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
+                                    </svg>
+                                    <span data-bind="text: job.user()">[job.user]</span>
+                                </div>
+                            </div>
+                            <div class="col col-60">
+                                <div class="duration">
+                                    <svg class="cyclops-icon">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use>
+                                    </svg>
+                                    <span data-bind="text: job.duration()">[job.duration]</span>
+                                </div>
+                                <div class="finished">
+                                    <svg class="cyclops-icon">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-calendar"></use>
+                                    </svg>
+                                    <span data-bind="text: job.finished()">[job.finshed]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- END: JOB ITEM -->
+                </ol>
+                <!-- END: JOBS QUEUE -->
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
