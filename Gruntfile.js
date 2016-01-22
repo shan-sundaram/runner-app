@@ -1,4 +1,5 @@
 'use strict';
+
 var SERVER_PORT = 9000;
 var TEST_PORT = 9000;
 var LIVERELOAD_PORT = 35729;
@@ -46,7 +47,10 @@ module.exports = function (grunt) {
                 options: {
                     jshintrc: '.jshintrc'
                 },
-                src: ['app/assets/js/**/*.js']
+                src: [
+                    '**/*.js',
+                    '/app/scripts/*.js'
+                ]
             }
         },
         focus: {
@@ -61,26 +65,25 @@ module.exports = function (grunt) {
             options: {
                 livereload: LIVERELOAD_PORT
             },
-            gruntfile: {
-                files: '<%= jshint.gruntfile.src %>',
-                tasks: ['jshint:gruntfile']
+            html: {
+                files: [
+                    '**/*.html'
+                ]
             },
             js: {
                 files: [
                     '<%= jshint.js.src %>',
-                    '/app/components/*/*.js',
-                    '/app/scripts/*.js'
-                ],
-                tasks: ['jshint:js']
+                    '**/*.js'
+                ]
+                //tasks: ['jshint:js']
+            },
+
+            gruntfile: {
+                files: '<%= jshint.gruntfile.src %>'
+                //tasks: ['jshint:gruntfile']
             },
             css: {
                 files: 'app/assets/css/*.css'
-            },
-            html: {
-                files: [
-                    'app/*.html',
-                    'app/views/*.html'
-                ]
             },
             test: {
                 options: {
@@ -129,7 +132,7 @@ module.exports = function (grunt) {
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
             return grunt.task.run([
-                'jshint',
+                //'jshint',
                 'build',
                 'express:dist',
                 'open:server',

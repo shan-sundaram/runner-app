@@ -18,8 +18,12 @@ requirejs.config({
         "hasher": "/assets/vendor/hasher/dist/js/hasher",
         "signals": "/assets/vendor/js-signals/dist/signals",
         "text": "/assets/vendor/text/text",
+        "bootstrap": "/assets/vendor/bootstrap/dist/js/bootstrap",
+        "knockstrap": "/assets/vendor/knockstrap/build/knockstrap",
         "router": "/scripts/router",
-        "fixtures": "fixtures"
+        "fixtures": "fixtures",
+        "runner": "runner"
+
     }
 });
 

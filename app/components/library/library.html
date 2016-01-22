@@ -7,19 +7,14 @@
             <div class="col-sm-9 col-sm-push-3">
                 <h1>Runner Playbooks</h1>
                 <p class="lead">Browse the library of playbooks to quickly build environments, or add a playbook to your private library with Playbook Builder.</p>
-                <ul class="nav nav-tabs clearfix">
-                    <li class="active" data-bind="css: { active: tabViews.playbook.selected() === 'playbooks-public' }">
-                    <!--<li class="active">-->
-                        <a href="#playbooks/public" data-bind="click: tabViews.playbook.selected()">Public (12)</a>
-                    </li>
-                    <li data-bind="css: { active: tabViews.playbook.selected() === 'playbooks-private' }">
-                    <!--<li>-->
-                        <a href="#playbooks/private" data-bind="click: tabViews.playbook.selected()">Private (3)</a>
-                    </li>
-                </ul>
 
-                <!--<div class="tab-content" data-bind="template: { name: tabViews.playbook.selected() }"></div>-->
-                <div class="tab-content">
+
+                <library-tabs></library-tabs>
+                <!--<library-tabs params="tab: tab"></library-tabs>-->
+
+
+                <div class="tab-content" data-bind="template: { name: $root.getTemplate }">
+                <!--<div class="tab-content">-->
                     <div id="playbooks-public" class="tab-pane">
                         <!-- BEGIN: PUBLIC PLAYBOOKS -->
                         <p><button class="btn btn-default">run manual playbook</button></p>
@@ -117,12 +112,16 @@
                         <!-- END: PUBLIC PLAYBOOKS -->
                     </div>
 
-                    <div id="playbooks-private" class="tab-pane">
+                    <div id="playbooks-private" class="tab-pane active">
                         <!-- BEGIN: PRIVATE PLAYBOOKS -->
 
                         <!-- END: PRIVATE PLAYBOOKS -->
                     </div>
                 </div>
+
+
+
+
 
             </div>
 

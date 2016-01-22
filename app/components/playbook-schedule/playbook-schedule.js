@@ -1,4 +1,4 @@
-define(['knockout', 'text!./playbook-schedule.html', '/scripts/fixtures.js'], function (ko, htmlString, fixtures) {
+define(['knockout', 'text!./playbook-schedule.html', '/scripts/fixtures.js'], function (ko, template, fixtures) {
 
     function PlaybookScheduleViewModel(params) {
         var self = this;
@@ -6,6 +6,6 @@ define(['knockout', 'text!./playbook-schedule.html', '/scripts/fixtures.js'], fu
 
     return {
         viewModel: PlaybookScheduleViewModel,
-        template: htmlString
+        template: template
     };
 });

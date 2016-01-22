@@ -1,4 +1,4 @@
-define(['knockout', 'text!./library.html', '/scripts/fixtures.js'], function (ko, htmlString, fixtures) {
+define(['knockout', 'text!./library.html', '/scripts/fixtures.js'], function (ko, template, fixtures) {
 
     function Job(params) {
         this.jobId = ko.observable(params.jobId || '—');
@@ -29,15 +29,6 @@ define(['knockout', 'text!./library.html', '/scripts/fixtures.js'], function (ko
     function LibraryViewModel(params) {
         var self = this;
 
-        self.tabViews = {
-            playbook: {
-                selected: ko.observable()
-            },
-            job: {
-                selected: ko.observable()
-            }
-        };
-
         self.jobs = [];
         self.playbooksFeatured = [];
         self.playbooks = [];
@@ -60,6 +51,6 @@ define(['knockout', 'text!./library.html', '/scripts/fixtures.js'], function (ko
 
     return {
         viewModel: LibraryViewModel,
-        template: htmlString
+        template: template
     };
 });

@@ -25,8 +25,6 @@ define(['knockout', 'jquery', 'router'], function (ko, $, router) {
         require: '/components/jobs/jobs.js'
     });
 
-
-
     ko.components.register("playbook", {
         require: '/components/playbook/playbook.js'
     });
@@ -35,9 +33,15 @@ define(['knockout', 'jquery', 'router'], function (ko, $, router) {
         require: '/components/job/job.js'
     });
 
+
     ko.components.register("footer", {
         require: '/components/footer/footer.js'
     });
+
+    ko.components.register("library-tabs", {
+        require: '/components/library-tabs/library-tabs.js'
+    });
+
 
 
     // Start the application

@@ -1,4 +1,4 @@
-define(['knockout', 'text!./footer.html', '/scripts/fixtures.js'], function (ko, htmlString, fixtures) {
+define(['knockout', 'text!./footer.html', '/scripts/fixtures.js'], function (ko, template, fixtures) {
 
     function Activity(params) {
         this.date = ko.observable(params.date || '—');
@@ -20,6 +20,6 @@ define(['knockout', 'text!./footer.html', '/scripts/fixtures.js'], function (ko,
 
     return {
         viewModel: NavigationViewModel,
-        template: htmlString
+        template: template
     };
 });

@@ -1,4 +1,4 @@
-define(['knockout', 'jquery', 'text!./navigation.html', '/scripts/fixtures.js'], function (ko, jquery, htmlString, fixtures) {
+define(['knockout', 'jquery', 'text!./navigation.html', '/scripts/fixtures.js'], function (ko, jquery, template, fixtures) {
 
     function NavigationViewModel(params) {
         var self = this;
@@ -6,6 +6,7 @@ define(['knockout', 'jquery', 'text!./navigation.html', '/scripts/fixtures.js'],
 
     return {
         viewModel: NavigationViewModel,
-        template: htmlString
+        template: template
     };
 });
+

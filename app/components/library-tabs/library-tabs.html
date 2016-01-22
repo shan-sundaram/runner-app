@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs clearfix" data-bind="foreach: { data: tabs, as: 'tab' }">
+    <li data-bind="css: { active: tab.isSelected }">
+        <a href="#" data-bind="click: $parent.selectedTab">
+            <span style="text-transform: capitalize;" data-bind="text: tab.titleString()"></span>
+        </a>
+        <!--<a href="#" data-bind="click: $parent.selectedTab, text: tab.title"></a>-->
+    </li>
+</ul>
