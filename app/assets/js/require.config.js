@@ -6,13 +6,17 @@
 
 console.log("require.config.js");
 
-requirejs.config({
-    //"baseUrl": "/scripts/",
+require.config({
+    // Initialize the application with the main application file.
+    deps: ["main"],
+
+    //"baseUrl": "../assets/",
     "paths": {
         "jquery": "/assets/vendor/jquery/dist/jquery",
         //"knockout": "/vendor/knockout/dist/knockout",
         "knockout": "https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0",
         "knockout-projections": "/assets/vendor/knockout-projections/dist/knockout-projections",
+        "knockout-mapping": "/assets/vendor/bower-knockout-mapping/dist/knockout.mapping.js",
         "cyclops": "https://assets.ctl.io/cyclops/1.1.2/scripts/cyclops.min",
         "crossroads": "/assets/vendor/crossroads/dist/crossroads",
         "hasher": "/assets/vendor/hasher/dist/js/hasher",
@@ -23,11 +27,10 @@ requirejs.config({
         "router": "/scripts/router",
         //"fixtures": "fixtures",
         "runner": "runner"
-
     }
 });
 
-requirejs(["main"]);
+//requirejs(["main"]);
 
 
 

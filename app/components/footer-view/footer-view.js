@@ -1,4 +1,12 @@
-define(['knockout', 'text!./footer.html', '/scripts/fixtures.js'], function (ko, template, fixtures) {
+/**
+ * Created by ericjohnson on 1/15/16.
+ */
+
+'use strict';
+
+console.log('footer.js');
+
+define(['knockout', 'text!./footer.html', 'fixtures'], function (ko, template, fixtures) {
 
     function Activity(params) {
         this.date = ko.observable(params.date || '—');
