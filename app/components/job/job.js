@@ -9,7 +9,7 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
     function JobViewModel(params) {
         var self = this;
         var dev = true;
-        
+
         var jobData;
         var idJob = params.id;
 
