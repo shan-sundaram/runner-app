@@ -1,4 +1,27 @@
-define(['knockout', 'text!./job.html', '/scripts/fixtures.js', 'runner'], function (ko, template, fixtures, RNR) {
+define(['knockout', 'text!./job.html', 'fixtures', 'runner'], function (ko, template, fixtures, RNR) {
+
+    /*
+     function Job(params) {
+         this.jobId = ko.observable(params.jobId || '—');
+         this.name = ko.observable(params.name || '—');
+         this.status = ko.observable(params.status || '—');
+         this.icon = ko.observable(params.icon || '—');
+         this.user = ko.observable(params.user || '—');
+         this.duration = ko.observable(params.duration || '—');
+         this.finished = ko.observable(params.finished || '—');
+     }
+     */
+
+    /*
+        jobId: 'jobId 33333-333333-33333333',
+        executionId: 'executionId 33333-333333-33333333',
+        name: 'Nodejs Server',
+        status: 'running',
+        icon: '#icon-play',
+        user: 'Chris Kent',
+        duration: '23 min 30 sec',
+        finished: '2 hours ago'
+    */
 
     function Job(jobData) {
         this.id = ko.observable(jobData.id || '—');
@@ -19,19 +42,84 @@ define(['knockout', 'text!./job.html', '/scripts/fixtures.js', 'runner'], functi
         this.links = ko.observable(jobData.links || '—');
         this.callbacks = ko.observable(jobData.callbacks || '—');
 
-         //    jobId: 'jobId 33333-333333-33333333',
-         //    executionId: 'executionId 33333-333333-33333333',
-         //    name: 'Nodejs Server',
-         //    status: 'running',
-         //    icon: '#icon-play',
-         //    user: 'Chris Kent',
-         //    duration: '23 min 30 sec',
-         //    finished: '2 hours ago'
+        this.icon = ko.computed(function () {
+            var statuses = {
+                ACTIVE: '#icon-play',
+                COMPLETE: '#icon-ellipsis',
+                ERRORED: '#icon-exclamation-circle',
+                STOPPED: '#icon-stop',
+                QUEUED: '#icon-ellipsis'
+            };
+            var thisStatus = this.status();
+            console.log('thisStatus: ' + thisStatus);
+            var icon = statuses[thisStatus];
+            console.log('icon: ' + icon);
+            return icon;
+        }, this);
+
+        this.class = ko.computed(function () {
+            var statuses = {
+                ACTIVE: 'running',
+                COMPLETE: 'success',
+                ERRORED: 'error',
+                STOPPED: 'error',
+                QUEUED: 'running'
+            };
+            var thisStatus = this.status();
+            console.log('thisStatus: ' + thisStatus);
+            var cssClass = statuses[thisStatus];
+            console.log('cssClass: ' + cssClass);
+            return cssClass;
+        }, this);
     }
+
+    //http://knockoutjs.com/documentation/plugins-mapping.html
+    //https://github.com/SteveSanderson/knockout.mapping
+
+    //https://github.com/pkmccaffrey/knockout.mapping
+    //https://github.com/crissdev/knockout.mapping
+
+
+    var JobViewModelTest = function (data) {
+        var jobData = fixtures.job;
+
+        ko.mapping.fromJS(jobData, {}, this);
+
+        this.icon = ko.computed(function () {
+            var statuses = {
+                ACTIVE: '#icon-play',
+                COMPLETE: '#icon-ellipsis',
+                ERRORED: '#icon-exclamation-circle',
+                STOPPED: '#icon-stop',
+                QUEUED: '#icon-ellipsis'
+            };
+            var thisStatus = this.status();
+            console.log('thisStatus: ' + thisStatus);
+            var icon = statuses[thisStatus];
+            console.log('icon: ' + icon);
+            return icon;
+        }, this);
+
+        this.class = ko.computed(function () {
+            var statuses = {
+                ACTIVE: 'running',
+                COMPLETE: 'success',
+                ERRORED: 'error',
+                STOPPED: 'error',
+                QUEUED: 'running'
+            };
+            var thisStatus = this.status();
+            console.log('thisStatus: ' + thisStatus);
+            var cssClass = statuses[thisStatus];
+            console.log('cssClass: ' + cssClass);
+            return cssClass;
+        }, this);
+    };
+
 
     function JobViewModel(params) {
         var self = this;
-        var dev = false;
+        var dev = true;
 
         self.job = ko.observable();
 
@@ -62,16 +150,25 @@ define(['knockout', 'text!./job.html', '/scripts/fixtures.js', 'runner'], functi
     }
 
     return {
-        viewModel: JobViewModel,
+        viewModel: JobViewModelTest,
+        //viewModel: JobViewModel,
         template: template
     };
 });
 
 
+var fake = {
+    jobId: 'jobId 33333-333333-33333333',
+    executionId: 'executionId 33333-333333-33333333',
+    name: 'Nodejs Server',
+    status: 'running',
+    icon: '#icon-play',
+    user: 'Chris Kent',
+    duration: '23 min 30 sec',
+    finished: '2 hours ago'
+};
 
-
-
-var foo = {
+var real = {
 	"id": "56195215-69c8-4b48-b5bb-c5a2512d40a5",
 	"accountAlias": "WFTC",
 	"name": "Test Multi NIC-1",

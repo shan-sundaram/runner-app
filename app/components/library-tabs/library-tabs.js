@@ -1,4 +1,4 @@
-define(['knockout', 'jquery', 'text!./library-tabs.html', '/scripts/fixtures.js'], function (ko, jquery, template, fixtures) {
+define(['knockout', 'jquery', 'text!./library-tabs.html', 'fixtures'], function (ko, jquery, template, fixtures) {
 
     var tabsConfig = [
         {

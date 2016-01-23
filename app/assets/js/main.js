@@ -34,8 +34,8 @@ define(['knockout', 'jquery', 'router'], function (ko, $, router) {
     });
 
 
-    ko.components.register("footer", {
-        require: '/components/footer/footer.js'
+    ko.components.register("footer-view", {
+        require: '/components/footer-view/footer-view.js'
     });
 
     ko.components.register("library-tabs", {

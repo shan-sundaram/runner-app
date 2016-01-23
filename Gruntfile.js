@@ -105,7 +105,7 @@ module.exports = function (grunt) {
             /* jshint camelcase: false */
             options: {
                 port: SERVER_PORT,
-                script: 'server/server.js'
+                script: 'app/assets/js/express.config.js'
             },
             server: {
                 options: {
@@ -129,6 +129,10 @@ module.exports = function (grunt) {
         }
     });
 
+    //ToDo: Need a grunt task to run:
+    //ToDo: 'lsof -t -i tcp:5858 | xargs kill'
+    //ToDo: Sometimes the server dies and hangs onto the port.
+    //ToDo: The above command smites it.
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
             return grunt.task.run([

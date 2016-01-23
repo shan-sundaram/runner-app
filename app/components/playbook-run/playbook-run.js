@@ -1,4 +1,4 @@
-define(['knockout', 'text!./playbook-run.html', '/scripts/fixtures.js'], function (ko, template, fixtures) {
+define(['knockout', 'text!./playbook-run.html', 'fixtures'], function (ko, template, fixtures) {
 
     function Playbook(params) {
         this.id = ko.observable(params.id || '—');

@@ -203,12 +203,12 @@ html.cyclops #runner #featuredPlaybooks .card-featured {
 html.cyclops #runner #featuredPlaybooks .card-featured.nginx {
   background-color: #009647;
   border-color: #009647;
-  background-image: url(/assets/images/bg-nginx.png);
+  background-image: url(/assets/img/bg-nginx.png);
 }
 html.cyclops #runner #featuredPlaybooks .card-featured.kubernetes {
   background-color: #326de6;
   border-color: #326de6;
-  background-image: url(/assets/images/hexegon_texture_hero-01.png);
+  background-image: url(/assets/img/hexegon_texture_hero-01.png);
 }
 html.cyclops #runner #featuredPlaybooks .card-featured .card-header {
   background-color: rgba(0, 0, 0, 0.15);

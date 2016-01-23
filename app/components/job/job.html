@@ -1,5 +1,3 @@
-
-
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -14,8 +12,8 @@
                 </li>
             </ol>
             <div class="content-header">
-                <h1 data-bind="text: job.name">[job.name]</h1>
-                <p class="lead" data-bind="text: job.id">[job.id]</p>
+                <h1 data-bind="text: name">[name]</h1>
+                <p class="lead" data-bind="text: id">[id]</p>
             </div>
         </div>
     </div>
@@ -54,31 +52,31 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="job-status" data-bind="css: job.status">
-                            <div class="status-bar" title="[job.status]" data-bind="attr: { title: job.status }">
+                        <div class="job-status" data-bind="css: class()">
+                            <div class="status-bar" title="[status]" data-bind="attr: { title: status }">
                                 <svg class="cyclops-icon">
-                                    <use xlink:href='#icon-play'>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play" data-bind="attr: {'xlink:href': icon()}"></use>
                                 </svg>
                             </div>
                             <div class="details clearfix">
                                 <div class="col col-100">
-                                    <div class="user">
+                                    <div class="user" title="User">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-user'></use>
                                         </svg>
-                                        <span data-bind="text: job.user">[job.user]</span>
+                                        <span data-bind="text: user">[user]</span>
                                     </div>
-                                    <div class="duration">
+                                    <div class="duration" title="Duration">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-clock'></use>
                                         </svg>
-                                        <span data-bind="text: job.duration">[job.duration]</span>
+                                        <span data-bind="text: duration">[duration]</span>
                                     </div>
-                                    <div class="finished">
+                                    <div class="finished" title="Finished">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-calendar'></use>
                                         </svg>
-                                        <span data-bind="text: job.finished">[job.finished]</span>
+                                        <span data-bind="text: finished">[finished]</span>
                                     </div>
                                 </div>
                             </div>

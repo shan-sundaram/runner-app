@@ -1,4 +1,4 @@
-define(['knockout', 'text!./library.html', '/scripts/fixtures.js'], function (ko, template, fixtures) {
+define(['knockout', 'text!./library.html', 'fixtures'], function (ko, template, fixtures) {
 
     function Job(params) {
         this.jobId = ko.observable(params.jobId || '—');

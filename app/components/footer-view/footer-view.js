@@ -4,9 +4,9 @@
 
 'use strict';
 
-console.log('footer.js');
+console.log('footer-view.js');
 
-define(['knockout', 'text!./footer.html', 'fixtures'], function (ko, template, fixtures) {
+define(['knockout', 'text!./footer-view.html', 'fixtures'], function (ko, template, fixtures) {
 
     function Activity(params) {
         this.date = ko.observable(params.date || '—');

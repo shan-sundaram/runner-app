@@ -1,37 +1,38 @@
 {
-  "name": "wfDashboard",
-  "private": true,
-  "version": "1.0.0",
-  "description": "Automation Dashboard",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CenturyLinkCloud/wf-dashboard/issues"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "bower": "^1.7.4",
-    "express": "^3.5.0",
-    "socket.io": "^0.9.16"
-  },
-  "devDependencies": {
-    "grunt-contrib-jshint": "^0.11.2",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-copy": "^0.8.0",
-    "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-text-replace": "^0.3.11",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-express-server": "^0.4.13",
-    "grunt-contrib-requirejs": "^0.4.3",
-    "grunt-contrib-connect": "^0.7.1",
-    "load-grunt-tasks": "^0.4.0",
-    "connect-livereload": "^0.3.2",
-    "grunt-open": "^0.2.3",
-    "grunt-focus": "^0.1.1",
-    "grunt-wait": "^0.1.0"
-  },
-  "bugs": {
-    "url": "https://github.com/CenturyLinkCloud/wf-dashboard/issues"
-  },
-  "homepage": "https://github.com/CenturyLinkCloud/wf-dashboard/blob/master/README.md"
+    "name": "wfDashboard",
+    "description": "Automation Dashboard",
+    "homepage": "https://github.com/CenturyLinkCloud/wf-dashboard/blob/master/README.md",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": "The CenturyLinkCloud Runner Team",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CenturyLinkCloud/wf-dashboard/issues"
+    },
+    "dependencies": {
+        "bower": "^1.7.4",
+        "express": "^3.5.0",
+        "socket.io": "^0.9.16"
+    },
+    "devDependencies": {
+        "grunt-contrib-jshint": "^0.11.2",
+        "grunt-contrib-concat": "^0.5.1",
+        "grunt-contrib-copy": "^0.8.0",
+        "grunt-contrib-uglify": "~0.5.0",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-text-replace": "^0.3.11",
+        "grunt-contrib-clean": "^0.6.0",
+        "grunt-express-server": "^0.4.13",
+        "grunt-contrib-requirejs": "^0.4.3",
+        "grunt-contrib-connect": "^0.7.1",
+        "load-grunt-tasks": "^0.4.0",
+        "connect-livereload": "^0.3.2",
+        "grunt-open": "^0.2.3",
+        "grunt-focus": "^0.1.1",
+        "grunt-wait": "^0.1.0"
+    },
+    "bugs": {
+        "url": "https://github.com/CenturyLinkCloud/wf-dashboard/issues"
+    }
 }
