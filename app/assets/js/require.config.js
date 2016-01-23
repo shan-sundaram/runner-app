@@ -25,7 +25,9 @@ require.config({
         knockstrap: 'vendor/knockstrap/build/knockstrap',
         router: 'router',
         fixtures: 'fixtures',
-        runner: 'runner'
+        runner: 'runner',
+        runnerConfig: 'runner.config',
+
     },
     deps: ['main'],
     //callback: function (ko, mapping) {

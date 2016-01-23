@@ -5,6 +5,8 @@
 
 // Start the main app logic.
 define(['knockout', 'jquery', 'router'], function (ko, $, router) {
+
+
     ko.components.register("navigation", {
         require: '/components/navigation/navigation.js'
     });
@@ -46,3 +48,5 @@ define(['knockout', 'jquery', 'router'], function (ko, $, router) {
     // Start the application
     ko.applyBindings({route: router.currentRoute});
 });
+
+
