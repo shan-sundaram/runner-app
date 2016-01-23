@@ -130,7 +130,8 @@ module.exports = function (grunt) {
     });
 
     //ToDo: Need a grunt task to run:
-    //ToDo: 'lsof -t -i tcp:5858 | xargs kill'
+    //ToDo: lsof -t -i tcp:5858 | xargs kill
+    //ToDo: lsof -t -i tcp:35729 | xargs kill
     //ToDo: Sometimes the server dies and hangs onto the port.
     //ToDo: The above command smites it.
     grunt.registerTask('serve', function (target) {

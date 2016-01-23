@@ -25,17 +25,17 @@
             <div class="col-sm-12">
                 <ol class="action-toolbar">
                     <li>
-                        <a href="#job/stop">
+                        <a href="#job/stop" data-rest-verb="POST" data-bind="attr: { href: hrefJobStop() }">
                             <svg class="cyclops-icon">
-                                <use xlink:href='#icon-stop'>
+                                <use xlink:href='#icon-stop'></use>
                             </svg>
                             <span>stop</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#job/kill">
+                        <a href="#job/kill" data-rest-verb="DELETE" data-bind="attr: { href: hrefJobKill() }">
                             <svg class="cyclops-icon">
-                                <use xlink:href='#icon-close'>
+                                <use xlink:href='#icon-close'></use>
                             </svg>
                             <span>kill</span>
                         </a>
@@ -52,10 +52,10 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="job-status" data-bind="css: class()">
+                        <div class="job-status" data-bind="css: statusClass()">
                             <div class="status-bar" title="[status]" data-bind="attr: { title: status }">
                                 <svg class="cyclops-icon">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play" data-bind="attr: {'xlink:href': icon()}"></use>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play" data-bind="attr: {'xlink:href': statusIcon()}"></use>
                                 </svg>
                             </div>
                             <div class="details clearfix">
@@ -64,19 +64,19 @@
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-user'></use>
                                         </svg>
-                                        <span data-bind="text: user">[user]</span>
+                                        <!--<span data-bind="text: user">[user]</span>-->
                                     </div>
                                     <div class="duration" title="Duration">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-clock'></use>
                                         </svg>
-                                        <span data-bind="text: duration">[duration]</span>
+                                        <!--<span data-bind="text: duration">[duration]</span>-->
                                     </div>
                                     <div class="finished" title="Finished">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-calendar'></use>
                                         </svg>
-                                        <span data-bind="text: finished">[finished]</span>
+                                        <!--<span data-bind="text: finished">[finished]</span>-->
                                     </div>
                                 </div>
                             </div>

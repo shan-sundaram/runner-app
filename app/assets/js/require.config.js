@@ -8,14 +8,14 @@ console.log('require.config.js');
 
 require.config({
     // Initialize the application with the main application file.
-    deps: ['main'],
     baseUrl: 'assets/js',
     paths: {
         jquery: 'vendor/jquery/dist/jquery',
-        'knockout': 'vendor/knockout/dist/knockout',
         //knockout: 'https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0',
-        knockoutProjections: 'vendor/knockout-projections/dist/knockout-projections',
-        knockoutMapping: 'vendor/bower-knockout-mapping/dist/knockout.mapping.js',
+        knockout: 'vendor/knockout/dist/knockout',
+        mapping: 'vendor/bower-knockout-mapping/dist/knockout.mapping',
+
+        projections: 'vendor/knockout-projections/dist/knockout-projections',
         cyclops: 'https://assets.ctl.io/cyclops/1.1.2/scripts/cyclops.min',
         crossroads: 'vendor/crossroads/dist/crossroads',
         hasher: 'vendor/hasher/dist/js/hasher',
@@ -26,7 +26,11 @@ require.config({
         router: 'router',
         fixtures: 'fixtures',
         runner: 'runner'
-    }
+    },
+    deps: ['main'],
+    //callback: function (ko, mapping) {
+    //    ko.mapping = mapping;
+    //}
 });
 
 

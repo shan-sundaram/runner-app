@@ -1,4 +1,4 @@
-define(['knockout', 'text!./job.html', 'fixtures', 'runner'], function (ko, template, fixtures, RNR) {
+define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runner'], function (ko, mapping, template, fixtures, RNR) {
 
     /*
      function Job(params) {
@@ -81,42 +81,62 @@ define(['knockout', 'text!./job.html', 'fixtures', 'runner'], function (ko, temp
 
 
     var JobViewModelTest = function (data) {
+        console.log('JobViewModelTest');
+        console.log(data);
+
+        var self = this;
+
         var jobData = fixtures.job;
+        console.log(jobData);
 
-        ko.mapping.fromJS(jobData, {}, this);
+        ko.mapping.fromJS(jobData, {}, self);
 
-        this.icon = ko.computed(function () {
-            var statuses = {
-                ACTIVE: '#icon-play',
-                COMPLETE: '#icon-ellipsis',
-                ERRORED: '#icon-exclamation-circle',
-                STOPPED: '#icon-stop',
-                QUEUED: '#icon-ellipsis'
-            };
-            var thisStatus = this.status();
-            console.log('thisStatus: ' + thisStatus);
-            var icon = statuses[thisStatus];
-            console.log('icon: ' + icon);
-            return icon;
-        }, this);
+        self.hrefJobKill = ko.computed(function () {
+            var href = '#job/' + self.id();
+            console.log('href: ' + href);
+            return href;
+        }, self);
 
-        this.class = ko.computed(function () {
-            var statuses = {
-                ACTIVE: 'running',
-                COMPLETE: 'success',
-                ERRORED: 'error',
-                STOPPED: 'error',
-                QUEUED: 'running'
-            };
-            var thisStatus = this.status();
-            console.log('thisStatus: ' + thisStatus);
-            var cssClass = statuses[thisStatus];
-            console.log('cssClass: ' + cssClass);
-            return cssClass;
-        }, this);
+        self.hrefJobStop = ko.computed(function () {
+            var href = '#job/' + self.id();
+            console.log('href: ' + href);
+            return href;
+        }, self);
+
+        var statuses = {
+            ACTIVE: {
+                icon: '#icon-play',
+                class: 'running'
+            },
+            COMPLETE: {
+                icon: '#icon-ellipsis',
+                class: 'success'
+            },
+            ERRORED: {
+                icon: '#icon-exclamation-circle',
+                class: 'error'
+            },
+            STOPPED: {
+                icon: '#icon-stop',
+                class: 'error'
+            },
+            QUEUED: {
+                icon: '#icon-ellipsis',
+                class: 'running'
+            }
+        };
+
+        self.statusIcon = ko.computed(function () {
+            return statuses[self.status()]['icon'];
+        }, self);
+
+        self.statusClass = ko.computed(function () {
+            return statuses[self.status()]['class'];
+        }, self);
     };
 
 
+/*
     function JobViewModel(params) {
         var self = this;
         var dev = true;
@@ -148,6 +168,7 @@ define(['knockout', 'text!./job.html', 'fixtures', 'runner'], function (ko, temp
             });
         }
     }
+ */
 
     return {
         viewModel: JobViewModelTest,

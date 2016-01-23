@@ -16,7 +16,7 @@ We have two kinds of dependencies in this project: npm managed and bower managed
 
 In the future we will preconfigure `grunt` to automatically run both `npm` and `bower` but for now simply do:
 
-### Install npm managed dependencies
+### npm managed dependencies
 
 ```
 npm install
@@ -26,7 +26,7 @@ You should find that you have a new folder in the project.
 
 * `node_modules` - contains the npm packages for the tools we need
 
-### Install bower managed dependencies
+### bower managed dependencies
 
 ```
 bower install
@@ -34,7 +34,7 @@ bower install
 
 You should find that you have a new folder in the project.
 
-`app/assets/js/vendor` - contains bower managed files
+* `app/assets/js/vendor` - contains bower managed files
 
 *Note that the `bower_components` folder would normally be installed in the root folder but
 we have changed this location and name via the `.bowerrc` file.*
