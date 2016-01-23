@@ -1,18 +1,77 @@
 define({
+
+    //job: {
+    //    jobId: 'jobId 33333-333333-33333333',
+    //    executionId: 'executionId 33333-333333-33333333',
+    //    name: 'Nodejs Server',
+    //    status: 'running',
+    //    icon: '#icon-play',
+    //    user: 'Chris Kent',
+    //    duration: '23 min 30 sec',
+    //    finished: '2 hours ago'
+    //},
+
     job: {
-        jobId: 'jobId 33333-333333-33333333',
-        executionId: 'executionId 33333-333333-33333333',
-        name: 'Nodejs Server',
-        status: 'running',
-        icon: '#icon-play',
-        user: 'Chris Kent',
-        duration: '23 min 30 sec',
-        finished: '2 hours ago'
+        "id": "56195215-69c8-4b48-b5bb-c5a2512d40a5",
+        "accountAlias": "WFTC",
+        "name": "Test Multi NIC-1",
+        "description": "Test Multi NIC-1",
+        "playbook": null,
+        "useDynamicInventory": false,
+        "properties": {},
+        "status": "ACTIVE",
+        "createdTime": 1453414212512,
+        "lastUpdatedTime": 1453414212512,
+        "bootstrapKeyPairAlias": null,
+        "playbookTags": null,
+        "executionTtl": null,
+        "repository": {
+            "url": "https://github.com/popurisiva/test-playbook",
+            "branch": null,
+            "defaultPlaybook": "create_file.yml",
+            "credentials": {
+                "username": "popurisiva",
+                "password": "Sh1vaGit"
+            }
+        },
+        "hosts": [
+            {
+                "id": "localhost",
+                "hostVars": {
+                    "ansible_connection": "local"
+                }
+            },
+            {
+                "id": "UC1WFTCTEST08",
+                "hostVars": {
+                    "ansible_connection": "ssh",
+                    "ansible_ssh_host": "10.122.35.27"
+                }
+            }
+        ],
+        "links": [
+            {
+                "ref": "self",
+                "id": "56195215-69c8-4b48-b5bb-c5a2512d40a5",
+                "href": "/jobs/WFTC/56195215-69c8-4b48-b5bb-c5a2512d40a5",
+                "verbs": ["GET", "POST", "DELETE"]
+            },
+            {
+                "ref": "self",
+                "id": "56195215-69c8-4b48-b5bb-c5a2512d40a5",
+                "href": "/jobs/WFTC/56195215-69c8-4b48-b5bb-c5a2512d40a5/executions",
+                "verbs": ["GET"]
+            }
+        ],
+        "callbacks": []
     },
     jobs: [
         {
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
+
             jobId: 'jobId 11111-111111-11111111',
             executionId: 'executionId 11111-111111-11111111',
+
             name: 'Inline Playbook Test',
             status: 'running',
             icon: '#icon-ellipsis',

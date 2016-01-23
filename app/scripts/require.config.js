@@ -21,7 +21,7 @@ requirejs.config({
         "bootstrap": "/assets/vendor/bootstrap/dist/js/bootstrap",
         "knockstrap": "/assets/vendor/knockstrap/build/knockstrap",
         "router": "/scripts/router",
-        "fixtures": "fixtures",
+        //"fixtures": "fixtures",
         "runner": "runner"
 
     }
