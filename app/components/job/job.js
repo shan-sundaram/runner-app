@@ -1,279 +1,136 @@
 define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
 
+    function Job(job) {
+        console.log('job object create', job);
+        this.id = ko.observable(job.id || '—');
+        this.name = ko.observable(job.name || '—');
+    }
+
     //http://knockoutjs.com/documentation/plugins-mapping.html
     //https://github.com/SteveSanderson/knockout.mapping
 
     //https://github.com/pkmccaffrey/knockout.mapping
     //https://github.com/crissdev/knockout.mapping
 
-    console.log.json = function (parm) {
-        console.log(ko.toJSON(parm, null, 4));
-    };
-    console.log.js = function (parm) {
-        console.log(ko.toJS(parm, null, 4));
+
+    var statuses = {
+        ACTIVE: {
+            icon: '#icon-play',
+            class: 'running'
+        },
+        COMPLETE: {
+            icon: '#icon-ellipsis',
+            class: 'success'
+        },
+        ERRORED: {
+            icon: '#icon-exclamation-circle',
+            class: 'error'
+        },
+        STOPPED: {
+            icon: '#icon-stop',
+            class: 'error'
+        },
+        QUEUED: {
+            icon: '#icon-ellipsis',
+            class: 'running'
+        }
     };
 
-    var JobViewModel = function (params) {
+    function MappingAdditions(data) {
+        var self = this;
+        var model = ko.mapping.fromJS(data, {}, self);
+
+        var theId = self.id();
+        var theStatus = self.status();
+
+        model.duration = ko.computed(function() {
+            return self.createdTime();
+        }, self);
+
+        model.finished = ko.computed(function() {
+            return self.createdTime();
+        }, self);
+
+        model.hrefJobStop = ko.computed(function() {
+            return '#job/' + theId;
+        }, self);
+
+        model.hrefJobKill = ko.computed(function() {
+            return '#job/' + theId;
+        }, self);
+
+        model.statusIcon = ko.computed(function () {
+            return statuses[theStatus]['icon'];
+        }, self);
+        model.statusClass = ko.computed(function () {
+            return statuses[theStatus]['class'];
+        }, self);
+
+        return model;
+    }
+
+    var mappings = {
+        create: function (options) {
+            return new MappingAdditions(options.data);
+        }
+    };
+
+    function JobViewModel(params) {
         var self = this;
         var dev = false;
 
-
-        self.job = ko.observable({});
-
-
-        //self.job = ko.observable();
-        var statuses = {
-            ACTIVE: {
-                icon: '#icon-play',
-                class: 'running'
-            },
-            COMPLETE: {
-                icon: '#icon-ellipsis',
-                class: 'success'
-            },
-            ERRORED: {
-                icon: '#icon-exclamation-circle',
-                class: 'error'
-            },
-            STOPPED: {
-                icon: '#icon-stop',
-                class: 'error'
-            },
-            QUEUED: {
-                icon: '#icon-ellipsis',
-                class: 'running'
-            }
-        };
-
-        //var jobData;
         var jobId = params.id;
-        //self.job = ko.observable();
 
-        //console.log('params.id: ' + jobId);
+        console.log('params.id: ' + jobId);
+
+        self.job = ko.observableArray();
+
         if (dev) {
-            self.job(fixtures.job);
+            self.job(new Job(fixtures.job));
+
         } else {
-            var RNRrunner = runnerConfig.getRunnerInstance();
-            //var context = RNRrunner.context;
-            //var token = context.token;
-            //var accountAlias = context.accountAlias;
-            //var promise = context.Promise(doTheHustle);
-
-            //console.log('RNRrunner:');
-            //console.log(RNRrunner);
-            //
-            //console.log('context:');
-            //console.log(context);
-            //
-            //console.log('token: ' + token);
-            //console.log('accountAlias: ' + accountAlias);
-
-            //var promise = RNRrunner.jobs.get(jobId)
-            //        .then(function (result) {
-            //
-            //            // Update Job instance with the result as the underlying model.
-            //            //return new RNR.Execution(self.context, result);
-            //
-            //        }).then(function (result) {
-            //
-            //            // If a callback was provided, execute.
-            //            if (cb) {
-            //                cb(result);
-            //            }
-            //
-            //            return result;
-            //
-            //        });
+            var runner = runnerConfig.getRunnerInstance();
 
 
 
+            runner.jobs.get(jobId).then(function (job) {
+                //console.log(RNRrunner);
 
-            RNRrunner.jobs.get(jobId).then(function (job) {
-                //jobData = job.data;
-                //var jobDataPretty = JSON.stringify(JSON.parse(JSON.stringify(jobData), null, 2));
-                //
                 console.log('/////RNRrunner 1');
                 //console.log(job);
-                console.log(self.job);
 
                 var jobData = job.data;
-                //console.log(ko.toJSON(jobData));
+                console.log("job.data", job.data);
+                console.log("job.data.id", job.data.id);
+                console.log("job.data.name", job.data.name);
 
-                var jobDataPretty = ko.toJSON(jobData, null, 4)
+                self.job(ko.mapping.fromJS(jobData, mappings));
 
-                //console.log('jobDataPretty', jobDataPretty);
+                console.log('self', self);
+                console.log('self.job', self.job());
+                console.log('self.job.id', self.job().id());
+                console.log('self.job.name', self.job().name());
+                console.log('self.job.hrefJobStop', self.job().hrefJobStop());
+                console.log('self.job.hrefJobKill', self.job().hrefJobKill());
+                console.log('self.job.statusIcon', self.job().statusIcon());
+                console.log('self.job.statusClass', self.job().statusClass());
+                //console.log('self.job.statusClass', self.job().repository.credentials.username);
 
-
-                //self.job(ko.mapping.toJSON(jobData, null, 2));
-                //self.job(ko.mapping.fromJS(jobData, {}, self));
-
-                //self.job = ko.observable();
-
-                //console.log('self.job', self.job);
-
-                //self.job = ko.toJSON(self.job);
-                //console.log("self.job", self.job);
-                //console.log(ko.toJSON(self.job));
-
-                //console.log("jobDataPretty", jobDataPretty);
-                console.log(jobDataPretty);
-                //console.log.json(jobDataPretty);
-
-
-                ko.mapping.fromJS(jobData);
-                console.log(self.job);
-                //console.log.json(self);
-
-                //console.log('self.job.status', self.job.status);
-
-
-                self.statusIcon = ko.computed(function () {
-                    return statuses[self.job.status]['icon'];
-                }, self);
-
-                self.statusClass = ko.computed(function () {
-                    return statuses[self.job.status]['class'];
-                }, self);
-
-
-                //console.log(scooby);
-                //console.log('job.name(): ' + job.name());
-                //console.log('jobData.name: ' + jobData.name);
-                //console.log('/////');
-
-                //self.job = new Job(jobData);
-            }).then(function (job) {
-                console.log('/////RNRrunner 2');
-                //console.log(job);
-                //
-                //jobData = job.data;
-                //console.log(jobData);
-                //
-                //self.job = ko.mapping.fromJSON(JSON.stringify(jobData));
-                //console.log(self.job);
-                //console.log(ko.toJSON(self.job));
-                //
-                //self.statusIcon = ko.computed(function () {
-                //    return statuses[self.job.status]['icon'];
-                //}, self);
-                //
-                //self.statusClass = ko.computed(function () {
-                //    return statuses[self.job.status]['class'];
-                //}, self);
-
-
-                //jobData = job.data;
-                //var jobDataPretty = JSON.stringify(JSON.parse(JSON.stringify(jobData), null, 2));
-                //
-                //console.log('/////jobDataPretty');
-                //console.log(jobDataPretty);
-                //console.log('job.name(): ' + job.name());
-                //console.log('jobData.name: ' + jobData.name);
-                //console.log('/////');
-
-                //self.job = new Job(jobData);
             });
 
-
-            //promise.then(function (job) {
-            //    console.log('RNRrunner.jobs.promise');
-            //    //jobData = jobDataPretty;
-                //jobData = job.data;
-                //console.log(jobData);
-                //console.log(jobData.id);
-
-                //var jobDataPretty = JSON.stringify(JSON.parse(JSON.stringify(jobData), null, 2));
-                //var foo = JSON.stringify(jobData);
-                //console.log(foo);
-                //var bar = JSON.parse(foo, null, 2);
-                ////console.log(bar);
-                //var baz = JSON.stringify(bar);
-                //console.log(baz);
-
-                //console.log('/////jobDataPretty');
-                //console.log(jobDataPretty);
-                //console.log('job.name(): ' + job.name());
-                //console.log('jobData.name: ' + jobData.name);
-                //console.log('/////');
-                //
-                //console.log('ffffff');
-                //console.log(jobData);
-                //
-                //console.log('ttttttt');
-                //console.log(jobData);
-                //
-                //console.log("doTheHustle");
-                //console.log(jobData);
-                //var self = this;
-                //console.log(JSON.stringify(job.data));
-                //
-                //self.job = ko.mapping.fromJSON(JSON.stringify(job.data));
-                ////ko.mapping.fromJS(foo, {}, self);
-                //console.log(self.job);
-                //console.log(ko.toJSON(self.job));
-                //console.log(jobData.id);
-                //console.log(self.job);
-                //console.log(self.job.id);
-
-                //self.hrefJobKill = ko.computed(function () {
-                //    var href = '#job/' + self.id;
-                //    console.log('href: ' + href);
-                //    return href;
-                //}, self);
-
-                //self.hrefJobStop = ko.computed(function () {
-                //    var href = '#job/' + self.id;
-                //    console.log('href: ' + href);
-                //    return href;
-                //}, self);
-
-                //var statuses = {
-                //    ACTIVE: {
-                //        icon: '#icon-play',
-                //        class: 'running'
-                //    },
-                //    COMPLETE: {
-                //        icon: '#icon-ellipsis',
-                //        class: 'success'
-                //    },
-                //    ERRORED: {
-                //        icon: '#icon-exclamation-circle',
-                //        class: 'error'
-                //    },
-                //    STOPPED: {
-                //        icon: '#icon-stop',
-                //        class: 'error'
-                //    },
-                //    QUEUED: {
-                //        icon: '#icon-ellipsis',
-                //        class: 'running'
-                //    }
-                //};
-
-                //console.log(self.job);
-
-            //    self.statusIcon = ko.computed(function () {
-            //        return statuses[self.job.status]['icon'];
-            //    }, self);
-            //
-            //    self.statusClass = ko.computed(function () {
-            //        return statuses[self.job.status]['class'];
-            //    }, self);
-            //
-            //
-            //}, function (err) {
-            //    console.log(err); // Error: "It broke"
-            //});
-
-
         }
+
+    }
+
+    // Use prototype to declare any public methods
+    JobViewModel.prototype.doSomething = function() {
 
     };
 
     return {
         viewModel: JobViewModel,
-        template: template
+        template: template,
+        synchronous: true
     };
-
 
 });

@@ -47,6 +47,7 @@ define(['knockout', 'jquery', 'router'], function (ko, $, router) {
 
     // Start the application
     ko.applyBindings({route: router.currentRoute});
+
 });
 
 

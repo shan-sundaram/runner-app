@@ -27,6 +27,8 @@ require.config({
         fixtures: 'fixtures',
         runner: 'runner',
         runnerConfig: 'runner.config',
+        bluebird: 'vendor/bluebird/js/browser/bluebird'
+
 
     },
     deps: ['main'],
