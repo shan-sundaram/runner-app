@@ -69,7 +69,7 @@ define({
         {
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
 
-            jobId: 'jobId 11111-111111-11111111',
+            jobId: '56195215-69c8-4b48-b5bb-c5a2512d40a5',
             executionId: 'executionId 11111-111111-11111111',
 
             name: 'Inline Playbook Test',
