@@ -33,22 +33,22 @@
                 </div>
 
                 <!-- BEGIN: JOBS QUEUE -->
-                <ol class="queue queue-preview" data-bind="foreach: { data: jobs, as: 'job' }">
+                <ol class="queue queue-preview" data-bind="foreach: { data: jobs(), as: 'job' }">
                     <!-- BEGIN: JOB ITEM -->
-                    <li class="" data-bind="css: job.status()">
+                    <li class="" data-bind="css: job.statusClass">
                         <div class="status-bar">
                             <svg class="cyclops-icon" title="queued">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': job.icon() }"></use>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': job.statusIcon }"></use>
                             </svg>
                         </div>
                         <div class="new-list-view-responsive new-list-view-responsive-sm details clearfix">
                             <div class="col col-40">
-                                <a href="#job/999" class="playbook" data-bind="attr: { href: '#job/' + job.jobId() }, text: job.name()">[job.name]</a>
+                                <a href="#job/999" class="playbook" data-bind="attr: { href: '#job/' + job.id() }, text: job.name">[job.name]</a>
                                 <div class="user">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
                                     </svg>
-                                    <span data-bind="text: job.user()">[job.user]</span>
+                                    <!--<span data-bind="text: job.user()">[job.user]</span>-->
                                 </div>
                             </div>
                             <div class="col col-60">

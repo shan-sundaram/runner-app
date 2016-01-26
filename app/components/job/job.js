@@ -1,10 +1,49 @@
 define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
 
+    function Job(jobData) {
+        this.id = ko.observable(jobData.id || '—');
+        this.accountAlias = ko.observable(jobData.accountAlias || '—');
+        this.name = ko.observable(jobData.name || '—');
+        this.description = ko.observable(jobData.description || '—');
+        this.playbook = ko.observable(jobData.playbook || '—');
+        this.useDynamicInventory = ko.observable(jobData.useDynamicInventory || '—');
+        this.properties = ko.observable(jobData.properties || '—');
+        this.status = ko.observable(jobData.status || '—');
+        this.createdTime = ko.observable(jobData.createdTime || '—');
+        this.lastUpdatedTime = ko.observable(jobData.lastUpdatedTime || '—');
+        this.bootstrapKeyPairAlias = ko.observable(jobData.bootstrapKeyPairAlias || '—');
+        this.playbookTags = ko.observable(jobData.playbookTags || '—');
+        this.executionTtl = ko.observable(jobData.executionTtl || '—');
+        this.repository = ko.observable(jobData.repository || '—');
+        this.hosts = ko.observable(jobData.hosts || '—');
+        this.links = ko.observable(jobData.links || '—');
+        this.callbacks = ko.observable(jobData.callbacks || '—');
+
+        this.statusIcon = ko.computed(function () {
+            var theStatus = this.status();
+            console.log('thisStatus: ' + theStatus);
+            var statusIcon = statuses[theStatus]['statusIcon'];
+            console.log('statusIcon: ' + statusIcon);
+            return statusIcon;
+        }, this);
+
+        this.statusClass = ko.computed(function () {
+            var theStatus = this.status();
+            console.log('theStatus: ' + theStatus);
+            var statusClass = statuses[theStatus]['statusClass'];
+            console.log('statusClass: ' + statusClass);
+            return statusClass;
+        }, this);
+    }
+
+
+/*
     function Job(job) {
         console.log('job object create', job);
         this.id = ko.observable(job.id || '—');
         this.name = ko.observable(job.name || '—');
     }
+*/
 
     //http://knockoutjs.com/documentation/plugins-mapping.html
     //https://github.com/SteveSanderson/knockout.mapping
@@ -15,24 +54,26 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
 
     var statuses = {
         ACTIVE: {
-            icon: '#icon-play',
-            class: 'running'
+            statusIcon: '#icon-exclamation-circle',
+            statusClass: 'error'
+            //statusIcon: '#icon-play',
+            //statusClass: 'running'
         },
         COMPLETE: {
-            icon: '#icon-ellipsis',
-            class: 'success'
+            statusIcon: '#icon-ellipsis',
+            statusClass: 'success'
         },
         ERRORED: {
-            icon: '#icon-exclamation-circle',
-            class: 'error'
+            statusIcon: '#icon-exclamation-circle',
+            statusClass: 'error'
         },
         STOPPED: {
-            icon: '#icon-stop',
-            class: 'error'
+            statusIcon: '#icon-stop',
+            statusClass: 'error'
         },
         QUEUED: {
-            icon: '#icon-ellipsis',
-            class: 'running'
+            statusIcon: '#icon-ellipsis',
+            statusClass: 'running'
         }
     };
 
@@ -42,13 +83,14 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
 
         var theId = self.id();
         var theStatus = self.status();
+        var theTime = self.createdTime();
 
         model.duration = ko.computed(function() {
-            return self.createdTime();
+            return theTime;
         }, self);
 
         model.finished = ko.computed(function() {
-            return self.createdTime();
+            return theTime;
         }, self);
 
         model.hrefJobStop = ko.computed(function() {
@@ -60,10 +102,10 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
         }, self);
 
         model.statusIcon = ko.computed(function () {
-            return statuses[theStatus]['icon'];
+            return statuses[theStatus]['statusIcon'];
         }, self);
         model.statusClass = ko.computed(function () {
-            return statuses[theStatus]['class'];
+            return statuses[theStatus]['statusClass'];
         }, self);
 
         return model;
@@ -86,12 +128,11 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
         self.job = ko.observableArray();
 
         if (dev) {
-            self.job(new Job(fixtures.job));
-
+            var theFixture = fixtures.job;
+            var theJob = new Job(theFixture);
+            self.job(theJob);
         } else {
             var runner = runnerConfig.getRunnerInstance();
-
-
 
             runner.jobs.get(jobId).then(function (job) {
                 //console.log(RNRrunner);
@@ -100,11 +141,13 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
                 //console.log(job);
 
                 var jobData = job.data;
+
                 console.log("job.data", job.data);
                 console.log("job.data.id", job.data.id);
                 console.log("job.data.name", job.data.name);
 
-                self.job(ko.mapping.fromJS(jobData, mappings));
+                var observableJob = ko.mapping.fromJS(jobData, mappings);
+                self.job(observableJob);
 
                 console.log('self', self);
                 console.log('self.job', self.job());
@@ -115,11 +158,8 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
                 console.log('self.job.statusIcon', self.job().statusIcon());
                 console.log('self.job.statusClass', self.job().statusClass());
                 //console.log('self.job.statusClass', self.job().repository.credentials.username);
-
             });
-
         }
-
     }
 
     // Use prototype to declare any public methods

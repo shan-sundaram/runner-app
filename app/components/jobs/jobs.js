@@ -1,27 +1,5 @@
-define(['knockout', 'text!./jobs.html', 'fixtures', 'runner'], function (ko, template, fixtures, RNR) {
+define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
 
-    /*
-     function Job(params) {
-         this.jobId = ko.observable(params.jobId || '—');
-         this.name = ko.observable(params.name || '—');
-         this.status = ko.observable(params.status || '—');
-         this.icon = ko.observable(params.icon || '—');
-         this.user = ko.observable(params.user || '—');
-         this.duration = ko.observable(params.duration || '—');
-         this.finished = ko.observable(params.finished || '—');
-     }
-     */
-
-    /*
-         jobId: 'jobId 33333-333333-33333333',
-         executionId: 'executionId 33333-333333-33333333',
-         name: 'Nodejs Server',
-         status: 'running',
-         icon: '#icon-play',
-         user: 'Chris Kent',
-         duration: '23 min 30 sec',
-         finished: '2 hours ago'
-     */
 
     function Job(jobData) {
         this.id = ko.observable(jobData.id || '—');
@@ -42,84 +20,147 @@ define(['knockout', 'text!./jobs.html', 'fixtures', 'runner'], function (ko, tem
         this.links = ko.observable(jobData.links || '—');
         this.callbacks = ko.observable(jobData.callbacks || '—');
 
-        this.icon = ko.computed(function () {
-            var statuses = {
-                ACTIVE: '#icon-play',
-                COMPLETE: '#icon-ellipsis',
-                ERRORED: '#icon-exclamation-circle',
-                STOPPED: '#icon-stop',
-                QUEUED: '#icon-ellipsis'
-            };
-            var thisStatus = this.status();
-            console.log('thisStatus: ' + thisStatus);
-            var icon = statuses[thisStatus];
-            console.log('icon: ' + icon);
-            return icon;
+        this.statusIcon = ko.computed(function () {
+            var theStatus = this.status();
+            console.log('thisStatus: ' + theStatus);
+            var statusIcon = statuses[theStatus]['statusIcon'];
+            console.log('statusIcon: ' + statusIcon);
+            return statusIcon;
         }, this);
 
-        this.class = ko.computed(function () {
-            var statuses = {
-                ACTIVE: 'running',
-                COMPLETE: 'success',
-                ERRORED: 'error',
-                STOPPED: 'error',
-                QUEUED: 'running'
-            };
-            var thisStatus = this.status();
-            console.log('thisStatus: ' + thisStatus);
-            var cssClass = statuses[thisStatus];
-            console.log('cssClass: ' + cssClass);
-            return cssClass;
+        this.statusClass = ko.computed(function () {
+            var theStatus = this.status();
+            console.log('theStatus: ' + theStatus);
+            var statusClass = statuses[theStatus]['statusClass'];
+            console.log('statusClass: ' + statusClass);
+            return statusClass;
         }, this);
     }
 
+    var statuses = {
+        ACTIVE: {
+            statusIcon: '#icon-play',
+            statusClass: 'running'
+        },
+        COMPLETE: {
+            statusIcon: '#icon-ellipsis',
+            statusClass: 'success'
+        },
+        ERRORED: {
+            statusIcon: '#icon-exclamation-circle',
+            statusClass: 'error'
+        },
+        STOPPED: {
+            statusIcon: '#icon-stop',
+            statusClass: 'error'
+        },
+        QUEUED: {
+            statusIcon: '#icon-ellipsis',
+            statusClass: 'running'
+        }
+    };
+
+    function MappingAdditions(data) {
+        var self = this;
+        var model = ko.mapping.fromJS(data, {}, self);
+
+        var theId = self.id();
+        var theStatus = self.status();
+
+        model.duration = ko.computed(function () {
+            return self.createdTime();
+        }, self);
+
+        model.finished = ko.computed(function () {
+            return self.createdTime();
+        }, self);
+
+        model.hrefJobStop = ko.computed(function () {
+            return '#job/' + theId;
+        }, self);
+
+        model.hrefJobKill = ko.computed(function () {
+            return '#job/' + theId;
+        }, self);
+
+        model.statusIcon = ko.computed(function () {
+            return statuses[theStatus]['statusIcon'];
+        }, self);
+        model.statusClass = ko.computed(function () {
+            return statuses[theStatus]['statusClass'];
+        }, self);
+
+        return model;
+    }
+
+    var mappings = {
+        create: function (options) {
+            return new MappingAdditions(options.data);
+        }
+    };
+
     function JobsViewModel(params) {
         var self = this;
-        var dev = true;
+        var dev = false;
 
-        self.jobs = ko.observable();
+        //var jobId = params.id;
 
-        /*fixtures.jobs.forEach(function (job) {
-         var jobObject = new Job(job);
-         self.jobs.push(jobObject);
-         });*/
+        //console.log('params.id: ' + jobId);
 
-        var runner = new RNR.Runner({
-            token : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBpLXRpZXIzIiwiYXVkIjoidXJuOnRpZXIzLXVzZXJzIiwibmJmIjoxNDUzMTU2NjQ3LCJleHAiOjE0NTQzNjYyNDcsInVuaXF1ZV9uYW1lIjoic2l2YS5wb3B1cmkud2Z0YyIsInVybjp0aWVyMzphY2NvdW50LWFsaWFzIjoiV0ZUQyIsInVybjp0aWVyMzpsb2NhdGlvbi1hbGlhcyI6IlVDMSIsInJvbGUiOiJBY2NvdW50QWRtaW4ifQ.zhIGzDb8yJX_mfWJLvIKBXWlr9LDbpjAypUA60NK2jA',
-            accountAlias : 'WFTC'
-        });
+        self.jobs = ko.observableArray();
 
         if (dev) {
-            fixtures.jobs.forEach(function (job) {
+            var theFixture = fixtures.jobs;
+
+            theFixture.forEach(function (job) {
                 var jobObject = new Job(job);
                 self.jobs.push(jobObject);
             });
+
         } else {
-            runner.jobs.find().then(function (page) {
-                var pageValues = page.values;
-                console.log(pageValues);
+            var runner = runnerConfig.getRunnerInstance();
+            runner.jobs.find().then(function (jobs) {
+                var jobsData = jobs.data.values;
+                console.log("jobsData", jobsData);
 
-                pageValues.forEach(function (job) {
+                //runner.jobs.get().then(function (job) {
+                //console.log(RNRrunner);
+
+                jobsData.forEach(function (job) {
                     var jobData = job.data;
-                    var jobDataPretty = JSON.stringify(JSON.parse(JSON.stringify(jobData), null, 2));
-
-                    console.log('/////jobDataPretty');
-                    console.log(jobDataPretty);
-                    console.log('job.name(): ' + job.name());
-                    console.log('jobData.name: ' + jobData.name);
-                    console.log('/////');
-
-                    var jobObject = new Job(jobData);
-                    self.jobs.push(jobObject);
+                    var observableJob = ko.mapping.fromJS(jobData, mappings);
+                    self.jobs.push(observableJob);
                 });
+
+                console.log('/////RNRrunner');
+                //console.log(job);
+
+                //var jobData = job.data;
+
+                //console.log("job.data", job.data);
+                //console.log("job.data.id", job.data.id);
+                //console.log("job.data.name", job.data.name);
+                //
+                //console.log('self', self);
+                //console.log('self.job', self.job());
+                //console.log('self.job.id', self.job().id());
+                //console.log('self.job.name', self.job().name());
+                //console.log('self.job.hrefJobStop', self.job().hrefJobStop());
+                //console.log('self.job.hrefJobKill', self.job().hrefJobKill());
+                //console.log('self.job.statusIcon', self.job().statusIcon());
+                //console.log('self.job.statusClass', self.job().statusClass());
+                //console.log('self.job.statusClass', self.job().repository.credentials.username);
             });
+
+
         }
+
     }
 
     return {
         viewModel: JobsViewModel,
         template: template
     };
-});
 
+});
 
