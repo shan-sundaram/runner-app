@@ -108,6 +108,7 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         //console.log('params.id: ' + jobId);
 
         self.jobs = ko.observableArray();
+        self.query = ko.observable('');
 
         if (dev) {
             var theFixture = fixtures.jobs;
@@ -154,6 +155,14 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
 
 
         }
+
+
+        self.filterJobs = ko.computed(function () {
+            var search = self.query().toLowerCase();
+            return ko.utils.arrayFilter(self.jobs(), function (job) {
+                return job.name().toLowerCase().indexOf(search) >= 0;
+            });
+        });
 
     }
 
