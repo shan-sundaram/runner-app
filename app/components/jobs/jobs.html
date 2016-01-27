@@ -32,6 +32,11 @@
                     <a href="#jobs" class="active">All</a>
                 </div>
 
+                <div align="right">
+                    <input type="button" value="Previous" data-bind="click: loadPreviousPage"/>
+                    <input type="button" value="Next" data-bind="click: loadNextPage"/>
+                </div>
+
                 <!-- BEGIN: JOBS QUEUE -->
                 <ol class="queue queue-preview" data-bind="foreach: { data: filterJobs(), as: 'job' }">
                     <!-- BEGIN: JOB ITEM -->
