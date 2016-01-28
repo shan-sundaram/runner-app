@@ -36,21 +36,11 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
         }, this);
     }
 
-
-/*
-    function Job(job) {
-        console.log('job object create', job);
-        this.id = ko.observable(job.id || '—');
-        this.name = ko.observable(job.name || '—');
-    }
-*/
-
     //http://knockoutjs.com/documentation/plugins-mapping.html
     //https://github.com/SteveSanderson/knockout.mapping
 
     //https://github.com/pkmccaffrey/knockout.mapping
     //https://github.com/crissdev/knockout.mapping
-
 
     var statuses = {
         ACTIVE: {
@@ -142,21 +132,21 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
 
                 var jobData = job.data;
 
-                console.log("job.data", job.data);
-                console.log("job.data.id", job.data.id);
-                console.log("job.data.name", job.data.name);
+                //console.log("job.data", job.data);
+                //console.log("job.data.id", job.data.id);
+                //console.log("job.data.name", job.data.name);
 
                 var observableJob = ko.mapping.fromJS(jobData, mappings);
                 self.job(observableJob);
 
-                console.log('self', self);
-                console.log('self.job', self.job());
-                console.log('self.job.id', self.job().id());
-                console.log('self.job.name', self.job().name());
-                console.log('self.job.hrefJobStop', self.job().hrefJobStop());
-                console.log('self.job.hrefJobKill', self.job().hrefJobKill());
-                console.log('self.job.statusIcon', self.job().statusIcon());
-                console.log('self.job.statusClass', self.job().statusClass());
+                //console.log('self', self);
+                //console.log('self.job', self.job());
+                //console.log('self.job.id', self.job().id());
+                //console.log('self.job.name', self.job().name());
+                //console.log('self.job.hrefJobStop', self.job().hrefJobStop());
+                //console.log('self.job.hrefJobKill', self.job().hrefJobKill());
+                //console.log('self.job.statusIcon', self.job().statusIcon());
+                //console.log('self.job.statusClass', self.job().statusClass());
                 //console.log('self.job.statusClass', self.job().repository.credentials.username);
             });
         }

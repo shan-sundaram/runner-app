@@ -21,11 +21,14 @@
 
 <!--<pre data-bind="text: ko.toJSON(job(), null, 4)"></pre>-->
 
+
+
+
 <div class="action-area">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <ol class="action-toolbar">
+                <ol class="action-toolbar-left">
                     <li>
                         <a href="#job/stop" data-rest-verb="POST" data-bind="attr: { href: job().hrefJobStop }">
                             <svg class="cyclops-icon">
@@ -42,6 +45,14 @@
                             <span>kill</span>
                         </a>
                     </li>
+
+                    <li><a data-bind="widget: {
+      name: 'actionToolbarConfirm',
+      options: {
+        classes: 'action-toolbar-confirm-danger',
+        messageHtml: 'Are you sure you want to delete this server?',
+        yesHtml: '<svg class=&quot;cyclops-icon&quot;><use xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xlink:href=&quot;#icon-trash&quot;></use></svg> Delete'}}"><svg class="cyclops-icon"><use xlink:href='#icon-stop'></svg> stop</a></li>
+
                 </ol>
             </div>
         </div>

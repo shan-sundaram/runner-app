@@ -4,8 +4,22 @@
 
 
 // Start the main app logic.
-define(['knockout', 'jquery', 'router'], function (ko, $, router) {
-    
+define([
+    'knockout',
+    'jquery',
+    'router',
+    'domReady',
+    'cyclops'
+], function (
+    ko,
+    $,
+    router,
+    domReady,
+    cyclops
+) {
+
+    var self = this;
+
     ko.components.register("navigation", {
         require: '/components/navigation/navigation.js'
     });
@@ -51,6 +65,92 @@ define(['knockout', 'jquery', 'router'], function (ko, $, router) {
     // Start the application
     ko.applyBindings({route: router.currentRoute});
 
+
+
+    domReady(function () {
+        console.log("domReady");
+
+
+        $('.action-toolbar-left a').actionToolbarConfirm();
+
+        //$(function(){
+        //    $('.action-toolbar-left a').actionToolbarConfirm()
+        //})
+
+        self.setResponseToLocalStorage = function (response) {
+            console.log("setResponseToLocalStorage");
+            localStorage.setItem('auth', JSON.stringify(response));
+        };
+
+        self.getAuthFromLocalStorage = function () {
+            console.log("getAuthFromLocalStorage");
+            return JSON.parse(localStorage.getItem('auth'));
+        };
+
+
+        var qwerty = {
+            foo: "bar"
+        };
+
+        var fakeToken = {
+            token: "djbhvdjhdhknjbfvnfjvhdgkjnfvijdlkhdfkbdkjggdfjkdhfgjdckj"
+        };
+
+        //self.setResponseToLocalStorage(null);
+        var foo = self.getAuthFromLocalStorage();
+
+        if (foo) {
+            console.log("you are in");
+            //alert("you are in");
+
+            console.log('foo', foo);
+        } else {
+            //alert("do SSO");
+            setResponseToLocalStorage(fakeToken);
+            var fakeGet = self.getAuthFromLocalStorage();
+            console.log('fakeGet', fakeGet);
+        }
+
+    });
+
+
+
+
+/*
+    $(document).ready(function () {
+        console.log("document ready");
+
+    });
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

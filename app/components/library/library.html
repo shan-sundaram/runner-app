@@ -135,8 +135,6 @@
                     </div>
                 </h5>
 
-
-
                 <div class="filter-panel">
                     <a href="#jobs/active">Active (3)</a>
                     <a href="#jobs/errored">Errored (1)</a>
@@ -147,43 +145,35 @@
                 <div class="queue-container">
                     <ol class="queue queue-preview" data-bind="foreach: { data: jobs, as: 'job' }">
                         <!-- BEGIN: JOB ITEM PREVIEW-->
-
-                        <!--<li data-bind="template: { name: 'jobs-item', data: job }"></li>-->
-                        <!-- <jobs-item params="value: job"></jobs-item> -->
-
-                        <li class="" data-bind="css: job.status()">
+                        <li class="" data-bind="css: job.statusClass">
                             <div class="status-bar">
                                 <svg class="cyclops-icon" title="queued">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: {'xlink:href': job.icon()}"></use>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': job.statusIcon }"></use>
                                 </svg>
                             </div>
-                            <a href="#job/999" data-bind="attr: { href: '#job/' + job.jobId() }">
-                                <div class="details clearfix">
-                                    <div class="col col-100">
-                                        <div class="playbook" data-bind="text: job.name()">
-                                            [job name]
-                                        </div>
-                                        <div class="user">
-                                            <svg class="cyclops-icon">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
-                                            </svg>
-                                            <span data-bind="text: job.user()">[user]</span>
-                                        </div>
-                                        <div class="duration">
-                                            <svg class="cyclops-icon">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use>
-                                            </svg>
-                                            <span data-bind="text: job.duration()">[duration]</span>
-                                        </div>
-                                        <div class="finished">
-                                            <svg class="cyclops-icon">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-calendar"></use>
-                                            </svg>
-                                            <span data-bind="text: job.finished()">[finshed]</span>
-                                        </div>
+                            <div class="details clearfix">
+                                <div class="col col-100">
+                                    <a href="#job/999" class="playbook" data-bind="attr: { href: '#job/' + job.id() }, text: job.name">[job.name]</a>
+                                    <div class="user">
+                                        <svg class="cyclops-icon">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
+                                        </svg>
+                                        <!--<span data-bind="text: job.user()">[user]</span>-->
+                                    </div>
+                                    <div class="duration">
+                                        <svg class="cyclops-icon">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use>
+                                        </svg>
+                                        <span data-bind="text: job.duration()">[job.duration]</span>
+                                    </div>
+                                    <div class="finished">
+                                        <svg class="cyclops-icon">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-calendar"></use>
+                                        </svg>
+                                        <span data-bind="text: job.finished()">[job.finshed]</span>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </li>
                         <!-- END: JOB ITEM PREVIEW-->
                     </ol>
@@ -191,7 +181,5 @@
                 <!-- END: JOBS QUEUE -->
             </div>
         </div>
-
-
     </div>
 </div>

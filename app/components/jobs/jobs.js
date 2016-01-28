@@ -60,7 +60,7 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         }
     };
 
-    function MappingAdditions(data) {
+    function JobMappingAdditions(data) {
         var self = this;
         var model = ko.mapping.fromJS(data, {}, self);
 
@@ -93,9 +93,9 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         return model;
     }
 
-    var mappings = {
+    var jobMappings = {
         create: function (options) {
-            return new MappingAdditions(options.data);
+            return new JobMappingAdditions(options.data);
         }
     };
 
@@ -103,23 +103,18 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         var self = this;
         var dev = false;
 
-        //var jobId = params.id;
-
-        //console.log('params.id: ' + jobId);
-
         self.jobs = ko.observableArray();
         self.query = ko.observable('');
         self.pageIndex = 0;
         self.pageSize = 10;
 
         if (dev) {
-            var theFixture = fixtures.jobs;
+            var jobFixture = fixtures.jobs;
 
-            theFixture.forEach(function (job) {
+            jobFixture.forEach(function (job) {
                 var jobObject = new Job(job);
                 self.jobs.push(jobObject);
             });
-
         } else {
             var runner = runnerConfig.getRunnerInstance();
             runner.jobs.find().then(function (jobs) {
@@ -132,7 +127,7 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
 
                 jobsData.forEach(function (job) {
                     var jobData = job.data;
-                    var observableJob = ko.mapping.fromJS(jobData, mappings);
+                    var observableJob = ko.mapping.fromJS(jobData, jobMappings);
                     self.jobs.push(observableJob);
                 });
 
@@ -155,8 +150,6 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
                 //console.log('self.job.statusClass', self.job().statusClass());
                 //console.log('self.job.statusClass', self.job().repository.credentials.username);
             });
-
-
         }
 
 
