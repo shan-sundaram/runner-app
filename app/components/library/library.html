@@ -8,14 +8,20 @@
                 <h1>Runner Playbooks</h1>
                 <p class="lead">Browse the library of playbooks to quickly build environments, or add a playbook to your private library with Playbook Builder.</p>
 
+                <!-- BEGIN TABS: PLAYBOOK -->
+                <ul id="playbooks-tabs" class="nav nav-tabs clearfix" role="tablist">
+                    <li role="presentation" class="active">
+                        <a data-target="#playbooks-public" aria-controls="playbooks-public" role="tab" data-toggle="tab">Public (12)</a>
+                    </li>
+                    <li role="presentation">
+                        <a data-target="#playbooks-private" aria-controls="playbooks-private" role="tab" data-toggle="tab">Private (3)</a>
+                    </li>
+                </ul>
+                <!-- END TABS: PLAYBOOK -->
 
-                <library-tabs></library-tabs>
-                <!--<library-tabs params="tab: tab"></library-tabs>-->
-
-
-                <div class="tab-content" data-bind="template: { name: $root.getTemplate }">
-                <!--<div class="tab-content">-->
-                    <div id="playbooks-public" class="tab-pane">
+                <!-- BEGIN TAB PANES -->
+                <div class="tab-content">
+                    <div id="playbooks-public" class="tab-pane active">
                         <!-- BEGIN: PUBLIC PLAYBOOKS -->
                         <p><button class="btn btn-default">run manual playbook</button></p>
 
@@ -112,20 +118,15 @@
                         <!-- END: PUBLIC PLAYBOOKS -->
                     </div>
 
-                    <div id="playbooks-private" class="tab-pane active">
+                    <div id="playbooks-private" class="tab-pane">
                         <!-- BEGIN: PRIVATE PLAYBOOKS -->
-
+                            <h1>To Be Implemented</h1>
                         <!-- END: PRIVATE PLAYBOOKS -->
                     </div>
                 </div>
-
-
-
-
+                <!-- END TAB PANES -->
 
             </div>
-
-
 
             <div class="col-sm-3 col-sm-pull-9">
                 <h5 class="queue-title">RECENT JOBS
@@ -133,6 +134,8 @@
                         <a href="#jobs">view all</a>
                     </div>
                 </h5>
+
+
 
                 <div class="filter-panel">
                     <a href="#jobs/active">Active (3)</a>

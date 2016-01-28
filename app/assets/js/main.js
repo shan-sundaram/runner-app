@@ -5,8 +5,7 @@
 
 // Start the main app logic.
 define(['knockout', 'jquery', 'router'], function (ko, $, router) {
-
-
+    
     ko.components.register("navigation", {
         require: '/components/navigation/navigation.js'
     });
@@ -42,6 +41,10 @@ define(['knockout', 'jquery', 'router'], function (ko, $, router) {
 
     ko.components.register("library-tabs", {
         require: '/components/library-tabs/library-tabs.js'
+    });
+
+    ko.components.register("playbooks-public", {
+        require: '/components/playbooks-public/playbooks-public.js'
     });
 
 

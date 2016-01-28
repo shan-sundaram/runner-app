@@ -1,8 +1,28 @@
-<ul class="nav nav-tabs clearfix" data-bind="foreach: { data: tabs, as: 'tab' }">
-    <li data-bind="css: { active: tab.isSelected }">
-        <a href="#" data-bind="click: $parent.selectedTab">
-            <span style="text-transform: capitalize;" data-bind="text: tab.titleString()"></span>
-        </a>
-        <!--<a href="#" data-bind="click: $parent.selectedTab, text: tab.title"></a>-->
-    </li>
-</ul>
+<div>
+    <ul class="nav nav-tabs clearfix" data-bind="foreach: { data: tabs, as: 'tab' }">
+        <li data-bind="css: { active: tab.isSelected }">
+            <a href="#" data-bind="click: $parent.selectedTab">
+                <span style="text-transform: capitalize;" data-bind="text: tab.titleString()"></span>
+            </a>
+            <!--<a href="#" data-bind="click: $parent.selectedTab, text: tab.title"></a>-->
+        </li>
+    </ul>
+    <pre data-bind="text: ko.toJSON($data, null, 4)"></pre>
+
+    <div data-bind="component: getTemplate()"></div>
+    <!--<div data-bind='component: { name: selectedView() }'></div>-->
+    <!--<div data-bind='component: { name: getTemplate(), params: { mode: "detailed-list", items: productsList } }'></div>-->
+    <!--<div data-bind="component: 'playbooks-' + getTemplate()"></div>-->
+
+<!--
+    <div class="tab-content" data-bind="template: { name: getTemplate() }">
+        <div id="public" class="tab-pane" style="border: 1px solid red;">
+            playbooks-public
+        </div>
+        <div id="private" class="tab-pane" style="border: 1px solid blue;">
+            playbooks-private
+        </div>
+    </div>
+-->
+</div>
+

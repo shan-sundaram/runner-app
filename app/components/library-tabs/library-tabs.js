@@ -3,10 +3,12 @@ define(['knockout', 'jquery', 'text!./library-tabs.html', 'fixtures'], function 
     var tabsConfig = [
         {
             title: 'public',
+            component: 'playbooks-public',
             count: '13'
         },
         {
             title: 'private',
+            component: 'playbooks-private',
             count: '3'
         }
     ];
@@ -38,9 +40,18 @@ define(['knockout', 'jquery', 'text!./library-tabs.html', 'fixtures'], function 
         self.selectedTab(self.tabs()[0]);
 
         self.getTemplate = function(item) {
-            var selected = self.selectedTab();
-            return selected && selected.title;
+            var selected = self.selectedTab().component;
+            //var template = selected && selected.title;
+            //console.log("template", template);
+            return "playbooks-public";
+            //return selected;
         };
+
+        //self.selectedView = ko.computed(function () {
+        //    return self.selectedTab().component;
+        //}, this);
+
+
     }
 
     return {
