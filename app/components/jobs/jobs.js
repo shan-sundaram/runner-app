@@ -108,6 +108,9 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         //console.log('params.id: ' + jobId);
 
         self.jobs = ko.observableArray();
+        self.query = ko.observable('');
+        self.pageIndex = 0;
+        self.pageSize = 10;
 
         if (dev) {
             var theFixture = fixtures.jobs;
@@ -120,7 +123,8 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         } else {
             var runner = runnerConfig.getRunnerInstance();
             runner.jobs.find().then(function (jobs) {
-                var jobsData = jobs.data.values;
+                self.page = jobs.data;
+                var jobsData = self.page.values;
                 console.log("jobsData", jobsData);
 
                 //runner.jobs.get().then(function (job) {
@@ -154,6 +158,42 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
 
 
         }
+
+
+        self.filterJobs = ko.computed(function () {
+            var search = self.query().toLowerCase();
+            return ko.utils.arrayFilter(self.jobs(), function (job) {
+                if (job.name) {
+                    return job.name().toLowerCase().indexOf(search) >= 0;
+                }
+            });
+        });
+
+        self.loadNextPage = function () {
+            self.page.fetch(self.pageIndex+1, self.pageSize).then(function(nextPage, data) {
+                var jobsData = nextPage.data.values;
+                self.jobs([]);
+                jobsData.forEach(function (job) {
+                    var jobData = job.data;
+                    var observableJob = ko.mapping.fromJS(jobData, mappings);
+                    self.jobs.push(observableJob);
+                });
+                self.pageIndex = self.pageIndex + 1;
+            });
+        };
+
+        self.loadPreviousPage = function () {
+            self.page.fetch(self.pageIndex-1, self.pageSize).then(function(prevPage, data) {
+                var jobsData = prevPage.data.values;
+                self.jobs([]);
+                jobsData.forEach(function (job) {
+                    var jobData = job.data;
+                    var observableJob = ko.mapping.fromJS(jobData, mappings);
+                    self.jobs.push(observableJob);
+                });
+                self.pageIndex = self.pageIndex - 1;
+            });
+        };
 
     }
 
