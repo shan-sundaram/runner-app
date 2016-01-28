@@ -426,26 +426,10 @@
 				if(Array.isArray(result)) {
 
 					return new Page(self.context)
-							.page(0)
-							.size(result.length)
-							.totalSize(result.length)
-							.values(result.map(function(item){
-								// Transform the plain data object to a new Status type.
-								return new RNR.Status(self.context, item);
-							}))
-							// Setup the fetch operation on the page instance.
-							.fetch(function(page, size){
-								return self.statuses({page : page, size : size});
-							});
-
-				}
-
-				// Create a new Page instance with the result as the underlying model.
-				return new Page(self.context)
-						.page(result.page)
-						.size(result.size)
-						.totalSize(result.totalSize)
-						.values(result.results.map(function(item){
+						.page(0)
+						.size(result.length)
+						.totalSize(result.length)
+						.values(result.map(function(item){
 							// Transform the plain data object to a new Status type.
 							return new RNR.Status(self.context, item);
 						}))
@@ -453,6 +437,22 @@
 						.fetch(function(page, size){
 							return self.statuses({page : page, size : size});
 						});
+
+				}
+
+				// Create a new Page instance with the result as the underlying model.
+				return new Page(self.context)
+					.page(result.page)
+					.size(result.size)
+					.totalSize(result.totalSize)
+					.values(result.results.map(function(item){
+						// Transform the plain data object to a new Status type.
+						return new RNR.Status(self.context, item);
+					}))
+					// Setup the fetch operation on the page instance.
+					.fetch(function(page, size){
+						return self.statuses({page : page, size : size});
+					});
 
 			}).then(function(result) {
 
@@ -546,17 +546,17 @@
 
 				// Create a new Page instance with the result as the underlying model.
 				return new Page(self.context)
-						.page(result.page)
-						.size(result.size)
-						.totalSize(result.totalSize)
-						.values(result.results.map(function(item){
-							// Transform the plain data object to a new Job type.
-							return new RNR.Job(self.context, item);
-						}))
-						// Setup the fetch operation on the page instance.
-						.fetch(function(page, size){
-							return self.find({page : page, size : size});
-						});
+					.page(result.page)
+					.size(result.size)
+					.totalSize(result.totalSize)
+					.values(result.results.map(function(item){
+						// Transform the plain data object to a new Job type.
+						return new RNR.Job(self.context, item);
+					}))
+					// Setup the fetch operation on the page instance.
+					.fetch(function(page, size){
+						return self.find({page : page, size : size});
+					});
 
 			}).then(function(result) {
 
@@ -747,17 +747,17 @@
 
 				// Create a new Page instance with the result as the underlying model.
 				return new Page(self.context)
-						.page(result.page)
-						.size(result.size)
-						.totalSize(result.totalSize)
-						.values(result.results.map(function(item){
-							// Transform the plain data object to a new Job type.
-							return new RNR.Execution(self.context, item);
-						}))
-						// Setup the fetch operation on the page instance.
-						.fetch(function(page, size){
-							return self.executions({page : page, size : size});
-						});
+					.page(result.page)
+					.size(result.size)
+					.totalSize(result.totalSize)
+					.values(result.results.map(function(item){
+						// Transform the plain data object to a new Job type.
+						return new RNR.Execution(self.context, item);
+					}))
+					// Setup the fetch operation on the page instance.
+					.fetch(function(page, size){
+						return self.executions({page : page, size : size});
+					});
 
 			}).then(function(result) {
 
@@ -841,26 +841,10 @@
 
 					// Create a new Page instance with the result as the underlying model.
 					return new Page(self.context)
-							.page(0)
-							.size(result.length)
-							.totalSize(result.length)
-							.values(result.map(function(item){
-								// Transform the plain data object to a new Status type.
-								return new RNR.Status(self.context, item);
-							}))
-							// Setup the fetch operation on the page instance.
-							.fetch(function(page, size){
-								return self.statuses({page : page, size : size});
-							});
-
-				}
-
-				// Create a new Page instance with the result as the underlying model.
-				return new Page(self.context)
-						.page(result.page)
-						.size(result.size)
-						.totalSize(result.totalSize)
-						.values(result.results.map(function(item){
+						.page(0)
+						.size(result.length)
+						.totalSize(result.length)
+						.values(result.map(function(item){
 							// Transform the plain data object to a new Status type.
 							return new RNR.Status(self.context, item);
 						}))
@@ -868,6 +852,94 @@
 						.fetch(function(page, size){
 							return self.statuses({page : page, size : size});
 						});
+
+				}
+
+				// Create a new Page instance with the result as the underlying model.
+				return new Page(self.context)
+					.page(result.page)
+					.size(result.size)
+					.totalSize(result.totalSize)
+					.values(result.results.map(function(item){
+						// Transform the plain data object to a new Status type.
+						return new RNR.Status(self.context, item);
+					}))
+					// Setup the fetch operation on the page instance.
+					.fetch(function(page, size){
+						return self.statuses({page : page, size : size});
+					});
+
+			}).then(function(result) {
+
+				// If a callback was provided, execute.
+				if(cb) { cb(result); }
+
+				return result;
+
+			});
+
+		};
+
+		/**
+		 * Provides execution related operations like find.
+		 *
+		 * @memberof RNR
+		 * @param {Object} context - The runner context.
+		 * @constructor
+		 */
+		var Executions = module.Executions = function(context){
+			this.context = context;
+		};
+
+		/**
+		 * Find executions from the repository.
+		 *
+		 * @param {Object} options - Find operation options.
+		 * @param {Number} options.page - The page to retrieve, defaults to 0.
+		 * @param {Number} options.size - The page size to retrieve, defaults to 10.
+		 * @param {RNR.executionsOnSuccess} cb - Callback invoked when the operation is successful.
+		 * @returns {Promise<RNR.Page<Execution>>} - A page of data, or a page of 0 values if no data is available.
+		 */
+		Executions.prototype.find = function(options, cb) {
+
+			var self = this;
+			self.options = options || {};
+
+			if(!self.options.page) {
+				self.options.page = 0;
+			}
+
+			if(!self.options.size) {
+				self.options.size = 10;
+			}
+
+			return new this.context.Promise(function(resolve, reject) {
+
+				var parameters = {
+					page : String(self.options.page),
+					size : String(self.options.size)
+				};
+
+				// The rest type will convert this array to a '/' separated string.
+				var path = [self.context.endpoint, 'jobs', self.context.accountAlias, 'executions'];
+
+				self.context.rest.get(path, parameters, resolve, reject);
+
+			}).then(function(result){
+
+				// Create a new Page instance with the result as the underlying model.
+				return new Page(self.context)
+					.page(result.page)
+					.size(result.size)
+					.totalSize(result.totalSize)
+					.values(result.results.map(function(item){
+						// Transform the plain data object to a new Job type.
+						return new RNR.Execution(self.context, item);
+					}))
+					// Setup the fetch operation on the page instance.
+					.fetch(function(page, size){
+						return self.find({page : page, size : size});
+					});
 
 			}).then(function(result) {
 
@@ -889,13 +961,12 @@
 		 * @param {string} context.token - An existing bearer token for authentication with services.
 		 * @param {string} context.accountAlias - The account alias to interact with.
 		 * @property {RNR.Jobs} jobs - Provides access to job search functions.
+		 * @property {RNR.Executions} executions - Provides access to execution search functions.
 		 */
 		var Runner = module.Runner = function(context){
 
 			this.context = context || {};
-			this.context.endpoint = 'http://10.121.41.21:30000/';
-			//this.context.endpoint = 'http://wfaas-job-api-svc-v1.service.consul:30000/';
-			//this.context.endpoint = 'https://api.runner.ctl.io';
+			this.context.endpoint = 'http://wfaas-job-api-svc-v1.service.consul:30000';
 			this.context.rest = new Rest();
 			this.context.rest.preInvokeInterceptors.push(new PreInvokeAuthInterceptor(this.context));
 
@@ -908,6 +979,7 @@
 			}
 
 			this.jobs = new Jobs(context);
+			this.executions = new Executions(context);
 
 		};
 
