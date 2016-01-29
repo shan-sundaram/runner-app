@@ -40,22 +40,28 @@ define([
         require: '/components/job-executions/job-executions.js'
     });
 
-
-
-
-
-    ko.components.register("playbook-build", {
-        require: '/components/playbook-build/playbook-build.js'
+    ko.components.register("job", {
+        require: '/components/job/job.js'
     });
 
-    ko.components.register("playbook-run", {
-        require: '/components/playbook-run/playbook-run.js'
+    ko.components.register("job-build", {
+        require: '/components/job-build/job-build.js'
+    });
+
+    ko.components.register("job-schedule", {
+        require: '/components/job-schedule/job-schedule.js'
+    });
+
+    ko.components.register("job-run", {
+        require: '/components/job-run/job-run.js'
     });
 
 
-    ko.components.register("playbook", {
-        require: '/components/playbook/playbook.js'
-    });
+
+
+
+
+
 
 
 
@@ -117,34 +123,7 @@ define([
             var fakeGet = self.getAuthFromLocalStorage();
             console.log('fakeGet', fakeGet);
         }
-
     });
-
-
-
-
-/*
-    $(document).ready(function () {
-        console.log("document ready");
-
-    });
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 

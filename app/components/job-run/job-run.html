@@ -1,34 +1,27 @@
 <div class="container" style="">
     <div class="row">
-
-
         <div class="col-sm-12">
             <ol class="breadcrumb">
                 <li>
-                    <a href="#playbook/999" data-bind="attr: { href: '#playbook/' + playbook.id() }">
+                    <a href="#job/999" data-bind="attr: { href: '#job/' + job.id() }">
                         <svg class="cyclops-icon">
                             <use xlink:href='#icon-chevron-left'></use>
                         </svg>
-                        <span>playbook</span>
+                        <span>job</span>
                     </a>
                 </li>
             </ol>
             <div class="content-header">
                 <img src="/assets/svg/logo-nodejs-color.svg" class="playbook-logo">
-                <h1>Run Nodejs Server Playbook</h1>
+                <h1>Run Nodejs Server Job</h1>
                 <p>Create a lightweight server that can handle a great number of simultaneous requests</p>
             </div>
         </div>
-
-
     </div>
 </div>
 
-
 <div class="primary">
     <div class="container">
-
-
         <div class="row">
             <div class="col-sm-12">
                 <form id="playbookRunForm" action="../job/job.html" class="form-horizontal">
@@ -83,7 +76,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">schedule job</label>
                         <div class="col-sm-6">
-                            <toggle params="value: true"></toggle>
+                            <!--<toggle params="value: true"></toggle>-->
                         </div>
                     </div>
                     <div class="form-group">
@@ -212,7 +205,7 @@
                     <div class="form-group">
                         <label for="repeat" class="col-sm-3 control-label">repeat</label>
                         <div class="col-sm-3">
-                            <select id="group" class="form-control">
+                            <select id="repeat" class="form-control">
                                 <option>never</option>
                                 <option>daily</option>
                                 <option>weekly</option>
@@ -234,16 +227,12 @@
                     <div class="form-group form-submit">
                         <div class="col-sm-offset-3 col-sm-9">
                             <button type="submit" class="btn btn-primary">queue job</button>
-                            <a href="#playbook" class="btn btn-link" data-bind="attr: { href: '#playbook/' + playbook.id() }">cancel</a>
+                            <a href="#job" class="btn btn-link" data-bind="attr: { href: '#job/' + job.id() }">cancel</a>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-sm-4">
-
-            </div>
         </div>
-
     </div>
 </div>
 

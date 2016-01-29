@@ -117,7 +117,7 @@ define({
             lastUpdatedTime: 1453414212512
         }
     ],
-    playbook: {
+    job: {
         id: '1',
         name: 'Nodejs Server',
         description: 'Create a lightweight server that can handle a great number of simultaneous requests',

@@ -12,8 +12,8 @@
                 </li>
             </ol>
             <h1>
-                <span data-bind="text: playbook.name()">[playbook.name]</span>
-                <small data-bind="text: playbook.version()">[playbook.version]</small>
+                <span data-bind="text: job.name()">[job.name]</span>
+                <small data-bind="text: job.version()">[job.version]</small>
             </h1>
             <p> by <a href="#">CenturyLink</a></p>
         </div>
@@ -24,19 +24,19 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <a href="#playbook/999/run" class="btn btn-primary" data-bind="attr: { href: '#playbook/' + playbook.id() + '/run' }">
+                <a href="#job/999/run" class="btn btn-primary" data-bind="attr: { href: '#job/' + job.id() + '/run' }">
                     <svg class="cyclops-icon">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-play"></use>
                     </svg>
                     <span>run</span>
                 </a>
-                <a href="#playbook/schedule" class="btn btn-default" data-bind="attr: { href: '#playbook/' + playbook.id() + '/schedule' }">
+                <a href="#job/schedule" class="btn btn-default" data-bind="attr: { href: '#job/' + job.id() + '/schedule' }">
                     <svg class="cyclops-icon">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-scheduled-tasks"></use>
                     </svg>
                     <span>schedule</span>
                 </a>
-                <a href="#playbook/download" class="btn btn-default pull-right" data-bind="attr: { href: '#playbook/' + playbook.id() + '/download' }">
+                <a href="#job/download" class="btn btn-default pull-right" data-bind="attr: { href: '#job/' + job.id() + '/download' }">
                     <svg class="cyclops-icon">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-download"></use>
                     </svg>
@@ -46,9 +46,9 @@
                 <hr>
 
                 <p>
-                    <a href="#" data-bind="attr: { href: playbook.githubUrlRepo() }, text: playbook.githubUrlRepo()">[playbook.githubUrlRepo]</a>
+                    <a href="#" data-bind="attr: { href: job.githubUrlRepo() }, text: job.githubUrlRepo()">[job.githubUrlRepo]</a>
                 </p>
-                <img src="" class="playbook-logo" data-bind="attr: { src: playbook.image() }">
+                <img src="" class="playbook-logo" data-bind="attr: { src: job.image() }">
                 <svg class="cyclops-icon">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-github"></use>
                 </svg>
@@ -60,7 +60,7 @@
                     need to grab this from github and parse it. maybe a markdown processor?
                     https://github.com/showdownjs/showdown
 
-                    <h1>Nodejs Server Playbook</h1>
+                    <h1>Nodejs Server Job</h1>
                     <p>by CenturyLink</p>
                     <h3>Overview</h3>
                     <p>Create a lightweight server that can handle a great number of simultaneous requests.
@@ -97,21 +97,21 @@
             </div>
             <div class="col-sm-4">
                 <div class="card">
-                    <div class="card-header">playbook stats</div>
+                    <div class="card-header">job stats</div>
                     <div class="card-block">
                         <div class="card-text">
                             <p>
                                 <svg class="cyclops-icon">
                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cloud-upload"></use>
                                 </svg>
-                                <span data-bind="text: playbook.countDeploy() + ' deploys'">[playbook.deploys]</span>
+                                <span data-bind="text: job.countDeploy() + ' deploys'">[job.deploys]</span>
                             </p>
                             <p>
                                 <a href="#">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-code-fork"></use>
                                     </svg>
-                                    <span data-bind="text: playbook.countFork() + ' forks'">[playbook.forks]</span>
+                                    <span data-bind="text: job.countFork() + ' forks'">[job.forks]</span>
                                 </a>
                             </p>
                             <p>
@@ -119,10 +119,10 @@
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-star"></use>
                                     </svg>
-                                    <span data-bind="text: playbook.countStar() + ' stars'">[playbook.stars]</span>
+                                    <span data-bind="text: job.countStar() + ' stars'">[job.stars]</span>
                                 </a>
                             </p>
-                            <p data-bind="text: 'updated ' + playbook.updated()">[playbook.updated]</p>
+                            <p data-bind="text: 'updated ' + job.updated()">[job.updated]</p>
                         </div>
                     </div>
                 </div>
