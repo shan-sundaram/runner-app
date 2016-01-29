@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="content-header">
-                <h1>Jobs Queue</h1>
+                <h1>Job Executions Queue</h1>
             </div>
         </div>
     </div>
@@ -26,12 +26,19 @@
                         </span>
                     </div>
                     <!--<a href="#jobs/mine">My Jobs</a>-->
-                    <span class="anchor-span">My Jobs</span>
+                    <span class="anchor-span">My Job Executions</span>
 
+                    <span data-tab="1" class="anchor-span" data-bind="click: showBlock, css: { 'active': selected() == 'tab1' || init() == 1 }">Active (3)</span>
+                    <span data-tab="2" class="anchor-span" data-bind="click: showBlock, css: { 'active': selected() == 'tab2' }">Errored (1)</span>
+                    <span data-tab="3" class="anchor-span" data-bind="click: showBlock, css: { 'active': selected() == 'tab3' }">Successful (3)</span>
+                    <span data-tab="4" class="anchor-span" data-bind="click: showBlock, css: { 'active': selected() == 'tab4' }">All</span>
+
+<!--
                     <span class="anchor-span" data-bind="click: filterByStatusQuery">Active (3)</span>
                     <span class="anchor-span" data-bind="click: filterByStatusQuery">Errored (1)</span>
                     <span class="anchor-span" data-bind="click: filterByStatusQuery">Successful (3)</span>
                     <span class="anchor-span active" data-bind="click: filterByStatusQuery">All</span>
+-->
 
                     <!--<a href="#jobs/active" data-bind="click: filterByStatusQuery">Active (3)</a>-->
                     <!--<a href="#jobs/errored" data-bind="click: filterByStatusQuery">Errored (1)</a>-->
@@ -45,17 +52,17 @@
                 </div>
 
                 <!-- BEGIN: JOBS QUEUE -->
-                <ol class="queue queue-preview" data-bind="foreach: { data: jobsFilteredByName(), as: 'job' }">
+                <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFilteredByName(), as: 'jobExecution' }">
                     <!-- BEGIN: JOB ITEM -->
-                    <li class="" data-bind="css: job.statusClass">
+                    <li class="" data-bind="css: jobExecution.statusClass">
                         <div class="status-bar">
                             <svg class="cyclops-icon" title="queued">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': job.statusIcon }"></use>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': jobExecution.statusIcon }"></use>
                             </svg>
                         </div>
                         <div class="new-list-view-responsive new-list-view-responsive-sm details clearfix">
                             <div class="col col-40">
-                                <a href="#job/999" class="playbook" data-bind="attr: { href: '#job/' + job.id() }, text: job.name">[job.name]</a>
+                                <a href="#jobExecution/999" class="playbook" data-bind="attr: { href: '#jobExecution/' + jobExecution.id() }, text: jobExecution.name">[jobExecution.name]</a>
                                 <div class="user">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
@@ -68,13 +75,13 @@
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use>
                                     </svg>
-                                    <span data-bind="text: job.duration()">[job.duration]</span>
+                                    <span data-bind="text: jobExecution.duration()">[jobExecution.duration]</span>
                                 </div>
                                 <div class="finished">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-calendar"></use>
                                     </svg>
-                                    <span data-bind="text: job.finished()">[job.finshed]</span>
+                                    <span data-bind="text: jobExecution.finished()">[jobExecution.finshed]</span>
                                 </div>
                             </div>
                         </div>

@@ -11,17 +11,18 @@ define({
     //    finished: '2 hours ago'
     //},
 
-    job: {
+    jobExecution: {
         "id": "56195215-69c8-4b48-b5bb-c5a2512d40a5",
-        "accountAlias": "WFTC",
         "name": "Test Multi NIC-1",
+        "status": "ACTIVE",
+        "createdTime": 1453414212512,
+        "lastUpdatedTime": 1453414212512,
+
+        "accountAlias": "WFTC",
         "description": "Test Multi NIC-1",
         "playbook": null,
         "useDynamicInventory": false,
         "properties": {},
-        "status": "ACTIVE",
-        "createdTime": 1453414212512,
-        "lastUpdatedTime": 1453414212512,
         "bootstrapKeyPairAlias": null,
         "playbookTags": null,
         "executionTtl": null,
@@ -65,75 +66,55 @@ define({
         ],
         "callbacks": []
     },
-    jobs: [
+    jobExecutions: [
         {
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
-
-            jobId: '56195215-69c8-4b48-b5bb-c5a2512d40a5',
-            executionId: 'executionId 11111-111111-11111111',
-
             name: 'Inline Playbook Test',
-            status: 'running',
-            icon: '#icon-ellipsis',
-            user: 'Chris Kent'
+            status: 'ACTIVE',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
         },
         {
-            jobId: 'jobId 22222-222222-22222222',
-            executionId: 'executionId 22222-222222-22222222',
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Redhat Linux Hyperscale Server',
-            status: 'running',
-            icon: '#icon-ellipsis',
-            user: 'Shan Sundaram'
+            status: 'ACTIVE',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
         },
         {
-            jobId: 'jobId 33333-333333-33333333',
-            executionId: 'executionId 33333-333333-33333333',
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Nodejs Server',
-            status: 'error',
-            icon: '#icon-play',
-            user: 'Chris Kent',
-            duration: '23 min 30 sec',
-            finished: '2 hours ago'
+            status: 'FAILURE',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
         },
         {
-            jobId: 'jobId 44444-444444-44444444',
-            executionId: 'executionId 44444-444444-44444444',
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Nodejs Server',
-            status: 'success',
-            icon: '#icon-check-circle',
-            user: 'Shan Sundaram',
-            duration: '23 min 30 sec',
-            finished: '3 hours ago'
+            status: 'ACTIVE',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
         },
         {
-            jobId: 'jobId 55555-555555-55555555',
-            executionId: 'executionId 55555-555555-55555555',
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Redhat Linux Hyperscale Server',
-            status: 'success',
-            icon: '#icon-stop',
-            user: 'Shan Sundaram',
-            duration: '23 min 30 sec',
-            finished: '5 hours ago'
+            status: 'ACTIVE',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
         },
         {
-            jobId: 'jobId 66666-666666-66666666',
-            executionId: 'executionId 66666-666666-66666666',
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Redhat Linux Hyperscale Server',
-            status: 'error',
-            icon: '#icon-exclamation-circle',
-            user: 'Shan Sundaram',
-            duration: '23 min 30 sec',
-            finished: '1 day ago'
+            status: 'FAILURE',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
         },
         {
-            jobId: 'jobId 77777-777777-77777777',
-            executionId: 'executionId 77777-777777-77777777',
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Nodejs Serve',
-            status: 'success',
-            icon: '#icon-check-circle',
-            user: 'Chris Kent',
-            duration: '23 min 30 sec',
-            finished: '3 days ago'
+            status: 'ACTIVE',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
         }
     ],
     playbook: {
@@ -151,7 +132,7 @@ define({
         featuredClass: 'nginx',
         privacy: 'public'
     },
-    playbooks: [
+    libraryJobs: [
         {
             id: '1',
             name: 'Nodejs Server',
@@ -344,7 +325,7 @@ define({
 
         }
     ],
-    playbooksFeatured: [
+    libraryJobsFeatured: [
         {
             id: '100',
             name: 'Create a Kubernetes Node',

@@ -1,23 +1,23 @@
-define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
+define(['knockout', 'mapping', 'text!./job-execution.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
 
-    function Job(jobData) {
-        this.id = ko.observable(jobData.id || '—');
-        this.accountAlias = ko.observable(jobData.accountAlias || '—');
-        this.name = ko.observable(jobData.name || '—');
-        this.description = ko.observable(jobData.description || '—');
-        this.playbook = ko.observable(jobData.playbook || '—');
-        this.useDynamicInventory = ko.observable(jobData.useDynamicInventory || '—');
-        this.properties = ko.observable(jobData.properties || '—');
-        this.status = ko.observable(jobData.status || '—');
-        this.createdTime = ko.observable(jobData.createdTime || '—');
-        this.lastUpdatedTime = ko.observable(jobData.lastUpdatedTime || '—');
-        this.bootstrapKeyPairAlias = ko.observable(jobData.bootstrapKeyPairAlias || '—');
-        this.playbookTags = ko.observable(jobData.playbookTags || '—');
-        this.executionTtl = ko.observable(jobData.executionTtl || '—');
-        this.repository = ko.observable(jobData.repository || '—');
-        this.hosts = ko.observable(jobData.hosts || '—');
-        this.links = ko.observable(jobData.links || '—');
-        this.callbacks = ko.observable(jobData.callbacks || '—');
+    function JobExecution(jobExecution) {
+        this.id = ko.observable(jobExecution.id || '—');
+        this.accountAlias = ko.observable(jobExecution.accountAlias || '—');
+        this.name = ko.observable(jobExecution.name || '—');
+        this.description = ko.observable(jobExecution.description || '—');
+        this.playbook = ko.observable(jobExecution.playbook || '—');
+        this.useDynamicInventory = ko.observable(jobExecution.useDynamicInventory || '—');
+        this.properties = ko.observable(jobExecution.properties || '—');
+        this.status = ko.observable(jobExecution.status || '—');
+        this.createdTime = ko.observable(jobExecution.createdTime || '—');
+        this.lastUpdatedTime = ko.observable(jobExecution.lastUpdatedTime || '—');
+        this.bootstrapKeyPairAlias = ko.observable(jobExecution.bootstrapKeyPairAlias || '—');
+        this.playbookTags = ko.observable(jobExecution.playbookTags || '—');
+        this.executionTtl = ko.observable(jobExecution.executionTtl || '—');
+        this.repository = ko.observable(jobExecution.repository || '—');
+        this.hosts = ko.observable(jobExecution.hosts || '—');
+        this.links = ko.observable(jobExecution.links || '—');
+        this.callbacks = ko.observable(jobExecution.callbacks || '—');
 
         this.statusIcon = ko.computed(function () {
             var theStatus = this.status();
@@ -118,20 +118,20 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
         }
     };
 
-    function JobViewModel(params) {
+    function JobExecutionViewModel(params) {
         var self = this;
-        var dev = false;
+        var dev = true;
 
-        var jobId = params.id;
+        var jobExecutionId = params.id;
 
-        console.log('params.id: ' + jobId);
+        console.log('params.id: ' + jobExecutionId);
 
-        self.job = ko.observableArray();
+        self.jobExecution = ko.observableArray();
 
         if (dev) {
-            var theFixture = fixtures.job;
-            var theJob = new Job(theFixture);
-            self.job(theJob);
+            var theFixture = fixtures.jobExecution;
+            var theJobExecution = new JobExecution(theFixture);
+            self.jobExecution(theJobExecution);
         } else {
             var runner = runnerConfig.getRunnerInstance();
 
@@ -164,12 +164,12 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
     }
 
     // Use prototype to declare any public methods
-    JobViewModel.prototype.doSomething = function() {
+    JobExecutionViewModel.prototype.doSomething = function() {
 
     };
 
     return {
-        viewModel: JobViewModel,
+        viewModel: JobExecutionViewModel,
         template: template,
         synchronous: true
     };

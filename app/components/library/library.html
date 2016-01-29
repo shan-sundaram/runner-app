@@ -5,8 +5,10 @@
         <div class="row">
 
             <div class="col-sm-9 col-sm-push-3">
-                <h1>Runner Playbooks</h1>
-                <p class="lead">Browse the library of playbooks to quickly build environments, or add a playbook to your private library with Playbook Builder.</p>
+
+
+                <h1>Runner Jobs</h1>
+                <p class="lead">Browse the library of jobs to quickly build environments, or add a job to your private library with Job Builder.</p>
 
                 <!-- BEGIN TABS: PLAYBOOK -->
                 <ul id="playbooks-tabs" class="nav nav-tabs clearfix" role="tablist">
@@ -23,21 +25,21 @@
                 <div class="tab-content">
                     <div id="playbooks-public" class="tab-pane active">
                         <!-- BEGIN: PUBLIC PLAYBOOKS -->
-                        <p><button class="btn btn-default">run manual playbook</button></p>
+                        <p><button class="btn btn-default">run manual job</button></p>
 
                         <!-- BEGIN: FEATURED PLAYBOOKS -->
-                        <div id="featuredPlaybooks" class="row" data-bind="foreach: { data: playbooksFeatured, as: 'playbook' }">
+                        <div id="featuredPlaybooks" class="row" data-bind="foreach: { data: jobsFeatured, as: 'job' }">
                             <!-- BEGIN: FEATURED PLAYBOOK ITEM -->
                             <div class="col-sm-6">
-                                <div class="card card-inverse card-featured" data-bind="css: playbook.featuredClass()">
+                                <div class="card card-inverse card-featured" data-bind="css: job.featuredClass()">
                                     <div class="card-header">
-                                        Featured Playbook
+                                        Featured Job
                                     </div>
                                     <div class="card-block">
-                                        <a href="#playbook/999" data-bind="attr: { href: '#playbook/' + playbook.id() }">
-                                            <img src="/assets/svg/logo-kubernetes.svg" class="brand" data-bind="attr: { src: playbook.image() }">
-                                            <h4 class="card-title" data-bind="text: playbook.name()">[name]</h4>
-                                            <p class="card-text" data-bind="text: playbook.description()">[description]</p>
+                                        <a href="#job/999" data-bind="attr: { href: '#job/' + job.id() }">
+                                            <img src="/assets/svg/logo-kubernetes.svg" class="brand" data-bind="attr: { src: job.image() }">
+                                            <h4 class="card-title" data-bind="text: job.name()">[name]</h4>
+                                            <p class="card-text" data-bind="text: job.description()">[description]</p>
                                         </a>
                                     </div>
                                     <div class="card-block">
@@ -46,14 +48,14 @@
                                                 <svg class="cyclops-icon">
                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cloud-upload"></use>
                                                 </svg>
-                                                <span data-bind="text: playbook.countDeploy() + ' deploys'">[countDeploy]</span>
+                                                <span data-bind="text: job.countDeploy() + ' deploys'">[countDeploy]</span>
                                             </li>
                                             <li>
                                                 <a href="#">
                                                     <svg class="cyclops-icon">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-code-fork"></use>
                                                     </svg>
-                                                    <span data-bind="text: playbook.countFork() + ' forks'">[countFork]</span>
+                                                    <span data-bind="text: job.countFork() + ' forks'">[countFork]</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -61,7 +63,7 @@
                                                     <svg class="cyclops-icon">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-star"></use>
                                                     </svg>
-                                                    <span data-bind="text: playbook.countStar() + ' stars'">[countStar]</span>
+                                                    <span data-bind="text: job.countStar() + ' stars'">[countStar]</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -73,15 +75,15 @@
                         <!-- END: FEATURED PLAYBOOKS -->
 
                         <!-- BEGIN: LIBRARY PLAYBOOKS -->
-                        <div class="row library-runner" data-bind="foreach: { data: playbooks, as: 'playbook' }">
+                        <div class="row library-runner" data-bind="foreach: { data: jobs, as: 'job' }">
                             <!-- BEGIN: LIBRARY PLAYBOOK ITEM -->
                             <div class="col-xs-12 col-sm-6 col-md-4">
                                 <div class="card">
                                     <div class="card-block">
-                                        <a href="#playbook/999" data-bind="attr: { href: '#playbook/' + playbook.id() }">
-                                            <img src="/assets/svg/logo-nodejs-color.svg" class="brand" data-bind="attr: { src: playbook.image() }">
-                                            <p class="card-title" data-bind="text: playbook.name()">[name]</p>
-                                            <p class="card-text" data-bind="text: playbook.description()">[description]</p>
+                                        <a href="#job/999" data-bind="attr: { href: '#job/' + job.id() }">
+                                            <img src="/assets/svg/logo-nodejs-color.svg" class="brand" data-bind="attr: { src: job.image() }">
+                                            <p class="card-title" data-bind="text: job.name()">[name]</p>
+                                            <p class="card-text" data-bind="text: job.description()">[description]</p>
                                         </a>
                                     </div>
                                     <div class="card-block">
@@ -90,14 +92,14 @@
                                                 <svg class="cyclops-icon">
                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cloud-upload"></use>
                                                 </svg>
-                                                <span data-bind="text: playbook.countDeploy() + ' deploys'">[countDeploy]</span>
+                                                <span data-bind="text: job.countDeploy() + ' deploys'">[countDeploy]</span>
                                             </li>
                                             <li>
                                                 <a href="#">
                                                     <svg class="cyclops-icon">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-code-fork"></use>
                                                     </svg>
-                                                    <span data-bind="text: playbook.countFork() + ' forks'">[countFork]</span>
+                                                    <span data-bind="text: job.countFork() + ' forks'">[countFork]</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -105,7 +107,7 @@
                                                     <svg class="cyclops-icon">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-star"></use>
                                                     </svg>
-                                                    <span data-bind="text: playbook.countStar() + ' stars'">[countStar]</span>
+                                                    <span data-bind="text: job.countStar() + ' stars'">[countStar]</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -126,51 +128,52 @@
                 </div>
                 <!-- END TAB PANES -->
 
+
             </div>
 
             <div class="col-sm-3 col-sm-pull-9">
-                <h5 class="queue-title">RECENT JOBS
+                <h5 class="queue-title">RECENT JOB EXECUTIONS
                     <div class="pull-right">
-                        <a href="#jobs">view all</a>
+                        <a href="#job-executions">view all</a>
                     </div>
                 </h5>
 
                 <div class="filter-panel">
-                    <a href="#jobs/active">Active (3)</a>
-                    <a href="#jobs/errored">Errored (1)</a>
-                    <a href="#jobs" class="active">All</a>
+                    <a href="#job-executions/active">Active (3)</a>
+                    <a href="#job-executions/errored">Errored (1)</a>
+                    <a href="#job-executions" class="active">All</a>
                 </div>
 
                 <!-- BEGIN: JOBS QUEUE -->
                 <div class="queue-container">
-                    <ol class="queue queue-preview" data-bind="foreach: { data: jobs, as: 'job' }">
+                    <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutions, as: 'jobExecution' }">
                         <!-- BEGIN: JOB ITEM PREVIEW-->
-                        <li class="" data-bind="css: job.statusClass">
+                        <li class="" data-bind="css: jobExecution.statusClass">
                             <div class="status-bar">
                                 <svg class="cyclops-icon" title="queued">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': job.statusIcon }"></use>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': jobExecution.statusIcon }"></use>
                                 </svg>
                             </div>
                             <div class="details clearfix">
                                 <div class="col col-100">
-                                    <a href="#job/999" class="playbook" data-bind="attr: { href: '#job/' + job.id() }, text: job.name">[job.name]</a>
+                                    <a href="#job-execution/999" class="playbook" data-bind="attr: { href: '#job-execution/' + jobExecution.id() }, text: jobExecution.name">[jobExecution.name]</a>
                                     <div class="user">
                                         <svg class="cyclops-icon">
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
                                         </svg>
-                                        <!--<span data-bind="text: job.user()">[user]</span>-->
+                                        <!--<span data-bind="text: jobExecution.user()">[user]</span>-->
                                     </div>
                                     <div class="duration">
                                         <svg class="cyclops-icon">
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use>
                                         </svg>
-                                        <span data-bind="text: job.duration()">[job.duration]</span>
+                                        <span data-bind="text: jobExecution.duration()">[jobExecution.duration]</span>
                                     </div>
                                     <div class="finished">
                                         <svg class="cyclops-icon">
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-calendar"></use>
                                         </svg>
-                                        <span data-bind="text: job.finished()">[job.finshed]</span>
+                                        <span data-bind="text: jobExecution.finished()">[jobExecution.finshed]</span>
                                     </div>
                                 </div>
                             </div>

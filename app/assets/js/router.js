@@ -13,12 +13,111 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
                     page: 'library'
                 }
             },
+
+/*
             {
-                url: 'playbooks',
+                url: 'jobs',
                 params: {
                     page: 'library'
                 }
             },
+*/
+
+
+            {
+                url: 'job/{id}/run',
+                params: {
+                    page: 'job-run'
+                }
+            },
+            {
+                url: 'job/{id}',
+                params: {
+                    page: 'job'
+                }
+            },
+            {
+                url: 'job/{id}/schedule',
+                params: {
+                    page: 'job-schedule'
+                }
+            },
+            {
+                url: 'job/build',
+                params: {
+                    page: 'job-build'
+                }
+            },
+
+
+            {
+                url: 'job-executions',
+                params: {
+                    page: 'job-executions'
+                }
+            },
+
+
+            {
+                url: 'job-execution/{id}',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+            {
+                url: 'job-execution/{id}/stop',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+            {
+                url: 'job-execution/{id}/kill',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+            {
+                url: 'job-execution/{id}/log',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+            {
+                url: 'job-execution/{id}/log/download',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+
+
+/*
+            {
+                url: 'jobs/all',
+                params: {
+                    page: 'library'
+                }
+            },
+            {
+                url: 'job/{id}/view',
+                params: {
+                    page: 'playbook'
+                }
+            },
+            {
+                url: 'jobs/all',
+                params: {
+                    page: 'jobs'
+                }
+            },
+            {
+                url: 'job/{id}/log/view',
+                params: {
+                    page: 'job'
+                }
+            },
+*/
+
+
             //{
             //    url: 'playbooks/public',
             //    params: {
@@ -32,39 +131,6 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
             //    }
             //},
 
-
-            {
-                url: 'playbook/{id}/run',
-                params: {
-                    page: 'playbook-run'
-                }
-            },
-            {
-                url: 'playbook/{id}',
-                params: {
-                    page: 'playbook'
-                }
-            },
-            {
-                url: 'playbook/{id}/schedule',
-                params: {
-                    page: 'playbook-schedule'
-                }
-            },
-            {
-                url: 'playbook/build',
-                params: {
-                    page: 'playbook-build'
-                }
-            },
-
-
-            {
-                url: 'jobs',
-                params: {
-                    page: 'jobs'
-                }
-            },
             //{
             //    url: 'jobs/mine',
             //    params: {
@@ -90,63 +156,6 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
             //    }
             //},
 
-
-            {
-                url: 'job/{id}',
-                params: {
-                    page: 'job'
-                }
-            },
-            {
-                url: 'job/{id}/stop',
-                params: {
-                    page: 'job'
-                }
-            },
-            {
-                url: 'job/{id}/kill',
-                params: {
-                    page: 'job'
-                }
-            },
-            {
-                url: 'job/{id}/log',
-                params: {
-                    page: 'job'
-                }
-            },
-            {
-                url: 'job/{id}/log/download',
-                params: {
-                    page: 'job'
-                }
-            },
-
-
-            {
-                url: 'playbooks/all',
-                params: {
-                    page: 'library'
-                }
-            },
-            {
-                url: 'playbook/{id}/view',
-                params: {
-                    page: 'playbook'
-                }
-            },
-            {
-                url: 'jobs/all',
-                params: {
-                    page: 'jobs'
-                }
-            },
-            {
-                url: 'job/{id}/log/view',
-                params: {
-                    page: 'job'
-                }
-            },
         ]
     };
 

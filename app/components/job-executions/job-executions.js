@@ -1,25 +1,30 @@
-define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
+define(['knockout', 'mapping', 'text!./job-executions.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
 
 
 
-    function Job(jobData) {
-        this.id = ko.observable(jobData.id || '—');
-        this.accountAlias = ko.observable(jobData.accountAlias || '—');
-        this.name = ko.observable(jobData.name || '—');
-        this.description = ko.observable(jobData.description || '—');
-        this.playbook = ko.observable(jobData.playbook || '—');
-        this.useDynamicInventory = ko.observable(jobData.useDynamicInventory || '—');
-        this.properties = ko.observable(jobData.properties || '—');
-        this.status = ko.observable(jobData.status || '—');
-        this.createdTime = ko.observable(jobData.createdTime || '—');
-        this.lastUpdatedTime = ko.observable(jobData.lastUpdatedTime || '—');
-        this.bootstrapKeyPairAlias = ko.observable(jobData.bootstrapKeyPairAlias || '—');
-        this.playbookTags = ko.observable(jobData.playbookTags || '—');
-        this.executionTtl = ko.observable(jobData.executionTtl || '—');
-        this.repository = ko.observable(jobData.repository || '—');
-        this.hosts = ko.observable(jobData.hosts || '—');
-        this.links = ko.observable(jobData.links || '—');
-        this.callbacks = ko.observable(jobData.callbacks || '—');
+    function JobExecution(jobExecution) {
+        this.id = ko.observable(jobExecution.id || '—');
+        this.name = ko.observable(jobExecution.name || '—');
+        this.status = ko.observable(jobExecution.status || '—');
+        this.duration = ko.observable(jobExecution.duration || '—');
+        this.finished = ko.observable(jobExecution.finished || '—');
+
+
+
+        this.accountAlias = ko.observable(jobExecution.accountAlias || '—');
+        this.description = ko.observable(jobExecution.description || '—');
+        this.playbook = ko.observable(jobExecution.playbook || '—');
+        this.useDynamicInventory = ko.observable(jobExecution.useDynamicInventory || '—');
+        this.properties = ko.observable(jobExecution.properties || '—');
+        this.createdTime = ko.observable(jobExecution.createdTime || '—');
+        this.lastUpdatedTime = ko.observable(jobExecution.lastUpdatedTime || '—');
+        this.bootstrapKeyPairAlias = ko.observable(jobExecution.bootstrapKeyPairAlias || '—');
+        this.playbookTags = ko.observable(jobExecution.playbookTags || '—');
+        this.executionTtl = ko.observable(jobExecution.executionTtl || '—');
+        this.repository = ko.observable(jobExecution.repository || '—');
+        this.hosts = ko.observable(jobExecution.hosts || '—');
+        this.links = ko.observable(jobExecution.links || '—');
+        this.callbacks = ko.observable(jobExecution.callbacks || '—');
 
         this.statusIcon = ko.computed(function () {
             var theStatus = this.status();
@@ -93,7 +98,7 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
             return self.createdTime();
         }, self);
 
-        model.hrefJobStop = ko.computed(function () {
+        model.hrefjobExecutionstop = ko.computed(function () {
             return '#job/' + theId;
         }, self);
 
@@ -117,11 +122,11 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         }
     };
 
-    function JobsViewModel(params) {
+    function jobExecutionsViewModel(params) {
         var self = this;
-        var dev = false;
+        var dev = true;
 
-        self.jobs = ko.observableArray();
+        self.jobExecutions = ko.observableArray();
 
         self.filterByNameQuery = ko.observable('');
         self.filterByStatusQuery = ko.observable('');
@@ -164,7 +169,46 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
                 'all'
             ]
         );
-        self.selectedStatus = ko.observable('all');
+        //self.selectedStatus = ko.observable('all');
+
+
+
+
+
+        //Set href value of element
+        self.selected = ko.observable(null);
+
+        //initial set to show first tabpanel when loading page
+        self.init = ko.observable(1);
+
+        //Get href value og element
+        self.getHref = function(){
+            var target;
+            var element = event.target;
+            //var element = event.target.data('tab');
+            console.log('element', element);
+            var $element = $(element);
+            console.log('$element', $element);
+            var foo = $element.data('tab');
+            console.log('foo', foo);
+
+            //var element = event.target.hash;
+            target = element.substr(1);
+            return target;
+        };
+
+        //Show Tabpanel
+        self.showBlock = function(){
+            var target = self.getHref();
+            self.selected(target);
+            self.init(2);
+        };
+
+
+
+
+
+
 
         self.selectStatus = function(status) {
             console.log("selectStatus status", status);
@@ -177,25 +221,25 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         self.pageSize = 10;
 
         if (dev) {
-            var jobFixture = fixtures.jobs;
+            var jobExecutionsFixture = fixtures.jobExecutions;
 
-            jobFixture.forEach(function (job) {
-                var jobObject = new Job(job);
-                self.jobs.push(jobObject);
+            jobExecutionsFixture.forEach(function (jobExecution) {
+                var JobExecutionObject = new JobExecution(jobExecution);
+                self.jobExecutions.push(JobExecutionObject);
             });
         } else {
             var runner = runnerConfig.getRunnerInstance();
-            runner.jobs.find().then(function (jobs) {
+            runner.jobs.find().then(function (jobExecutions) {
                 console.log('/////runner returned');
 
-                self.page = jobs.data;
-                var jobsData = self.page.values;
-                console.log("jobsData", jobsData);
+                self.page = jobExecutions.data;
+                var jobExecutionsData = self.page.values;
+                console.log("jobExecutionsData", jobExecutionsData);
 
-                jobsData.forEach(function (job) {
+                jobExecutionsData.forEach(function (job) {
                     var jobData = job.data;
                     var observableJob = ko.mapping.fromJS(jobData, jobMappings);
-                    self.jobs.push(observableJob);
+                    self.jobExecutions.push(observableJob);
 
 
                     //console.log(job);
@@ -213,32 +257,32 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         }
 
 
-        self.jobsFilteredByStatus = ko.computed(function () {
+        self.jobExecutionsFilteredByStatus = ko.computed(function () {
             var search = self.filterByStatusQuery().toLowerCase();
-            return ko.utils.arrayFilter(self.jobs(), function (job) {
+            return ko.utils.arrayFilter(self.jobExecutions(), function (job) {
                 if (job.status) {
                     return job.status().toLowerCase().indexOf(search) >= 0;
                 }
             });
         });
 
-        self.jobsFilteredByName = ko.computed(function () {
+        self.jobExecutionsFilteredByName = ko.computed(function () {
             var search = self.filterByNameQuery().toLowerCase();
-            return ko.utils.arrayFilter(self.jobs(), function (job) {
-                if (job.name) {
-                    return job.name().toLowerCase().indexOf(search) >= 0;
+            return ko.utils.arrayFilter(self.jobExecutions(), function (jobExecution) {
+                if (jobExecution.name) {
+                    return jobExecution.name().toLowerCase().indexOf(search) >= 0;
                 }
             });
         });
 
         self.loadNextPage = function () {
             self.page.fetch(self.pageIndex+1, self.pageSize).then(function(nextPage, data) {
-                var jobsData = nextPage.data.values;
-                self.jobs([]);
-                jobsData.forEach(function (job) {
+                var jobExecutionsData = nextPage.data.values;
+                self.jobExecutions([]);
+                jobExecutionsData.forEach(function (job) {
                     var jobData = job.data;
                     var observableJob = ko.mapping.fromJS(jobData, mappings);
-                    self.jobs.push(observableJob);
+                    self.jobExecutions.push(observableJob);
                 });
                 self.pageIndex = self.pageIndex + 1;
             });
@@ -246,12 +290,12 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
 
         self.loadPreviousPage = function () {
             self.page.fetch(self.pageIndex-1, self.pageSize).then(function(prevPage, data) {
-                var jobsData = prevPage.data.values;
-                self.jobs([]);
-                jobsData.forEach(function (job) {
+                var jobExecutionsData = prevPage.data.values;
+                self.jobExecutions([]);
+                jobExecutionsData.forEach(function (job) {
                     var jobData = job.data;
                     var observableJob = ko.mapping.fromJS(jobData, mappings);
-                    self.jobs.push(observableJob);
+                    self.jobExecutions.push(observableJob);
                 });
                 self.pageIndex = self.pageIndex - 1;
             });
@@ -260,7 +304,7 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
     }
 
     return {
-        viewModel: JobsViewModel,
+        viewModel: jobExecutionsViewModel,
         template: template
     };
 
