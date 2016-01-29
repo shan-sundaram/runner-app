@@ -33,15 +33,14 @@ require.config({
 
     shim: {
         "cyclops": {
-            deps: ["jquery", 'knockout']
+            deps: ["jquery", 'globalko']
         }
     },
 
     deps: ['main']
 });
 
-// Set a global ko object after Knockout is loaded so that
-// Cyclops can use it.
-require(['knockout'], function(ko){
+define('globalko', ['knockout', 'knockoutValidation'], function(ko){
+    // Manually set the global ko property so that Cyclops can use it.
     window.ko = ko;
 });
