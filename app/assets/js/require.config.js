@@ -17,7 +17,6 @@ require.config({
         knockoutValidation: 'vendor/knockout-validation/dist/knockout.validation',
         mapping: 'vendor/bower-knockout-mapping/dist/knockout.mapping',
         projections: 'vendor/knockout-projections/dist/knockout-projections',
-        //cyclops: 'cyclops',
         cyclops: 'https://assets.ctl.io/cyclops/1.1.3/scripts/cyclops',
         crossroads: 'vendor/crossroads/dist/crossroads',
         hasher: 'vendor/hasher/dist/js/hasher',
