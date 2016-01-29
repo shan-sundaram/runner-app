@@ -43,6 +43,11 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
     //https://github.com/crissdev/knockout.mapping
 
     var statuses = {
+        ACTIVE: {
+            statusIcon: '#icon-play',
+            statusClass: 'running'
+        },
+
         INITIALIZING: {
             statusIcon: '#icon-play',
             statusClass: 'initializing'
@@ -146,7 +151,7 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
                 self.job(observableJob);
 
                 //console.log('self', self);
-                //console.log('self.job', self.job());
+                console.log('self.job', self.job());
                 //console.log('self.job.id', self.job().id());
                 //console.log('self.job.name', self.job().name());
                 //console.log('self.job.hrefJobStop', self.job().hrefJobStop());

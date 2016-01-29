@@ -1,6 +1,7 @@
 define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
 
 
+
     function Job(jobData) {
         this.id = ko.observable(jobData.id || '—');
         this.accountAlias = ko.observable(jobData.accountAlias || '—');
@@ -121,8 +122,57 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         var dev = false;
 
         self.jobs = ko.observableArray();
+
         self.filterByNameQuery = ko.observable('');
-        self.statusFilter = ko.observable('');
+        self.filterByStatusQuery = ko.observable('');
+
+        //self.statusesFilter = ko.observableArray(
+        //    [
+        //        {
+        //            title: 'active (--)',
+        //            count: '--',
+        //            href: '#jobs/active',
+        //            class: ''
+        //        },
+        //        {
+        //            title: 'successful (--)',
+        //            count: '--',
+        //            href: '#jobs/successful',
+        //            class: ''
+        //        },
+        //        {
+        //            title: 'errored (--)',
+        //            count: '--',
+        //            href: '#jobs/errored',
+        //            class: ''
+        //        },
+        //        {
+        //            title: 'all (--)',
+        //            count: '--',
+        //            href: '#jobs',
+        //            class: 'active'
+        //        }
+        //    ]
+        //);
+
+        //var index = self.statusesFilter.map(function(e) { return e.title; }).indexOf('Nick');
+        self.statuses = ko.observableArray(
+            [
+                'active',
+                'successful',
+                'errored',
+                'all'
+            ]
+        );
+        self.selectedStatus = ko.observable('all');
+
+        self.selectStatus = function(status) {
+            console.log("selectStatus status", status);
+            self.selectedStatus(status);
+        };
+
+
+
         self.pageIndex = 0;
         self.pageSize = 10;
 
@@ -163,6 +213,15 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         }
 
 
+        self.jobsFilteredByStatus = ko.computed(function () {
+            var search = self.filterByStatusQuery().toLowerCase();
+            return ko.utils.arrayFilter(self.jobs(), function (job) {
+                if (job.status) {
+                    return job.status().toLowerCase().indexOf(search) >= 0;
+                }
+            });
+        });
+
         self.jobsFilteredByName = ko.computed(function () {
             var search = self.filterByNameQuery().toLowerCase();
             return ko.utils.arrayFilter(self.jobs(), function (job) {
@@ -172,17 +231,6 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
             });
         });
 
-/*
-        self.filterJobs = ko.computed(function () {
-            var search = self.query().toLowerCase();
-            return ko.utils.arrayFilter(self.jobs(), function (job) {
-                if (job.name) {
-                    return job.name().toLowerCase().indexOf(search) >= 0;
-                }
-            });
-        });
-
-*/
         self.loadNextPage = function () {
             self.page.fetch(self.pageIndex+1, self.pageSize).then(function(nextPage, data) {
                 var jobsData = nextPage.data.values;

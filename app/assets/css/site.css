@@ -1,6 +1,16 @@
+html.cyclops .action-area.action-toolbar-confirm-shown {
+    background-color: #3a3a3a;
+}
 
+html.cyclops .action-toolbar-confirm {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 1140px !important;
+}
 
-a[data-toggle="tab"] {
+a[data-toggle="tab"],
+span.anchor-span
+{
     cursor: pointer;
 }
 
@@ -12,3 +22,62 @@ a[data-toggle="tab"] {
 .tab-content > .active {
     display: block;
 }
+
+
+/* begin filter panel stuff */
+/*
+html.cyclops #runner .filter-panel {
+    background-color: #e8e8e8;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #d9d9d9;
+    font-size: 12px;
+}
+*/
+
+
+html.cyclops #runner .filter-panel span.anchor-span {
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 10px;
+    color: #888;
+    margin-bottom: -2px;
+}
+
+
+/*
+html.cyclops #runner .filter-panel a svg {
+    fill: #999;
+}
+*/
+
+
+html.cyclops #runner .filter-panel span.anchor-span:hover,
+html.cyclops #runner .filter-panel span.anchor-span.active {
+    color: #333;
+    border-bottom: 2px solid #333;
+}
+
+
+
+html.cyclops #runner .filter-panel span.anchor-span:hover svg,
+html.cyclops #runner .filter-panel span.anchor-span.active svg {
+    fill: #333;
+}
+
+
+
+html.cyclops #runner .filter-panel span.anchor-span.active {
+    font-weight: 600;
+}
+
+
+/*
+html.cyclops #runner .filter-panel .search-input {
+    margin-top: 8px;
+}
+*/
+/* end filter panel stuff */

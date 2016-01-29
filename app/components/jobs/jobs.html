@@ -25,11 +25,18 @@
                             </svg>
                         </span>
                     </div>
-                    <a href="#jobs/mine">My Jobs</a>
-                    <a href="#jobs/active">Active (3)</a>
-                    <a href="#jobs/errored">Errored (1)</a>
-                    <a href="#jobs/successful">Successful (3)</a>
-                    <a href="#jobs" class="active">All</a>
+                    <!--<a href="#jobs/mine">My Jobs</a>-->
+                    <span class="anchor-span">My Jobs</span>
+
+                    <span class="anchor-span" data-bind="click: filterByStatusQuery">Active (3)</span>
+                    <span class="anchor-span" data-bind="click: filterByStatusQuery">Errored (1)</span>
+                    <span class="anchor-span" data-bind="click: filterByStatusQuery">Successful (3)</span>
+                    <span class="anchor-span active" data-bind="click: filterByStatusQuery">All</span>
+
+                    <!--<a href="#jobs/active" data-bind="click: filterByStatusQuery">Active (3)</a>-->
+                    <!--<a href="#jobs/errored" data-bind="click: filterByStatusQuery">Errored (1)</a>-->
+                    <!--<a href="#jobs/successful" data-bind="click: filterByStatusQuery">Successful (3)</a>-->
+                    <!--<a href="#jobs" class="active" data-bind="click: filterByStatusQuery">All</a>-->
                 </div>
 
                 <div align="right">

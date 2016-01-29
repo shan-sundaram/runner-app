@@ -19,18 +19,18 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
                     page: 'library'
                 }
             },
-            {
-                url: 'playbooks/public',
-                params: {
-                    page: 'library'
-                }
-            },
-            {
-                url: 'playbooks/private',
-                params: {
-                    page: 'library'
-                }
-            },
+            //{
+            //    url: 'playbooks/public',
+            //    params: {
+            //        page: 'library'
+            //    }
+            //},
+            //{
+            //    url: 'playbooks/private',
+            //    params: {
+            //        page: 'library'
+            //    }
+            //},
 
 
             {
@@ -65,30 +65,30 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
                     page: 'jobs'
                 }
             },
-            {
-                url: 'jobs/mine',
-                params: {
-                    page: 'jobs'
-                }
-            },
-            {
-                url: 'jobs/active',
-                params: {
-                    page: 'jobs'
-                }
-            },
-            {
-                url: 'jobs/errored',
-                params: {
-                    page: 'jobs'
-                }
-            },
-            {
-                url: 'jobs/successful',
-                params: {
-                    page: 'jobs'
-                }
-            },
+            //{
+            //    url: 'jobs/mine',
+            //    params: {
+            //        page: 'jobs'
+            //    }
+            //},
+            //{
+            //    url: 'jobs/active',
+            //    params: {
+            //        page: 'jobs'
+            //    }
+            //},
+            //{
+            //    url: 'jobs/errored',
+            //    params: {
+            //        page: 'jobs'
+            //    }
+            //},
+            //{
+            //    url: 'jobs/successful',
+            //    params: {
+            //        page: 'jobs'
+            //    }
+            //},
 
 
             {
