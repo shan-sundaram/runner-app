@@ -47,7 +47,8 @@ require.config({
         //    exports: 'cyclops'
         //},
         "cyclops": {
-            deps: ["jquery", 'knockout']
+            deps: ["jquery", 'knockout'],
+            exports: 'jQuery'
         }
         //'jquery.actionToolbarConfirm': {
         //    deps: ['jquery', 'cyclops'],

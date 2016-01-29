@@ -54,10 +54,8 @@ define(['knockout', 'mapping', 'text!./library.html', 'fixtures', 'runnerConfig'
 
     var statuses = {
         ACTIVE: {
-            statusIcon: '#icon-exclamation-circle',
-            statusClass: 'error'
-            //statusIcon: '#icon-play',
-            //statusClass: 'running'
+            statusIcon: '#icon-play',
+            statusClass: 'running'
         },
         COMPLETE: {
             statusIcon: '#icon-ellipsis',
