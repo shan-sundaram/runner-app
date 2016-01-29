@@ -42,11 +42,28 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
             statusIcon: '#icon-play',
             statusClass: 'running'
         },
-        COMPLETE: {
+
+
+
+
+
+        INITIALIZING: {
+            statusIcon: '#icon-play',
+            statusClass: 'initializing'
+        },
+        PENDING: {
+            statusIcon: '#icon-play',
+            statusClass: 'pending'
+        },
+        RUNNING: {
+            statusIcon: '#icon-play',
+            statusClass: 'running'
+        },
+        SUCCESS: {
             statusIcon: '#icon-ellipsis',
             statusClass: 'success'
         },
-        ERRORED: {
+        FAILURE: {
             statusIcon: '#icon-exclamation-circle',
             statusClass: 'error'
         },
@@ -54,9 +71,9 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
             statusIcon: '#icon-stop',
             statusClass: 'error'
         },
-        QUEUED: {
+        KILLED: {
             statusIcon: '#icon-ellipsis',
-            statusClass: 'running'
+            statusClass: 'killed'
         }
     };
 
@@ -104,7 +121,8 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         var dev = false;
 
         self.jobs = ko.observableArray();
-        self.query = ko.observable('');
+        self.filterByNameQuery = ko.observable('');
+        self.statusFilter = ko.observable('');
         self.pageIndex = 0;
         self.pageSize = 10;
 
@@ -118,41 +136,43 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
         } else {
             var runner = runnerConfig.getRunnerInstance();
             runner.jobs.find().then(function (jobs) {
+                console.log('/////runner returned');
+
                 self.page = jobs.data;
                 var jobsData = self.page.values;
                 console.log("jobsData", jobsData);
-
-                //runner.jobs.get().then(function (job) {
-                //console.log(RNRrunner);
 
                 jobsData.forEach(function (job) {
                     var jobData = job.data;
                     var observableJob = ko.mapping.fromJS(jobData, jobMappings);
                     self.jobs.push(observableJob);
+
+
+                    //console.log(job);
+
+                    //var jobData = job.data;
+
+                    //console.log("job.data", job.data);
+                    //console.log("job.data.id", job.data.id);
+                    //console.log("job.data.name", job.data.name);
+                    console.log("job.data.status", job.data.status);
+
                 });
 
-                console.log('/////RNRrunner');
-                //console.log(job);
-
-                //var jobData = job.data;
-
-                //console.log("job.data", job.data);
-                //console.log("job.data.id", job.data.id);
-                //console.log("job.data.name", job.data.name);
-                //
-                //console.log('self', self);
-                //console.log('self.job', self.job());
-                //console.log('self.job.id', self.job().id());
-                //console.log('self.job.name', self.job().name());
-                //console.log('self.job.hrefJobStop', self.job().hrefJobStop());
-                //console.log('self.job.hrefJobKill', self.job().hrefJobKill());
-                //console.log('self.job.statusIcon', self.job().statusIcon());
-                //console.log('self.job.statusClass', self.job().statusClass());
-                //console.log('self.job.statusClass', self.job().repository.credentials.username);
             });
         }
 
 
+        self.jobsFilteredByName = ko.computed(function () {
+            var search = self.filterByNameQuery().toLowerCase();
+            return ko.utils.arrayFilter(self.jobs(), function (job) {
+                if (job.name) {
+                    return job.name().toLowerCase().indexOf(search) >= 0;
+                }
+            });
+        });
+
+/*
         self.filterJobs = ko.computed(function () {
             var search = self.query().toLowerCase();
             return ko.utils.arrayFilter(self.jobs(), function (job) {
@@ -162,6 +182,7 @@ define(['knockout', 'mapping', 'text!./jobs.html', 'fixtures', 'runnerConfig'], 
             });
         });
 
+*/
         self.loadNextPage = function () {
             self.page.fetch(self.pageIndex+1, self.pageSize).then(function(nextPage, data) {
                 var jobsData = nextPage.data.values;

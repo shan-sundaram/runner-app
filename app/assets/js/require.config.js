@@ -34,7 +34,8 @@ require.config({
 
     shim: {
         "cyclops": {
-            deps: ["jquery", 'knockout']
+            deps: ["jquery", 'knockout'],
+            exports: 'jQuery'
         }
     },
 

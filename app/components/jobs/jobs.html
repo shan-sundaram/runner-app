@@ -19,7 +19,7 @@
                 <div class="filter-panel">
                     <div class="pull-right">
                         <span class="search-input">
-                            <input type="text" data-bind="value: query, valueUpdate: 'keyup'">
+                            <input type="text" data-bind="value: filterByNameQuery, valueUpdate: 'keyup'">
                             <svg class="cyclops-icon">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
                             </svg>
@@ -38,7 +38,7 @@
                 </div>
 
                 <!-- BEGIN: JOBS QUEUE -->
-                <ol class="queue queue-preview" data-bind="foreach: { data: filterJobs(), as: 'job' }">
+                <ol class="queue queue-preview" data-bind="foreach: { data: jobsFilteredByName(), as: 'job' }">
                     <!-- BEGIN: JOB ITEM -->
                     <li class="" data-bind="css: job.statusClass">
                         <div class="status-bar">

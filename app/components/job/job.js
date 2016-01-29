@@ -43,17 +43,23 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
     //https://github.com/crissdev/knockout.mapping
 
     var statuses = {
-        ACTIVE: {
-            statusIcon: '#icon-exclamation-circle',
-            statusClass: 'error'
-            //statusIcon: '#icon-play',
-            //statusClass: 'running'
+        INITIALIZING: {
+            statusIcon: '#icon-play',
+            statusClass: 'initializing'
         },
-        COMPLETE: {
+        PENDING: {
+            statusIcon: '#icon-play',
+            statusClass: 'pending'
+        },
+        RUNNING: {
+            statusIcon: '#icon-play',
+            statusClass: 'running'
+        },
+        SUCCESS: {
             statusIcon: '#icon-ellipsis',
             statusClass: 'success'
         },
-        ERRORED: {
+        FAILURE: {
             statusIcon: '#icon-exclamation-circle',
             statusClass: 'error'
         },
@@ -61,9 +67,9 @@ define(['knockout', 'mapping', 'text!./job.html', 'fixtures', 'runnerConfig'], f
             statusIcon: '#icon-stop',
             statusClass: 'error'
         },
-        QUEUED: {
+        KILLED: {
             statusIcon: '#icon-ellipsis',
-            statusClass: 'running'
+            statusClass: 'killed'
         }
     };
 
