@@ -28,12 +28,14 @@ require.config({
         fixtures: 'fixtures',
         runner: 'runner',
         runnerConfig: 'runner.config',
-        bluebird: 'vendor/bluebird/js/browser/bluebird'
+        bluebird: 'vendor/bluebird/js/browser/bluebird',
+        accountSwitcher: 'accountSwitcher'
     },
 
     shim: {
         "cyclops": {
-            deps: ["jquery", 'globalko']
+            deps: ["globaljquery", 'globalko']
+            //deps: ["jquery", 'globalko']
         }
     },
 
@@ -44,3 +46,10 @@ define('globalko', ['knockout', 'knockoutValidation'], function(ko){
     // Manually set the global ko property so that Cyclops can use it.
     window.ko = ko;
 });
+
+//my additions to brian's majick
+define('globaljquery', ['jquery'], function($){
+    // Manually set the global $ property so that Cyclops can use it.
+    window.$ = $;
+});
+

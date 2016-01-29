@@ -28,9 +28,7 @@
 
 <body id="runner">
 
-<!--
-    <account-switcher params="accounts: accounts, loading: loadingAccounts, currentAccountAlias: currentAccountAlias"></account-switcher>
--->
+    <!--<account-switcher params="accounts: accounts, loading: loadingAccounts, currentAccountAlias: currentAccountAlias"></account-switcher>-->
 
     <navigation params="route: route"></navigation>
 
@@ -385,6 +383,13 @@
     </div>
 
     <script src="assets/js/vendor/requirejs/require.js" data-main="assets/js/require.config"></script>
+
+
+
+
+    <script id="cyclops.toggle" type="text/html"><div class="toggle" data-bind="css: {'disabled': disabled}"> <label> <input type="checkbox" data-bind="checked:value, disable: disabled" /> <!-- https://css-tricks.com/webkit-sibling-bug/ --> <div class="bug-fix"> <span class="text"> <span class="affirmative" data-bind="text:affirmativeText">yes</span> <span class="negative" data-bind="text:negativeText">no</span> </span> <svg class="handle" height="32" viewBox="0 0 28 32"> <g> <rect x="10" y="12" fill="#777777" width="1" height="1"></rect> <rect x="17" y="12" fill="#777777" width="1" height="1"></rect> <rect x="13.5" y="12" fill="#777777" width="1" height="1"></rect> <rect x="10" y="15.5" fill="#777777" width="1" height="1"></rect> <rect x="17" y="15.5" fill="#777777" width="1" height="1"></rect> <rect x="13.5" y="15.5" fill="#777777" width="1" height="1"></rect> <rect x="10" y="19" fill="#777777" width="1" height="1"></rect> <rect x="17" y="19" fill="#777777" width="1" height="1"></rect> <rect x="13.5" y="19" fill="#777777" width="1" height="1"></rect> </g> </svg> </div> </label> </div></script>
+
+
 
 </body>
 </html>
