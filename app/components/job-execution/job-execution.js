@@ -1,6 +1,6 @@
 define([
     'knockout',
-    'mapping',
+    'knockoutMapping',
     'text!./job-execution.html',
     'runnerConfig',
     'moment',
@@ -8,7 +8,7 @@ define([
     'fixtures'
 ], function (
         ko,
-        mapping,
+        knockoutMapping,
         template,
         runnerConfig,
         moment,
