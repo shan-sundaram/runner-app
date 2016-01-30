@@ -139,14 +139,15 @@
                 </h5>
 
                 <div class="filter-panel">
-                    <a href="#job-executions/active">Active (3)</a>
-                    <a href="#job-executions/errored">Errored (1)</a>
-                    <a href="#job-executions" class="active">All</a>
+                    <span id="job-executions-active" data-status="active" class="anchor-span" data-bind="click: selectJobExecutionTab, css: { 'active': jobExecutionTabIsActive('active')}">Active (--)</span>
+                    <span id="job-executions-errored" data-status="errored" class="anchor-span" data-bind="click: selectJobExecutionTab, css: { 'active': jobExecutionTabIsActive('errored')}">Errored (--)</span>
+                    <span id="job-executions-all" data-status="all" class="anchor-span" data-bind="click: selectJobExecutionTab, css: { 'active': jobExecutionTabIsActive('all')}">All</span>
                 </div>
 
                 <!-- BEGIN: JOBS QUEUE -->
                 <div class="queue-container">
-                    <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutions, as: 'jobExecution' }">
+                    <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFiltered(), as: 'jobExecution' }">
+                    <!--<ol class="queue queue-preview" data-bind="foreach: { data: jobExecutions, as: 'jobExecution' }">-->
                         <!-- BEGIN: JOB ITEM PREVIEW-->
                         <li class="" data-bind="css: jobExecution.status(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">
                             <div class="status-bar">

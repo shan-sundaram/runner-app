@@ -20,7 +20,7 @@
 
                     <div class="pull-right">
                         <span class="search-input">
-                            <input type="text" data-bind="value: filterByNameQuery, valueUpdate: 'keyup'">
+                            <input type="text" data-bind="value: filterJobExecutionsByNameQuery, valueUpdate: 'keyup'">
                             <svg class="cyclops-icon">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
                             </svg>
@@ -28,35 +28,13 @@
                     </div>
 
                     <span class="anchor-span">My Job Executions</span>
-                    <span id="job-executions-active" data-status="active" class="anchor-span" data-bind="click: selectTab, css: { 'active': isActive('active')}">Active (--)</span>
-                    <span id="job-executions-errored" data-status="errored" class="anchor-span" data-bind="click: selectTab, css: { 'active': isActive('errored')}">Errored (--)</span>
-                    <span id="job-executions-successful" data-status="successful" class="anchor-span" data-bind="click: selectTab, css: { 'active': isActive('successful')}">Successful (--)</span>
-                    <span id="job-executions-all" data-status="all" class="anchor-span" data-bind="click: selectTab, css: { 'active': isActive('all')}">All</span>
+
+                    <span id="job-executions-active" data-status="active" class="anchor-span" data-bind="click: selectJobExecutionTab, css: { 'active': jobExecutionTabIsActive('active')}">Active (--)</span>
+                    <span id="job-executions-errored" data-status="errored" class="anchor-span" data-bind="click: selectJobExecutionTab, css: { 'active': jobExecutionTabIsActive('errored')}">Errored (--)</span>
+                    <span id="job-executions-successful" data-status="successful" class="anchor-span" data-bind="click: selectJobExecutionTab, css: { 'active': jobExecutionTabIsActive('successful')}">Successful (--)</span>
+                    <span id="job-executions-all" data-status="all" class="anchor-span" data-bind="click: selectJobExecutionTab, css: { 'active': jobExecutionTabIsActive('all')}">All</span>
 
                 </div>
-
-
-
-
-<!--
-                <div class="filter-panel">
-                    <div class="pull-right">
-                        <span class="search-input">
-                            <input type="text" data-bind="value: filterByNameQuery, valueUpdate: 'keyup'">
-                            <svg class="cyclops-icon">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
-                            </svg>
-                        </span>
-                    </div>
-
-                    <span class="anchor-span">My Job Executions</span>
-                    &lt;!&ndash; ko foreach: observableTabs &ndash;&gt;
-                    <span class="anchor-span" data-bind="css: { active: isSelected }, text: title, click: $parent.selectedTabORama">[tab.title]</span>
-                    &lt;!&ndash; /ko &ndash;&gt;
-                </div>
--->
-
-
 
                 <div align="right">
                     <input type="button" value="Previous" data-bind="click: loadPreviousPage"/>

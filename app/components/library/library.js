@@ -1,6 +1,7 @@
 define([
     'knockout',
     'knockoutMapping',
+    'knockoutProjections',
     'text!./library.html',
     'runnerConfig',
     'bootstrap',
@@ -10,6 +11,7 @@ define([
 ], function (
         ko,
         knockoutMapping,
+        knockoutProjections,
         template,
         runnerConfig,
         bootstrap,
@@ -72,122 +74,20 @@ define([
         }
     };
 
-/*
-    function JobExecution(jobExecution) {
-        this.id = ko.observable(jobExecution.id || '—');
-        this.name = ko.observable(jobExecution.name || '—');
-        this.status = ko.observable(jobExecution.status || '—');
-        this.duration = ko.observable(jobExecution.duration || '—');
-        this.finished = ko.observable(jobExecution.finished || '—');
-
-
-
-        this.accountAlias = ko.observable(jobExecution.accountAlias || '—');
-        this.description = ko.observable(jobExecution.description || '—');
-        this.playbook = ko.observable(jobExecution.playbook || '—');
-        this.useDynamicInventory = ko.observable(jobExecution.useDynamicInventory || '—');
-        this.properties = ko.observable(jobExecution.properties || '—');
-        this.createdTime = ko.observable(jobExecution.createdTime || '—');
-        this.lastUpdatedTime = ko.observable(jobExecution.lastUpdatedTime || '—');
-        this.bootstrapKeyPairAlias = ko.observable(jobExecution.bootstrapKeyPairAlias || '—');
-        this.playbookTags = ko.observable(jobExecution.playbookTags || '—');
-        this.executionTtl = ko.observable(jobExecution.executionTtl || '—');
-        this.repository = ko.observable(jobExecution.repository || '—');
-        this.hosts = ko.observable(jobExecution.hosts || '—');
-        this.links = ko.observable(jobExecution.links || '—');
-        this.callbacks = ko.observable(jobExecution.callbacks || '—');
-
-        this.statusIcon = ko.computed(function () {
-            var theStatus = this.status();
-            console.log('thisStatus: ' + theStatus);
-            var statusIcon = statuses[theStatus]['statusIcon'];
-            console.log('statusIcon: ' + statusIcon);
-            return statusIcon;
-        }, this);
-
-        this.statusClass = ko.computed(function () {
-            var theStatus = this.status();
-            console.log('theStatus: ' + theStatus);
-            var statusClass = statuses[theStatus]['statusClass'];
-            console.log('statusClass: ' + statusClass);
-            return statusClass;
-        }, this);
-    }
-*/
-
-/*
-    function Job(job) {
-        this.id = ko.observable(job.id || '—');
-        this.name = ko.observable(job.name || '—');
-        this.description = ko.observable(job.description || '—');
-        this.image = ko.observable(job.image || '—');
-        this.version = ko.observable(job.version || '—');
-        this.githubUrlRepo = ko.observable(job.githubUrlRepo || '—');
-        this.githubUrlMd = ko.observable(job.githubUrlMd || '—');
-        this.updated = ko.observable(job.updated || '—');
-        this.countDeploy = ko.observable(job.countDeploy || '—');
-        this.countFork = ko.observable(job.countFork || '—');
-        this.countStar = ko.observable(job.countStar || '—');
-        this.featuredClass = ko.observable(job.featuredClass || '—');
-        this.privacy = ko.observable(job.privacy || '—');
-    }
-*/
-
-/*
-    var statuses = {
-        ACTIVE: {
-            statusIcon: '#icon-play',
-            statusClass: 'running'
-        },
-
-
-
-
-
-        INITIALIZING: {
-            statusIcon: '#icon-play',
-            statusClass: 'initializing'
-        },
-        PENDING: {
-            statusIcon: '#icon-play',
-            statusClass: 'pending'
-        },
-        RUNNING: {
-            statusIcon: '#icon-play',
-            statusClass: 'running'
-        },
-        SUCCESS: {
-            statusIcon: '#icon-ellipsis',
-            statusClass: 'success'
-        },
-        FAILURE: {
-            statusIcon: '#icon-exclamation-circle',
-            statusClass: 'error'
-        },
-        STOPPED: {
-            statusIcon: '#icon-stop',
-            statusClass: 'error'
-        },
-        KILLED: {
-            statusIcon: '#icon-ellipsis',
-            statusClass: 'killed'
-        }
-    };
-*/
-
-
     function JobMappingAdditions(data) {
         var self = this;
         var model = ko.mapping.fromJS(data, {}, self);
 
         return model;
     }
+
     function JobFeaturedMappingAdditions(data) {
         var self = this;
         var model = ko.mapping.fromJS(data, {}, self);
 
         return model;
     }
+
     function JobExecutionMappingAdditions(data) {
         var self = this;
         var model = ko.mapping.fromJS(data, {}, self);
@@ -246,6 +146,11 @@ define([
         return model;
     }
 
+    var jobExecutionMapping = {
+        create: function (options) {
+            return new JobExecutionMappingAdditions(options.data);
+        }
+    };
 
     var jobMapping = {
         create: function (options) {
@@ -259,29 +164,78 @@ define([
         }
     };
 
-    var jobExecutionMapping = {
-        create: function (options) {
-            return new JobExecutionMappingAdditions(options.data);
-        }
-    };
-
     function LibraryViewModel(params) {
         var self = this;
         var dev = true;
 
+        self.pageIndex = 0;
+        self.pageSize = 10;
+
         self.jobExecutions = ko.observableArray();
+        self.filterJobExecutionsByStatusQuery = ko.observable(null);
 
 
         self.jobsFeatured = ko.observableArray();
         self.jobs = ko.observableArray();
-
         var jobsFeaturedFixture = fixtures.jobsFeatured;
         var jobsFixture = fixtures.jobs;
 
+
+        var selectedFilterStates = {
+            'all': null,
+            'active': [
+                'pending',
+                'initializing',
+                'running'
+            ],
+            'errored': [
+                'failure'
+            ],
+            'successful': [
+                'success'
+            ],
+
+            'inactive': [
+                'stopping',
+                'stopped',
+                'killing',
+                'killed'
+            ]
+        };
+
+        //Set ID of initially selected tab element
+        self.selectedJobExecutionsTab = ko.observable('job-executions-all');
+
+        //Mark clicked Tab as selected
+        self.selectJobExecutionTab = function (data) {
+            console.log('data', data);
+
+            var element = event.target;
+            var $element = $(element);
+            var selectedTabID = $element.attr('id');
+            var selectedTabStatus = $element.data('status');
+
+            console.log('selectedTabStatus', selectedTabStatus);
+
+            var filterStatusArray = selectedFilterStates[selectedTabStatus];
+            console.log('filterStatusArray', filterStatusArray);
+            self.filterJobExecutionsByStatusQuery(filterStatusArray);
+            console.log('selectedTabID', selectedTabID);
+            self.selectedJobExecutionsTab(selectedTabID);
+        };
+
+        self.jobExecutionTabIsActive = function (tabFilterString) {
+            var thisTab = 'job-executions-' + tabFilterString;
+            var selectedTab = self.selectedJobExecutionsTab();
+            console.log('isActive thisTab', thisTab);
+            console.log('isActive selectedTab', selectedTab);
+            return thisTab === selectedTab;
+        };
+
         if (dev) {
             var jobExecutionsFixture = fixtures.jobExecutions;
-            //var playbooksFeaturedFixture = fixtures.playbooksFeatured;
-            //var playbooksFixture = fixtures.playbooks;
+            //var jobsFeaturedFixture = fixtures.jobsFeatured;
+            //var jobsFixture = fixtures.jobs;
 
             jobExecutionsFixture.forEach(function (jobExecutionData) {
                 //24 hours
@@ -309,17 +263,11 @@ define([
             });
 
             jobsFeaturedFixture.forEach(function (jobFeaturedData) {
-                //var jobFeaturedObject = new Job(jobFeatured);
-                //self.jobsFeatured.push(jobFeaturedObject);
-
                 var observableJobFeatured = ko.mapping.fromJS(jobFeaturedData, jobFeaturedMapping);
                 self.jobsFeatured.push(observableJobFeatured);
             });
 
             jobsFixture.forEach(function (jobData) {
-                //var jobObject = new Job(job);
-                //self.jobs.push(jobObject);
-
                 var observableJob = ko.mapping.fromJS(jobData, jobMapping);
                 self.jobs.push(observableJob);
             });
@@ -346,46 +294,44 @@ define([
             });
 
             jobsFeaturedFixture.forEach(function (jobFeaturedData) {
-                //var playbookFeaturedObject = new Playbook(playbookFeatured);
-                //self.playbooksFeatured.push(playbookFeaturedObject);
-
                 var observableJobFeatured = ko.mapping.fromJS(jobFeaturedData, jobFeaturedMapping);
                 self.jobsFeatured.push(observableJobFeatured);
             });
 
             jobsFixture.forEach(function (jobData) {
-                //var playbookObject = new Playbook(playbook);
-                //self.playbooks.push(playbookObject);
-
                 var observableJob = ko.mapping.fromJS(jobData, jobMapping);
                 self.jobs.push(observableJob);
             });
-
         }
 
+        self.jobExecutionsFiltered = self.jobExecutions.filter(function (jobExecution) {
+            console.log('jobExecutionsFiltered');
 
-/*
-        self.playbooksFeatured = [];
-        self.playbooks = [];
-*/
+            var filterStatusArray = self.filterJobExecutionsByStatusQuery();
+            //var filterStatusArray = self.filterByStatusQuery();
+            var jobExecutionStatus = jobExecution.status();
+            var theStatusBool = true;
 
-/*
-        fixtures.jobs.forEach(function (job) {
-            var jobObject = new Job(job);
-            self.jobs.push(jobObject);
+            //console.log('filterStatusArray', filterStatusArray);
+            //console.log('jobExecutionStatus', jobExecutionStatus);
+
+            if (null == filterStatusArray) {
+                return self.jobExecutions;
+            }
+
+            if ((null != filterStatusArray) && (null != jobExecutionStatus)) {
+                theStatusBool = filterStatusArray.indexOf(jobExecutionStatus) != -1;
+                //console.log('theStatusBool', theStatusBool);
+            }
+
+            return theStatusBool;
         });
-
-        fixtures.playbooksFeatured.forEach(function (playbookFeatured) {
-            var playbookFeaturedObject = new Playbook(playbookFeatured);
-            self.playbooksFeatured.push(playbookFeaturedObject);
-        });
-
-        fixtures.playbooks.forEach(function (playbook) {
-            var playbookObject = new Playbook(playbook);
-            self.playbooks.push(playbookObject);
-        });
-*/
     }
+
+    // Use prototype to declare any public methods
+    LibraryViewModel.prototype.doSomething = function () {
+
+    };
 
     return {
         viewModel: LibraryViewModel,

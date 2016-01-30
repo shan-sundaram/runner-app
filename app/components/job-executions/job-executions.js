@@ -141,13 +141,12 @@ define([
         var self = this;
         var dev = true;
 
+        self.pageIndex = 0;
+        self.pageSize = 10;
+
         self.jobExecutions = ko.observableArray();
-
-
-
-        self.filterByNameQuery = ko.observable(null);
-        self.filterByStatusQuery = ko.observable(null);
-
+        self.filterJobExecutionsByStatusQuery = ko.observable(null);
+        self.filterJobExecutionsByNameQuery = ko.observable(null);
 
         var selectedFilterStates = {
             'all': null,
@@ -171,61 +170,11 @@ define([
             ]
         };
 
-
-/*
-        var tabs = [
-            {
-                'title': 'Active (3)',
-                'status': 'active'
-            },
-            {
-                'title': 'Errored (1)',
-                'status': 'errored'
-            },
-            {
-                'title': 'Successful (3)',
-                'status': 'successful'
-            },
-            {
-                'title': 'All',
-                'status': null
-            }
-        ];
-
-        var Tab = function (tabObject, selectedTabORama) {
-            var thisTab = this;
-            var title = tabObject.title;
-            var selected = selectedTabORama;
-            var status = tabObject.status;
-
-            thisTab.title = title;
-            thisTab.status = status;
-            thisTab.isSelected = ko.computed(function () {
-                return (thisTab === selected());
-            }, this);
-        };
-
-        self.selectedTabORama = ko.observable();
-        self.observableTabs = ko.observableArray([]);
-
-        tabs.forEach(function (thisTab) {
-            var observableTab = new Tab(thisTab, self.selectedTabORama);
-            self.observableTabs.push(observableTab);
-        });
-
-        self.selectedTabORama(self.observableTabs()[3]);
-*/
-
-
-
-
-
-
         //Set ID of initially selected tab element
-        self.selectedTab = ko.observable('job-executions-all');
+        self.selectedJobExecutionsTab = ko.observable('job-executions-all');
 
         //Mark clicked Tab as selected
-        self.selectTab = function (data) {
+        self.selectJobExecutionTab = function (data) {
             console.log('data', data);
 
             var element = event.target;
@@ -237,21 +186,18 @@ define([
 
             var filterStatusArray = selectedFilterStates[selectedTabStatus];
             console.log('filterStatusArray', filterStatusArray);
-            self.filterByStatusQuery(filterStatusArray);
+            self.filterJobExecutionsByStatusQuery(filterStatusArray);
             console.log('selectedTabID', selectedTabID);
-            self.selectedTab(selectedTabID);
+            self.selectedJobExecutionsTab(selectedTabID);
         };
 
-        self.isActive = function (tabFilterString) {
+        self.jobExecutionTabIsActive = function (tabFilterString) {
             var thisTab = 'job-executions-' + tabFilterString;
-            var selectedTab = self.selectedTab();
+            var selectedTab = self.selectedJobExecutionsTab();
             console.log('isActive thisTab', thisTab);
             console.log('isActive selectedTab', selectedTab);
             return thisTab === selectedTab;
         };
-
-        self.pageIndex = 0;
-        self.pageSize = 10;
 
         if (dev) {
             var jobExecutionsFixture = fixtures.jobExecutions;
@@ -306,8 +252,8 @@ define([
         self.jobExecutionsFiltered = self.jobExecutions.filter(function (jobExecution) {
             console.log('jobExecutionsFiltered');
 
-            var filterStatusArray = self.filterByStatusQuery();
-            var filterNameString = self.filterByNameQuery();
+            var filterStatusArray = self.filterJobExecutionsByStatusQuery();
+            var filterNameString = self.filterJobExecutionsByNameQuery();
             var jobExecutionStatus = jobExecution.status();
             var jobExecutionName = jobExecution.name();
             var theStatusBool = true;
@@ -371,6 +317,5 @@ define([
         viewModel: JobExecutionsViewModel,
         template: template
     };
-
 });
 
