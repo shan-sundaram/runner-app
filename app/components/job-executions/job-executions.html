@@ -67,7 +67,6 @@
                 <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFiltered(), as: 'jobExecution' }">
                     <!-- BEGIN: JOB ITEM -->
                     <li class="" data-bind="css: jobExecution.status(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">
-                    <!--<li class="" data-bind="css: jobExecution.statusClass, attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">-->
                         <div class="status-bar">
                             <svg class="cyclops-icon" title="queued">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': jobExecution.statusIcon }"></use>
