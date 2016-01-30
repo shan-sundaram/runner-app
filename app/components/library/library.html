@@ -28,18 +28,18 @@
                         <p><button class="btn btn-default">run manual job</button></p>
 
                         <!-- BEGIN: FEATURED PLAYBOOKS -->
-                        <div id="featuredPlaybooks" class="row" data-bind="foreach: { data: jobsFeatured, as: 'job' }">
+                        <div id="featuredPlaybooks" class="row" data-bind="foreach: { data: jobsFeatured, as: 'jobFeatured' }">
                             <!-- BEGIN: FEATURED PLAYBOOK ITEM -->
                             <div class="col-sm-6">
-                                <div class="card card-inverse card-featured" data-bind="css: job.featuredClass()">
+                                <div class="card card-inverse card-featured" data-bind="css: jobFeatured.featuredClass()">
                                     <div class="card-header">
                                         Featured Job
                                     </div>
                                     <div class="card-block">
-                                        <a href="#job/999" data-bind="attr: { href: '#job/' + job.id() }">
-                                            <img src="/assets/svg/logo-kubernetes.svg" class="brand" data-bind="attr: { src: job.image() }">
-                                            <h4 class="card-title" data-bind="text: job.name()">[name]</h4>
-                                            <p class="card-text" data-bind="text: job.description()">[description]</p>
+                                        <a href="#job/999" data-bind="attr: { href: '#job/' + jobFeatured.id() }">
+                                            <img src="/assets/svg/logo-kubernetes.svg" class="brand" data-bind="attr: { src: jobFeatured.image() }">
+                                            <h4 class="card-title" data-bind="text: jobFeatured.name()">[name]</h4>
+                                            <p class="card-text" data-bind="text: jobFeatured.description()">[description]</p>
                                         </a>
                                     </div>
                                     <div class="card-block">
@@ -48,14 +48,14 @@
                                                 <svg class="cyclops-icon">
                                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cloud-upload"></use>
                                                 </svg>
-                                                <span data-bind="text: job.countDeploy() + ' deploys'">[countDeploy]</span>
+                                                <span data-bind="text: jobFeatured.countDeploy() + ' deploys'">[countDeploy]</span>
                                             </li>
                                             <li>
                                                 <a href="#">
                                                     <svg class="cyclops-icon">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-code-fork"></use>
                                                     </svg>
-                                                    <span data-bind="text: job.countFork() + ' forks'">[countFork]</span>
+                                                    <span data-bind="text: jobFeatured.countFork() + ' forks'">[countFork]</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -63,7 +63,7 @@
                                                     <svg class="cyclops-icon">
                                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-star"></use>
                                                     </svg>
-                                                    <span data-bind="text: job.countStar() + ' stars'">[countStar]</span>
+                                                    <span data-bind="text: jobFeatured.countStar() + ' stars'">[countStar]</span>
                                                 </a>
                                             </li>
                                         </ul>

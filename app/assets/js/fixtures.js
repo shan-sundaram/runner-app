@@ -57,32 +57,6 @@ define({
     },
     jobExecutions: [
         {
-
-/*
-            var states = {
-                'successful': [
-                    'success'
-                ],
-                'errored': [
-                    'failure'
-                ],
-
-                'active': [
-                    'pending',
-                    'initializing',
-                    'running'
-                ],
-                'inactive': [
-                    'stopping',
-                    'stopped',
-                    'killing',
-                    'killed'
-                ]
-            };
-*/
-
-
-
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Inline Playbook Test',
             status: 'success',
@@ -161,7 +135,7 @@ define({
         featuredClass: 'nginx',
         privacy: 'public'
     },
-    libraryJobs: [
+    jobs: [
         {
             id: '1',
             name: 'Nodejs Server',
@@ -354,7 +328,7 @@ define({
 
         }
     ],
-    libraryJobsFeatured: [
+    jobsFeatured: [
         {
             id: '100',
             name: 'Create a Kubernetes Node',
