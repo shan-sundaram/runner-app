@@ -1,14 +1,14 @@
-/*
-'success': 'successful',
-'failure': 'errored',
-'pending': 'active',
-'initializing': 'active',
-'running': 'active',
-'stopping': 'inactive',
-'stopped': 'inactive',
-'killing': 'inactive',
-'killed': 'inactive'
-*/
+
+html.cyclops .action-toolbar-left li {
+    cursor: pointer;
+}
+
+html.cyclops .action-toolbar-confirm button,
+html.cyclops .action-toolbar-left li a
+{
+    /*min-width: 80px;*/
+    text-align: center;
+}
 
 html.cyclops #runner .queue > li.successful .status-bar,
 html.cyclops #runner .job-status.successful .status-bar,

@@ -48,18 +48,18 @@
                     <a href="#library">Library</a>
                 </li>
 -->
+                <li data-bind="css: { active: $root.route().page === 'jobs' }">
+                    <a href="#jobs">Jobs</a>
+                </li>
 
                 <li data-bind="css: { active: $root.route().page === 'job-build' }">
                     <a href="#job/build">Job Builder</a>
                 </li>
 
                 <li data-bind="css: { active: $root.route().page === 'job-executions' }">
-                    <a href="#job-executions">Job Executions (16)</a>
+                    <a href="#job-executions">Job Executions (--)</a>
                 </li>
 
-                <li data-bind="css: { active: $root.route().page === 'jobs' }">
-                    <a href="#jobs">Jobs</a>
-                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right navbar-account">
