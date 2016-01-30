@@ -1,16 +1,5 @@
 define({
 
-    //job: {
-    //    jobId: 'jobId 33333-333333-33333333',
-    //    executionId: 'executionId 33333-333333-33333333',
-    //    name: 'Nodejs Server',
-    //    status: 'running',
-    //    icon: '#icon-play',
-    //    user: 'Chris Kent',
-    //    duration: '23 min 30 sec',
-    //    finished: '2 hours ago'
-    //},
-
     jobExecution: {
         "id": "56195215-69c8-4b48-b5bb-c5a2512d40a5",
         "name": "Test Multi NIC-1",
@@ -68,51 +57,91 @@ define({
     },
     jobExecutions: [
         {
+
+/*
+            var states = {
+                'successful': [
+                    'success'
+                ],
+                'errored': [
+                    'failure'
+                ],
+
+                'active': [
+                    'pending',
+                    'initializing',
+                    'running'
+                ],
+                'inactive': [
+                    'stopping',
+                    'stopped',
+                    'killing',
+                    'killed'
+                ]
+            };
+*/
+
+
+
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Inline Playbook Test',
-            status: 'ACTIVE',
+            status: 'success',
             createdTime: 1453414212512,
             lastUpdatedTime: 1453414212512
         },
         {
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Redhat Linux Hyperscale Server',
-            status: 'ACTIVE',
+            status: 'failure',
             createdTime: 1453414212512,
             lastUpdatedTime: 1453414212512
         },
         {
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Nodejs Server',
-            status: 'FAILURE',
+            status: 'pending',
             createdTime: 1453414212512,
             lastUpdatedTime: 1453414212512
         },
         {
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Nodejs Server',
-            status: 'ACTIVE',
+            status: 'initializing',
             createdTime: 1453414212512,
             lastUpdatedTime: 1453414212512
         },
         {
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Redhat Linux Hyperscale Server',
-            status: 'ACTIVE',
+            status: 'running',
             createdTime: 1453414212512,
             lastUpdatedTime: 1453414212512
         },
         {
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Redhat Linux Hyperscale Server',
-            status: 'FAILURE',
+            status: 'stopping',
             createdTime: 1453414212512,
             lastUpdatedTime: 1453414212512
         },
         {
             id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
             name: 'Nodejs Serve',
-            status: 'ACTIVE',
+            status: 'stopped',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
+        },
+        {
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
+            name: 'Redhat Linux Hyperscale Server',
+            status: 'killing',
+            createdTime: 1453414212512,
+            lastUpdatedTime: 1453414212512
+        },
+        {
+            id: "56195215-69c8-4b48-b5bb-c5a2512d40a5",
+            name: 'Nodejs Serve',
+            status: 'killed',
             createdTime: 1453414212512,
             lastUpdatedTime: 1453414212512
         }

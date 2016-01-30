@@ -17,6 +17,7 @@
             <div class="col-sm-12">
 
                 <div class="filter-panel">
+
                     <div class="pull-right">
                         <span class="search-input">
                             <input type="text" data-bind="value: filterByNameQuery, valueUpdate: 'keyup'">
@@ -25,26 +26,37 @@
                             </svg>
                         </span>
                     </div>
-                    <!--<a href="#jobs/mine">My Jobs</a>-->
-                    <span class="anchor-span">My Job Executions</span>
 
-                    <span data-tab="1" class="anchor-span" data-bind="click: showBlock, css: { 'active': selected() == 'tab1' || init() == 1 }">Active (3)</span>
-                    <span data-tab="2" class="anchor-span" data-bind="click: showBlock, css: { 'active': selected() == 'tab2' }">Errored (1)</span>
-                    <span data-tab="3" class="anchor-span" data-bind="click: showBlock, css: { 'active': selected() == 'tab3' }">Successful (3)</span>
-                    <span data-tab="4" class="anchor-span" data-bind="click: showBlock, css: { 'active': selected() == 'tab4' }">All</span>
+                    <span class="anchor-span">My Job Executions</span>
+                    <span id="job-executions-active" data-status="active" class="anchor-span" data-bind="click: selectTab, css: { 'active': isActive('active')}">Active (--)</span>
+                    <span id="job-executions-errored" data-status="errored" class="anchor-span" data-bind="click: selectTab, css: { 'active': isActive('errored')}">Errored (--)</span>
+                    <span id="job-executions-successful" data-status="successful" class="anchor-span" data-bind="click: selectTab, css: { 'active': isActive('successful')}">Successful (--)</span>
+                    <span id="job-executions-all" data-status="all" class="anchor-span" data-bind="click: selectTab, css: { 'active': isActive('all')}">All</span>
+
+                </div>
+
+
+
 
 <!--
-                    <span class="anchor-span" data-bind="click: filterByStatusQuery">Active (3)</span>
-                    <span class="anchor-span" data-bind="click: filterByStatusQuery">Errored (1)</span>
-                    <span class="anchor-span" data-bind="click: filterByStatusQuery">Successful (3)</span>
-                    <span class="anchor-span active" data-bind="click: filterByStatusQuery">All</span>
+                <div class="filter-panel">
+                    <div class="pull-right">
+                        <span class="search-input">
+                            <input type="text" data-bind="value: filterByNameQuery, valueUpdate: 'keyup'">
+                            <svg class="cyclops-icon">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use>
+                            </svg>
+                        </span>
+                    </div>
+
+                    <span class="anchor-span">My Job Executions</span>
+                    &lt;!&ndash; ko foreach: observableTabs &ndash;&gt;
+                    <span class="anchor-span" data-bind="css: { active: isSelected }, text: title, click: $parent.selectedTabORama">[tab.title]</span>
+                    &lt;!&ndash; /ko &ndash;&gt;
+                </div>
 -->
 
-                    <!--<a href="#jobs/active" data-bind="click: filterByStatusQuery">Active (3)</a>-->
-                    <!--<a href="#jobs/errored" data-bind="click: filterByStatusQuery">Errored (1)</a>-->
-                    <!--<a href="#jobs/successful" data-bind="click: filterByStatusQuery">Successful (3)</a>-->
-                    <!--<a href="#jobs" class="active" data-bind="click: filterByStatusQuery">All</a>-->
-                </div>
+
 
                 <div align="right">
                     <input type="button" value="Previous" data-bind="click: loadPreviousPage"/>
@@ -52,9 +64,10 @@
                 </div>
 
                 <!-- BEGIN: JOBS QUEUE -->
-                <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFilteredByName(), as: 'jobExecution' }">
+                <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFiltered(), as: 'jobExecution' }">
                     <!-- BEGIN: JOB ITEM -->
-                    <li class="" data-bind="css: jobExecution.statusClass">
+                    <li class="" data-bind="css: jobExecution.status(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">
+                    <!--<li class="" data-bind="css: jobExecution.statusClass, attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">-->
                         <div class="status-bar">
                             <svg class="cyclops-icon" title="queued">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': jobExecution.statusIcon }"></use>
@@ -62,22 +75,23 @@
                         </div>
                         <div class="new-list-view-responsive new-list-view-responsive-sm details clearfix">
                             <div class="col col-40">
-                                <a href="#jobExecution/999" class="playbook" data-bind="attr: { href: '#jobExecution/' + jobExecution.id() }, text: jobExecution.name">[jobExecution.name]</a>
-                                <div class="user">
+                                <a href="#job-execution/999" class="playbook" data-bind="attr: { href: '#job-execution/' + jobExecution.id() }, text: jobExecution.name">[jobExecution.name]</a>
+                                <div class="user" title="Job Execution User">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
                                     </svg>
-                                    <!--<span data-bind="text: job.user()">[job.user]</span>-->
+                                    <span class="fake">[jobExecution.user]</span>
+                                    <!--<span data-bind="text: jobExecution.user()">[jobExecution.user]</span>-->
                                 </div>
                             </div>
                             <div class="col col-60">
-                                <div class="duration">
+                                <div class="duration" title="Job Execution Duration">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use>
                                     </svg>
                                     <span data-bind="text: jobExecution.duration()">[jobExecution.duration]</span>
                                 </div>
-                                <div class="finished">
+                                <div class="finished" title="Job Execution Finished">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-calendar"></use>
                                     </svg>

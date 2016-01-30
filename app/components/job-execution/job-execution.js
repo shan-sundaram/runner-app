@@ -1,41 +1,20 @@
-define(['knockout', 'mapping', 'text!./job-execution.html', 'fixtures', 'runnerConfig'], function (ko, mapping, template, fixtures, runnerConfig) {
-
-    function JobExecution(jobExecution) {
-        this.id = ko.observable(jobExecution.id || '—');
-        this.accountAlias = ko.observable(jobExecution.accountAlias || '—');
-        this.name = ko.observable(jobExecution.name || '—');
-        this.description = ko.observable(jobExecution.description || '—');
-        this.playbook = ko.observable(jobExecution.playbook || '—');
-        this.useDynamicInventory = ko.observable(jobExecution.useDynamicInventory || '—');
-        this.properties = ko.observable(jobExecution.properties || '—');
-        this.status = ko.observable(jobExecution.status || '—');
-        this.createdTime = ko.observable(jobExecution.createdTime || '—');
-        this.lastUpdatedTime = ko.observable(jobExecution.lastUpdatedTime || '—');
-        this.bootstrapKeyPairAlias = ko.observable(jobExecution.bootstrapKeyPairAlias || '—');
-        this.playbookTags = ko.observable(jobExecution.playbookTags || '—');
-        this.executionTtl = ko.observable(jobExecution.executionTtl || '—');
-        this.repository = ko.observable(jobExecution.repository || '—');
-        this.hosts = ko.observable(jobExecution.hosts || '—');
-        this.links = ko.observable(jobExecution.links || '—');
-        this.callbacks = ko.observable(jobExecution.callbacks || '—');
-
-        this.statusIcon = ko.computed(function () {
-            var theStatus = this.status();
-            console.log('thisStatus: ' + theStatus);
-            var statusIcon = statuses[theStatus]['statusIcon'];
-            console.log('statusIcon: ' + statusIcon);
-            return statusIcon;
-        }, this);
-
-        this.statusClass = ko.computed(function () {
-            var theStatus = this.status();
-            console.log('theStatus: ' + theStatus);
-            var statusClass = statuses[theStatus]['statusClass'];
-            console.log('statusClass: ' + statusClass);
-            return statusClass;
-        }, this);
-    }
-
+define([
+    'knockout',
+    'mapping',
+    'text!./job-execution.html',
+    'runnerConfig',
+    'moment',
+    'momentDurationFormat',
+    'fixtures'
+], function (
+        ko,
+        mapping,
+        template,
+        runnerConfig,
+        moment,
+        momentDurationFormat,
+        fixtures
+) {
     //http://knockoutjs.com/documentation/plugins-mapping.html
     //https://github.com/SteveSanderson/knockout.mapping
 
@@ -47,6 +26,7 @@ define(['knockout', 'mapping', 'text!./job-execution.html', 'fixtures', 'runnerC
             statusIcon: '#icon-play',
             statusClass: 'running'
         },
+
 
         INITIALIZING: {
             statusIcon: '#icon-play',
@@ -78,27 +58,61 @@ define(['knockout', 'mapping', 'text!./job-execution.html', 'fixtures', 'runnerC
         }
     };
 
-    function MappingAdditions(data) {
+    function JobExecutionMappingAdditions(data) {
         var self = this;
         var model = ko.mapping.fromJS(data, {}, self);
 
         var theId = self.id();
         var theStatus = self.status();
-        var theTime = self.createdTime();
 
-        model.duration = ko.computed(function() {
-            return theTime;
+        model.duration = ko.computed(function () {
+            var fudgeFactorForTesting = 1234567;
+            var lastUpdatedTime = self.lastUpdatedTime();
+            var createdTime = self.createdTime() - fudgeFactorForTesting;
+
+            if (lastUpdatedTime === createdTime) {
+                console.log('duration instant');
+                return 'instant';
+            }
+
+            var lastUpdatedMoment = moment(lastUpdatedTime);
+            //console.log('lastUpdatedMoment', lastUpdatedMoment.format("ddd, MMM Do YYYY, h:mm:ss a"));
+            var createdMoment = moment(createdTime);
+            //console.log('createdMoment', createdMoment.format("ddd, MMM Do YYYY, h:mm:ss a"));
+            var durationInMilliseconds = lastUpdatedMoment.diff(createdMoment);
+            //console.log('durationInMilliseconds', durationInMilliseconds);
+            var durationMoment = moment.duration(durationInMilliseconds);
+            //console.log('durationMoment', durationMoment);
+            //var durationMomentHumanize = durationMoment.humanize();
+            //console.log('durationMomentHumanize', durationMomentHumanize);
+            var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]');
+            //console.log('durationMomentFormat', durationMomentFormat);
+
+            console.log('duration', durationMomentFormat);
+            return durationMomentFormat;
         }, self);
 
-        model.finished = ko.computed(function() {
-            return theTime;
+        model.finished = ko.computed(function () {
+            var lastUpdatedTime = self.lastUpdatedTime();
+            var lastUpdatedMoment = moment(lastUpdatedTime);
+            var nowMoment = moment();
+
+            var durationInMilliseconds = nowMoment.diff(lastUpdatedMoment);
+            //console.log('durationInMilliseconds', durationInMilliseconds);
+            var durationMoment = moment.duration(durationInMilliseconds);
+            //console.log('durationMoment', durationMoment);
+            var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]') + ' ago';
+            //console.log('durationMomentFormat', durationMomentFormat);
+
+            console.log('finished', durationMomentFormat);
+            return durationMomentFormat;
         }, self);
 
-        model.hrefJobStop = ko.computed(function() {
+        model.hrefjobExecutionstop = ko.computed(function () {
             return '#job/' + theId;
         }, self);
 
-        model.hrefJobKill = ko.computed(function() {
+        model.hrefJobKill = ko.computed(function () {
             return '#job/' + theId;
         }, self);
 
@@ -112,9 +126,9 @@ define(['knockout', 'mapping', 'text!./job-execution.html', 'fixtures', 'runnerC
         return model;
     }
 
-    var mappings = {
+    var jobExecutionMapping = {
         create: function (options) {
-            return new MappingAdditions(options.data);
+            return new JobExecutionMappingAdditions(options.data);
         }
     };
 
@@ -124,41 +138,42 @@ define(['knockout', 'mapping', 'text!./job-execution.html', 'fixtures', 'runnerC
 
         var jobExecutionId = params.id;
 
-        console.log('params.id: ' + jobExecutionId);
+        //console.log('params.id: ' + jobExecutionId);
 
         self.jobExecution = ko.observableArray();
 
         if (dev) {
-            var theFixture = fixtures.jobExecution;
-            var theJobExecution = new JobExecution(theFixture);
-            self.jobExecution(theJobExecution);
+            var jobExecutionData = fixtures.jobExecution;
+
+            //24 hours
+            //1440 min
+            //86400 sec
+            //86400000 milliseconds
+
+            var earliestPastCreateSeconds = 4;
+            var earliestPastUpdateSeconds = 2;
+            var latestPastSeconds = 3600; // 3600 = 1 hour
+            //var latestPastSeconds = 86400; // 86400 = 1 day
+            var randomCreateMilliseconds = Math.floor(Math.random() * (latestPastSeconds * 1000)) + (earliestPastCreateSeconds * 1000);
+            var randomUpdateMilliseconds = Math.floor(Math.random() * (latestPastSeconds * 1000)) + (earliestPastUpdateSeconds * 1000);
+
+            var randomCreatedTime = moment().subtract(randomCreateMilliseconds).valueOf();
+            var randomLastUpdatedTime = moment().subtract(randomUpdateMilliseconds).valueOf();
+
+            jobExecutionData.createdTime = randomCreatedTime;
+            jobExecutionData.lastUpdatedTime = randomLastUpdatedTime;
+
+
+            var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+            self.jobExecution(observableJobExecution);
         } else {
             var runner = runnerConfig.getRunnerInstance();
 
-            runner.jobs.get(jobId).then(function (job) {
-                //console.log(RNRrunner);
-
-                console.log('/////RNRrunner 1');
-                //console.log(job);
-
-                var jobData = job.data;
-
-                //console.log("job.data", job.data);
-                //console.log("job.data.id", job.data.id);
-                //console.log("job.data.name", job.data.name);
-
-                var observableJob = ko.mapping.fromJS(jobData, mappings);
-                self.job(observableJob);
-
-                //console.log('self', self);
-                console.log('self.job', self.job());
-                //console.log('self.job.id', self.job().id());
-                //console.log('self.job.name', self.job().name());
-                //console.log('self.job.hrefJobStop', self.job().hrefJobStop());
-                //console.log('self.job.hrefJobKill', self.job().hrefJobKill());
-                //console.log('self.job.statusIcon', self.job().statusIcon());
-                //console.log('self.job.statusClass', self.job().statusClass());
-                //console.log('self.job.statusClass', self.job().repository.credentials.username);
+            runner.jobs.get(jobExecutionId).then(function (jobExecution) {
+                console.log('RUNNER RETURNED');
+                var jobExecutionData = jobExecution.data;
+                var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+                self.jobExecution(observableJobExecution);
             });
         }
     }
@@ -170,8 +185,7 @@ define(['knockout', 'mapping', 'text!./job-execution.html', 'fixtures', 'runnerC
 
     return {
         viewModel: JobExecutionViewModel,
-        template: template,
-        synchronous: true
+        template: template
     };
 
 });

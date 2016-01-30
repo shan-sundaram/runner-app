@@ -1,3 +1,40 @@
+/*
+'success': 'successful',
+'failure': 'errored',
+'pending': 'active',
+'initializing': 'active',
+'running': 'active',
+'stopping': 'inactive',
+'stopped': 'inactive',
+'killing': 'inactive',
+'killed': 'inactive'
+*/
+
+html.cyclops #runner .queue > li.successful .status-bar,
+html.cyclops #runner .job-status.successful .status-bar,
+html.cyclops #runner .queue > li.active .status-bar,
+html.cyclops #runner .job-status.active .status-bar {
+    background-color: #00853f;
+}
+
+html.cyclops #runner .queue > li.pending .status-bar,
+html.cyclops #runner .queue > li.initializing .status-bar,
+html.cyclops #runner .job-status.pending .status-bar,
+html.cyclops #runner .job-status.initializing .status-bar {
+    background-color: #E09D00;
+}
+
+html.cyclops #runner .queue > li.errored .status-bar,
+html.cyclops #runner .job-status.errored .status-bar,
+html.cyclops #runner .queue > li.failure .status-bar,
+html.cyclops #runner .job-status.failure .status-bar {
+    background-color: #e43b34;
+}
+
+html.cyclops .fake {
+    color: #ff0000;
+}
+
 html.cyclops .action-area.action-toolbar-confirm-shown {
     background-color: #3a3a3a;
 }
@@ -9,11 +46,9 @@ html.cyclops .action-toolbar-confirm {
 }
 
 a[data-toggle="tab"],
-span.anchor-span
-{
+span.anchor-span {
     cursor: pointer;
 }
-
 
 .tab-content > .tab-pane {
     display: none;
@@ -22,7 +57,6 @@ span.anchor-span
 .tab-content > .active {
     display: block;
 }
-
 
 /* begin filter panel stuff */
 /*
@@ -38,7 +72,6 @@ html.cyclops #runner .filter-panel {
 }
 */
 
-
 html.cyclops #runner .filter-panel span.anchor-span {
     text-decoration: none;
     display: inline-block;
@@ -47,13 +80,11 @@ html.cyclops #runner .filter-panel span.anchor-span {
     margin-bottom: -2px;
 }
 
-
 /*
 html.cyclops #runner .filter-panel a svg {
     fill: #999;
 }
 */
-
 
 html.cyclops #runner .filter-panel span.anchor-span:hover,
 html.cyclops #runner .filter-panel span.anchor-span.active {
@@ -61,19 +92,14 @@ html.cyclops #runner .filter-panel span.anchor-span.active {
     border-bottom: 2px solid #333;
 }
 
-
-
 html.cyclops #runner .filter-panel span.anchor-span:hover svg,
 html.cyclops #runner .filter-panel span.anchor-span.active svg {
     fill: #333;
 }
 
-
-
 html.cyclops #runner .filter-panel span.anchor-span.active {
     font-weight: 600;
 }
-
 
 /*
 html.cyclops #runner .filter-panel .search-input {

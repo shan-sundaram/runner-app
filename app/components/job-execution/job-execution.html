@@ -86,19 +86,20 @@
                             </div>
                             <div class="details clearfix">
                                 <div class="col col-100">
-                                    <div class="user" title="User">
+                                    <div class="user" title="Job Execution User">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-user'></use>
                                         </svg>
-                                        <!--<span data-bind="text: jobExecution().repository.credentials.username">[user]</span>-->
+                                        <span class="fake">[jobExecution.user]</span>
+                                        <!--<span data-bind="text: jobExecution.user()">[jobExecution.user]</span>-->
                                     </div>
-                                    <div class="duration" title="Duration">
+                                    <div class="duration" title="Job Execution Duration">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-clock'></use>
                                         </svg>
                                         <span data-bind="text: jobExecution().duration">[duration]</span>
                                     </div>
-                                    <div class="finished" title="Finished">
+                                    <div class="finished" title="Job Execution Finished">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-calendar'></use>
                                         </svg>

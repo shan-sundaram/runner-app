@@ -4,8 +4,6 @@
 
 'use strict';
 
-console.log('footer-view.js');
-
 define(['knockout', 'text!./footer-view.html', 'fixtures'], function (ko, template, fixtures) {
 
     function Activity(params) {

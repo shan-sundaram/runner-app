@@ -81,7 +81,7 @@ define([
 
 
     domReady(function () {
-        console.log("domReady");
+        //console.log("domReady");
 
 
         $('.action-toolbar-left a').actionToolbarConfirm();
@@ -91,12 +91,12 @@ define([
         //})
 
         self.setResponseToLocalStorage = function (response) {
-            console.log("setResponseToLocalStorage");
+            //console.log("setResponseToLocalStorage");
             localStorage.setItem('auth', JSON.stringify(response));
         };
 
         self.getAuthFromLocalStorage = function () {
-            console.log("getAuthFromLocalStorage");
+            //console.log("getAuthFromLocalStorage");
             return JSON.parse(localStorage.getItem('auth'));
         };
 
@@ -113,15 +113,15 @@ define([
         var foo = self.getAuthFromLocalStorage();
 
         if (foo) {
-            console.log("you are in");
+            //console.log("you are in");
             //alert("you are in");
 
-            console.log('foo', foo);
+            //console.log('foo', foo);
         } else {
             //alert("do SSO");
             setResponseToLocalStorage(fakeToken);
             var fakeGet = self.getAuthFromLocalStorage();
-            console.log('fakeGet', fakeGet);
+            //console.log('fakeGet', fakeGet);
         }
     });
 });

@@ -130,6 +130,8 @@ html.cyclops #runner .job-status.success .status-bar {
     background-color: #00853f;
 }
 
+html.cyclops #runner .queue > li.active .status-bar,
+html.cyclops #runner .job-status.active .status-bar,
 html.cyclops #runner .queue > li.running .status-bar,
 html.cyclops #runner .job-status.running .status-bar {
     background-color: #E09D00;
