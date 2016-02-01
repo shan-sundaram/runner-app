@@ -13,8 +13,8 @@ require.config({
         knockout: 'vendor/knockout/dist/knockout',
         knockoutValidation: 'vendor/knockout-validation/dist/knockout.validation',
         knockoutMapping: 'vendor/bower-knockout-mapping/dist/knockout.mapping',
-        //mapping: 'vendor/bower-knockout-mapping/dist/knockout.mapping',
         knockoutProjections: 'vendor/knockout-projections/dist/knockout-projections',
+        //knockoutPaging: 'vendor/knockout-paging/dist/knockout-paging',
         cyclops: 'https://assets.ctl.io/cyclops/1.1.3/scripts/cyclops',
         crossroads: 'vendor/crossroads/dist/crossroads',
         hasher: 'vendor/hasher/dist/js/hasher',
@@ -48,7 +48,10 @@ require.config({
         },
         "knockoutMapping": {
             deps: ["knockout"]
-        }
+        },
+        //"knockoutPaging": {
+        //    deps: ["knockout"]
+        //}
     },
 
     deps: ['main']

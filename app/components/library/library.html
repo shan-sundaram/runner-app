@@ -147,7 +147,6 @@
                 <!-- BEGIN: JOBS QUEUE -->
                 <div class="queue-container">
                     <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFiltered(), as: 'jobExecution' }">
-                    <!--<ol class="queue queue-preview" data-bind="foreach: { data: jobExecutions, as: 'jobExecution' }">-->
                         <!-- BEGIN: JOB ITEM PREVIEW-->
                         <li class="" data-bind="css: jobExecution.status(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">
                             <div class="status-bar">

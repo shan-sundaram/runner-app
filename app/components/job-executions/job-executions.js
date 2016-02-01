@@ -78,7 +78,7 @@ define([
         var model = ko.mapping.fromJS(data, {}, self);
 
         var theId = self.id();
-        var theStatus = self.status();
+        var theStatus = self.status().toLowerCase();
 
         //console.log('JobExecutionMappingAdditions theId', theId);
         //console.log('JobExecutionMappingAdditions theStatus', theStatus);
@@ -137,14 +137,127 @@ define([
         }
     };
 
+
+/*
+    var mapping = {
+        'ignore': ['twitter', 'webpage'],
+        'copy': ['age', 'personId'],
+        'lastName': {
+            'create': function (options) {
+                return ko.observable(options.data.toUpperCase());
+            }
+        }
+    };
+*/
+
+
+    function PagingMappingAdditions(data) {
+
+        var self = this;
+        var model = ko.mapping.fromJS(data, {}, self);
+
+        var theCount = self.itemCount();
+        var thePageSize = self.pageSize();
+
+        model.pageCount = ko.computed(function () {
+            //the total number of pages.
+            if (theCount <= 0) {
+                return 1;
+            }
+            return Math.ceil(theCount / thePageSize);
+        }, self);
+
+/*
+        model.firstItemOnPage = ko.computed(function () {
+            //the index (one-based) of the first item on the current page.
+            return (self.pageNumber - 1) * self.pageSize() + 1;
+        }, self);
+
+        model.lastItemOnPage = ko.computed(function () {
+            //the index (one-based) of the last item on the current page.
+            if (self.itemCount() == 0) {
+                return 1;
+            }
+            return Math.min(self.pageNumber * self.pageSize(), self.itemCount());
+        }, self);
+
+        model.hasPreviousPage = ko.computed(function () {
+            //indicates if there is a previous page.
+            return !model.isFirstPage;
+        }, self);
+
+        model.hasNextPage = ko.computed(function () {
+            //indicates if there is a next page.
+            return !self.isLastPage();
+        }, self);
+
+        model.isFirstPage = ko.computed(function () {
+            //indicates if the current page is the first page.
+            return self.pageNumber() == 1;
+        }, self);
+
+        model.isLastPage = ko.computed(function () {
+            //indicates if the current page is the last page.
+            return self.pageNumber() == self.pageCount();
+        }, self);
+*/
+
+        //model.pages = ko.computed(function () {
+        //    //an array of pages.
+        //}, self);
+
+        return model;
+    }
+
+/*
+    var mapping = {
+        'ignore': ['twitter', 'webpage'],
+        'copy': ['age', 'personId'],
+        'lastName': {
+            'create': function (options) {
+                return ko.observable(options.data.toUpperCase());
+            }
+        }
+    };
+*/
+
+    var pagingMapping = {
+        create: function (options) {
+            return new PagingMappingAdditions(options.data);
+        }
+    };
+
+    function PagingModel(paging) {
+        var self = this;
+
+        self.pageNumber = paging.page;
+        self.pageSize = paging.size;
+        self.itemCount = paging.totalSize;
+        //self.pageNumber = ko.observable(paging.page);
+        //self.pageSize = ko.observable(paging.size);
+        //self.itemCount = ko.observable(paging.totalSize);
+    }
+
     function JobExecutionsViewModel(params) {
         var self = this;
-        var dev = true;
+        var dev = false;
 
-        self.pageIndex = 0;
-        self.pageSize = 10;
+        self.isLoading = ko.observable(false);
+
+            //self.paging = {};
+        //self.alskdjfh = null;
+        self.paging = ko.observable();
+
+        //self.pageIndex = 0;
+        //self.pageSize = 10;
 
         self.jobExecutions = ko.observableArray();
+
+
+
+
+        //self.jobExecutions = ko.pagedObservableArray();
+
         self.filterJobExecutionsByStatusQuery = ko.observable(null);
         self.filterJobExecutionsByNameQuery = ko.observable(null);
 
@@ -194,10 +307,11 @@ define([
         self.jobExecutionTabIsActive = function (tabFilterString) {
             var thisTab = 'job-executions-' + tabFilterString;
             var selectedTab = self.selectedJobExecutionsTab();
-            console.log('isActive thisTab', thisTab);
-            console.log('isActive selectedTab', selectedTab);
+            //console.log('isActive thisTab', thisTab);
+            //console.log('isActive selectedTab', selectedTab);
             return thisTab === selectedTab;
         };
+
 
         if (dev) {
             var jobExecutionsFixture = fixtures.jobExecutions;
@@ -229,28 +343,53 @@ define([
         } else {
             var runner = runnerConfig.getRunnerInstance();
 
-            var options = {
-                page: 0,
-                size: 10
-            };
+            //var options = {
+            //    page: self.pageIndex,
+            //    size: self.pageSize
+            //};
 
-            runner.jobs.find(options).then(function (jobExecutionsPage) {
+            self.isLoading(true);
+
+            runner.jobs.find().then(function (jobExecutionsPage) {
+            //runner.jobs.find(options).then(function (jobExecutionsPage) {
                 console.log('RUNNER RETURNED');
-                self.page = jobExecutionsPage.data;
-                var jobExecutions = self.page.values;
+                self.isLoading(false);
+
+                var jobExecutionsPageData = jobExecutionsPage.data;
+                var jobExecutions = jobExecutionsPageData.values;
+                self.page = jobExecutionsPageData;
 
                 jobExecutions.forEach(function (jobExecution) {
                     var jobExecutionData = jobExecution.data;
-                    console.log('jobExecutionData.status', jobExecutionData.status);
+                    //console.log('jobExecutionData.status', jobExecutionData.status);
                     var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
                     self.jobExecutions.push(observableJobExecution);
                 });
+
+
+
+                var tempObject = {
+                    pageNumber: ko.observable(jobExecutionsPage.data.page),
+                    pageSize: ko.observable(jobExecutionsPage.data.size),
+                    itemCount: ko.observable(jobExecutionsPage.data.totalSize)
+                };
+
+
+                //ko.mapping.fromJS(tempObject, pagingMapping, self.paging);
+                self.paging(ko.mapping.fromJS(tempObject, pagingMapping));
+                //var observablePaging = ko.mapping.fromJS(tempObject, pagingMapping);
+                //self.paging = observablePaging;
+
+                console.log('self.paging', ko.toJSON(self.paging, null, 4));
+
             });
         }
 
 
+
+
         self.jobExecutionsFiltered = self.jobExecutions.filter(function (jobExecution) {
-            console.log('jobExecutionsFiltered');
+            //console.log('jobExecutionsFiltered');
 
             var filterStatusArray = self.filterJobExecutionsByStatusQuery();
             var filterNameString = self.filterJobExecutionsByNameQuery();

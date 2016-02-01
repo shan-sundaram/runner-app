@@ -36,15 +36,10 @@
 
                 </div>
 
-                <div align="right">
-                    <input type="button" value="Previous" data-bind="click: loadPreviousPage"/>
-                    <input type="button" value="Next" data-bind="click: loadNextPage"/>
-                </div>
-
                 <!-- BEGIN: JOBS QUEUE -->
                 <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFiltered(), as: 'jobExecution' }">
                     <!-- BEGIN: JOB ITEM -->
-                    <li class="" data-bind="css: jobExecution.status(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">
+                    <li class="" data-bind="css: jobExecution.status().toLowerCase(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">
                         <div class="status-bar">
                             <svg class="cyclops-icon" title="queued">
                                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': jobExecution.statusIcon }"></use>
@@ -52,12 +47,12 @@
                         </div>
                         <div class="new-list-view-responsive new-list-view-responsive-sm details clearfix">
                             <div class="col col-40">
-                                <a href="#job-execution/999" class="playbook" data-bind="attr: { href: '#job-execution/' + jobExecution.id() }, text: jobExecution.name">[jobExecution.name]</a>
+                                <a href="#job-execution/999" class="playbook" data-bind="attr: { href: '#job-execution/' + jobExecution.id() }, text: jobExecution.name">&hellip;</a>
                                 <div class="user" title="Job Execution User">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
                                     </svg>
-                                    <span class="fake">[jobExecution.user]</span>
+                                    <span class="fake">&hellip;</span>
                                     <!--<span data-bind="text: jobExecution.user()">[jobExecution.user]</span>-->
                                 </div>
                             </div>
@@ -66,13 +61,13 @@
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use>
                                     </svg>
-                                    <span data-bind="text: jobExecution.duration()">[jobExecution.duration]</span>
+                                    <span data-bind="text: jobExecution.duration()">&hellip;</span>
                                 </div>
                                 <div class="finished" title="Job Execution Finished">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-calendar"></use>
                                     </svg>
-                                    <span data-bind="text: jobExecution.finished()">[jobExecution.finshed]</span>
+                                    <span data-bind="text: jobExecution.finished()">&hellip;</span>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +75,116 @@
                     <!-- END: JOB ITEM -->
                 </ol>
                 <!-- END: JOBS QUEUE -->
+
+                <!--<pre data-bind="text: ko.toJSON( paging, null, 4 )"></pre>-->
+
+
+                <ul>
+                    <li>
+                        <label>Page count:</label>
+                        <span data-bind="text: $data.paging.pageCount">&hellip;</span>
+                    </li>
+
+
+<!--
+                    <li>
+                        <label>Page number:</label>
+                        <span data-bind="text: paging.pageNumber">[paging.pageNumber]</span>
+                    </li>
+-->
+<!--
+
+                    <li>
+                        <label>Page size:</label>
+                        <span data-bind="text: paging.pageSize"></span>
+                    </li>
+
+                    <li>
+                        <label>Item count:</label>
+                        <span data-bind="text: paging.itemCount"></span>
+                    </li>
+
+                    <li>
+                        <label>First item on page:</label>
+                        <span data-bind="text: paging.firstItemOnPage"></span>
+                    </li>
+
+                    <li>
+                        <label>Last item on page:</label>
+                        <span data-bind="text: paging.lastItemOnPage"></span>
+                    </li>
+
+                    <li>
+                        <label>Has previous page:</label>
+                        <span data-bind="text: paging.hasPreviousPage "></span>
+                    </li>
+
+                    <li>
+                        <label>Has next page:</label>
+                        <span data-bind="text: paging.hasNextPage "></span>
+                    </li>
+
+                    <li>
+                        <label>Has first page:</label>
+                        <span data-bind="text: paging.isFirstPage"></span>
+                    </li>
+
+                    <li>
+                        <label>Has last page:</label>
+                        <span data-bind="text: paging.isLastPage"></span>
+                    </li>
+-->
+
+<!--
+                    <li>
+                        <label>Items on current page:</label>
+
+                        <ul data-bind="foreach: paging.pageItems">
+                            <li data-bind="text: $data"></li>
+                        </ul>
+                    </li>
+-->
+
+                    <li>
+                        <label>View model:</label>
+                        <pre data-bind="text: ko.toJSON( paging, null, 4 )"></pre>
+                        <!--<pre data-bind="text: ko.toJSON(paging)"></pre>-->
+                    </li>
+                </ul>
+
+
+<!--
+                <nav style="float: left;">
+                    <ul class="pagination">
+                        <li class="disabled" data-bind="click: loadPreviousPage">
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+
+                        &lt;!&ndash; ko foreach: paginationPageArray()  &ndash;&gt;
+                        <li class="">
+                            <span data-bind="text: ($index() + 1)">[paginationPageNum]</span>
+                        </li>
+                        &lt;!&ndash; /ko &ndash;&gt;
+
+                        <li data-bind="click: loadNextPage">
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+-->
+
+
+                <div align="right">
+                    <input type="button" value="Previous" data-bind="click: loadPreviousPage"/> <input type="button" value="Next" data-bind="click: loadNextPage"/>
+                </div>
+
+
             </div>
         </div>
 
