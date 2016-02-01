@@ -164,88 +164,14 @@ define([
         }
     };
 
-    function PagingMappingAdditions(data) {
-
-        var self = this;
-        var model = ko.mapping.fromJS(data, {}, self);
-
-        var theCount = self.itemCount();
-        var thePageSize = self.pageSize();
-
-        model.pageCount = ko.computed(function () {
-            //the total number of pages.
-            if (theCount <= 0) {
-                return 1;
-            }
-            return Math.ceil(theCount / thePageSize);
-        }, self);
-
-/*
-        model.firstItemOnPage = ko.computed(function () {
-            //the index (one-based) of the first item on the current page.
-            return (self.pageNumber - 1) * self.pageSize() + 1;
-        }, self);
-
-        model.lastItemOnPage = ko.computed(function () {
-            //the index (one-based) of the last item on the current page.
-            if (self.itemCount() == 0) {
-                return 1;
-            }
-            return Math.min(self.pageNumber * self.pageSize(), self.itemCount());
-        }, self);
-
-        model.hasPreviousPage = ko.computed(function () {
-            //indicates if there is a previous page.
-            return !model.isFirstPage;
-        }, self);
-
-        model.hasNextPage = ko.computed(function () {
-            //indicates if there is a next page.
-            return !self.isLastPage();
-        }, self);
-
-        model.isFirstPage = ko.computed(function () {
-            //indicates if the current page is the first page.
-            return self.pageNumber() == 1;
-        }, self);
-
-        model.isLastPage = ko.computed(function () {
-            //indicates if the current page is the last page.
-            return self.pageNumber() == self.pageCount();
-        }, self);
-*/
-
-        //model.pages = ko.computed(function () {
-        //    //an array of pages.
-        //}, self);
-
-        return model;
-    }
-
-    var pagingMapping = {
-        create: function (options) {
-            return new PagingMappingAdditions(options.data);
-        }
-    };
-
-    function PagingModel(paging) {
-        var self = this;
-
-        self.pageNumber = paging.page;
-        self.pageSize = paging.size;
-        self.itemCount = paging.totalSize;
-        //self.pageNumber = ko.observable(paging.page);
-        //self.pageSize = ko.observable(paging.size);
-        //self.itemCount = ko.observable(paging.totalSize);
-    }
-
     function JobExecutionsViewModel(params) {
         var self = this;
-        var dev = true;
+        var dev = false;
 
 
         self.jobExecutions = ko.observableArray();
 
+        self.page = ko.observable();
         self.pageIndex = 0;
         self.pageSize = 10;
 
@@ -317,6 +243,8 @@ define([
                 console.log('RUNNER RETURNED');
 
                 self.page = jobExecutionsPage.data;
+                //self.page(jobExecutionsPage.data);
+
                 var executionsList = self.page.values;
 
                 executionsList.forEach(function (jobExecution) {
@@ -324,7 +252,28 @@ define([
                     var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
                     self.jobExecutions.push(observableExecution);
                 });
+
+                //console.log('self.page', ko.toJSON(self.page, null, 4));
+
             });
+
+/*
+            console.log('self.page', ko.toJSON(self.page, null, 4));
+
+            var pagingData = new PagingModel(self.page);
+            console.log('pagingData', ko.toJSON(pagingData, null, 4));
+
+            var observablePaging = ko.mapping.fromJS(pagingData, pagingMapping);
+            console.log('observablePaging', ko.toJSON(observablePaging, null, 4));
+
+            self.paging.push(observablePaging);
+            console.log('self.paging', ko.toJSON(self.paging, null, 4));
+*/
+
+
+
+
+
         }
 
         self.jobExecutionsFiltered = self.jobExecutions.filter(function (jobExecution) {
@@ -380,6 +329,85 @@ define([
             });
         };
     }
+
+    function PagingMappingAdditions(data) {
+
+        var self = this;
+        var model = ko.mapping.fromJS(data, {}, self);
+
+        var theCount = self.itemCount();
+        var thePageSize = self.pageSize();
+
+        model.pageCount = ko.computed(function () {
+            //the total number of pages.
+            if (theCount <= 0) {
+                return 1;
+            }
+            return Math.ceil(theCount / thePageSize);
+        }, self);
+
+        /*
+         model.firstItemOnPage = ko.computed(function () {
+         //the index (one-based) of the first item on the current page.
+         return (self.pageNumber - 1) * self.pageSize() + 1;
+         }, self);
+
+         model.lastItemOnPage = ko.computed(function () {
+         //the index (one-based) of the last item on the current page.
+         if (self.itemCount() == 0) {
+         return 1;
+         }
+         return Math.min(self.pageNumber * self.pageSize(), self.itemCount());
+         }, self);
+
+         model.hasPreviousPage = ko.computed(function () {
+         //indicates if there is a previous page.
+         return !model.isFirstPage;
+         }, self);
+
+         model.hasNextPage = ko.computed(function () {
+         //indicates if there is a next page.
+         return !self.isLastPage();
+         }, self);
+
+         model.isFirstPage = ko.computed(function () {
+         //indicates if the current page is the first page.
+         return self.pageNumber() == 1;
+         }, self);
+
+         model.isLastPage = ko.computed(function () {
+         //indicates if the current page is the last page.
+         return self.pageNumber() == self.pageCount();
+         }, self);
+         */
+
+        //model.pages = ko.computed(function () {
+        //    //an array of pages.
+        //}, self);
+
+        return model;
+    }
+
+    var pagingMapping = {
+        create: function (options) {
+            return new PagingMappingAdditions(options.data);
+        }
+    };
+
+
+    function PagingModel(page) {
+        var self = this;
+
+        self.pageNumber = page.page;
+        self.pageSize = page.size;
+        self.itemCount = page.totalSize;
+        //self.pageNumber = ko.observable(paging.page);
+        //self.pageSize = ko.observable(paging.size);
+        //self.itemCount = ko.observable(paging.totalSize);
+    }
+
+
+
 
     // Use prototype to declare any public methods
     JobExecutionsViewModel.prototype.doSomething = function () {
