@@ -46,7 +46,7 @@ define([
     var statuses = {
         'active': {
             statusIcon: '#icon-play',
-            statusClass: 'running',
+            statusClass: 'running'
         },
 
 
@@ -60,11 +60,11 @@ define([
         },
         'pending': {
             statusIcon: '#icon-ellipsis',
-            statusClass: 'pending',
+            statusClass: 'pending'
         },
         'initializing': {
             statusIcon: '#icon-ellipsis',
-            statusClass: 'initializing',
+            statusClass: 'initializing'
         },
         'running': {
             statusIcon: '#icon-play',
@@ -103,21 +103,9 @@ define([
         var status = self.status().toLowerCase();
         var timers = self.timers()[0];
 
-        //console.log('JobExecutionMappingAdditions idJob', idJob);
-        //console.log('JobExecutionMappingAdditions idJobExecution', idJobExecution);
-        //console.log('JobExecutionMappingAdditions theStatus', theStatus);
-
         model.duration = ko.computed(function () {
-            //var timers = self.timers()[0];
-
             var start = timers.start();
             var end = timers.end();
-
-            //if (end === start) {
-            //    console.log('duration instant');
-            //    return 'end: ' + end + 'start: ' + start;
-            //    //return 'instant';
-            //}
 
             var startMoment = moment(start);
             var endMoment = moment(end);
@@ -125,9 +113,7 @@ define([
             var durationInMilliseconds = endMoment.diff(startMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]');
-            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]');
 
-            //console.log('duration', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
@@ -144,16 +130,13 @@ define([
             var durationInMilliseconds = nowMoment.diff(endMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]') + ' ago';
-            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]') + ' ago';
 
-            //console.log('finished', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
         model.parentJobName = ko.computed(function () {
-            return self.job_id();
-            //return 'parentJobName';
-            //return statuses[status]['statusIcon'];
+            var retVal = self.job_id();
+            return retVal;
         }, self);
 
         model.statusIcon = ko.computed(function () {
@@ -258,7 +241,7 @@ define([
 
     function JobExecutionsViewModel(params) {
         var self = this;
-        var dev = false;
+        var dev = true;
 
 
         self.jobExecutions = ko.observableArray();
@@ -296,11 +279,8 @@ define([
         self.jobExecutionTabIsActive = function (tabFilterString) {
             var thisTab = 'job-executions-' + tabFilterString;
             var selectedTab = self.selectedJobExecutionsTab();
-            //console.log('isActive thisTab', thisTab);
-            //console.log('isActive selectedTab', selectedTab);
             return thisTab === selectedTab;
         };
-
 
         if (dev) {
             var jobExecutionsFixture = fixtures.jobExecutions;
@@ -339,26 +319,13 @@ define([
                 self.page = jobExecutionsPage.data;
                 var executionsList = self.page.values;
 
-                //console.log('jobExecutionsPage', jobExecutionsPage);
-                //console.log('executionsList', executionsList);
-
                 executionsList.forEach(function (jobExecution) {
                     var jobExecutionData = jobExecution.data;
-
-                    //var jobID = jobExecutionData.job_id;
-                    //var executionID = jobExecutionData.execution_id;
-
-                    //console.log('jobID', jobID);
-                    //console.log('executionID', executionID);
-
                     var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
                     self.jobExecutions.push(observableExecution);
                 });
             });
         }
-
-
-
 
         self.jobExecutionsFiltered = self.jobExecutions.filter(function (jobExecution) {
             //console.log('jobExecutionsFiltered');
@@ -369,16 +336,8 @@ define([
             var jobExecutionStatus = jobExecution.status().toLowerCase();
             var jobExecutionName = jobExecution.execution_id();
 
-            //var jobExecutionStatus = jobExecution.status();
-            //var jobExecutionName = jobExecution.name();
-
             var theStatusBool = true;
             var theNameBool = true;
-
-            //console.log('filterStatusArray', filterStatusArray);
-            //console.log('filterNameString', filterNameString);
-            //console.log('jobExecutionStatus', jobExecutionStatus);
-            //console.log('jobExecutionName', jobExecutionName);
 
             if (null == filterStatusArray && null == filterNameString) {
                 return self.jobExecutions;
@@ -386,19 +345,14 @@ define([
 
             if ((null != filterStatusArray) && (null != jobExecutionStatus)) {
                 theStatusBool = filterStatusArray.indexOf(jobExecutionStatus) != -1;
-                //console.log('theStatusBool', theStatusBool);
             }
 
             if ((null != filterNameString) && (null != jobExecutionName)) {
                 theNameBool = jobExecutionName.match(new RegExp(filterNameString, "i"));
-                //console.log('theNameBool', theNameBool);
             }
 
             return theStatusBool && theNameBool;
         });
-
-
-
 
         self.loadNextPage = function () {
             self.page.fetch(self.pageIndex+1, self.pageSize).then(function(nextPage, data) {

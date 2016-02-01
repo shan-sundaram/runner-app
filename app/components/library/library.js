@@ -47,7 +47,7 @@ define([
     var statuses = {
         'active': {
             statusIcon: '#icon-play',
-            statusClass: 'running',
+            statusClass: 'running'
         },
 
 
@@ -61,11 +61,11 @@ define([
         },
         'pending': {
             statusIcon: '#icon-ellipsis',
-            statusClass: 'pending',
+            statusClass: 'pending'
         },
         'initializing': {
             statusIcon: '#icon-ellipsis',
-            statusClass: 'initializing',
+            statusClass: 'initializing'
         },
         'running': {
             statusIcon: '#icon-play',
@@ -118,20 +118,9 @@ define([
         var status = self.status().toLowerCase();
         var timers = self.timers()[0];
 
-        //console.log('JobExecutionMappingAdditions theId', theId);
-        //console.log('JobExecutionMappingAdditions theStatus', theStatus);
-
         model.duration = ko.computed(function () {
-            //var timers = self.timers()[0];
-
             var start = timers.start();
             var end = timers.end();
-
-            //if (end === start) {
-            //    console.log('duration instant');
-            //    return 'end: ' + end + 'start: ' + start;
-            //    //return 'instant';
-            //}
 
             var startMoment = moment(start);
             var endMoment = moment(end);
@@ -139,9 +128,7 @@ define([
             var durationInMilliseconds = endMoment.diff(startMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]');
-            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]');
 
-            //console.log('duration', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
@@ -158,21 +145,23 @@ define([
             var durationInMilliseconds = nowMoment.diff(endMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]') + ' ago';
-            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]') + ' ago';
 
-            //console.log('finished', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
         model.parentJobName = ko.computed(function () {
-            return self.job_id();
-            //return 'parentJobName';
-            //return statuses[status]['statusIcon'];
+            var retVal = self.job_id();
+            return retVal;
         }, self);
 
         model.statusIcon = ko.computed(function () {
-            //return 'statusIcon';
-            return statuses[status]['statusIcon'];
+            var retVal = statuses[status]['statusIcon'];
+            return retVal;
+        }, self);
+
+        model.statusClass = ko.computed(function () {
+            var retVal = statuses[status]['statusClass'];
+            return retVal;
         }, self);
 
         model.hrefJobExecution = ko.computed(function () {
@@ -204,8 +193,7 @@ define([
 
     function LibraryViewModel(params) {
         var self = this;
-        var dev = false;
-
+        var dev = true;
 
         self.jobExecutions = ko.observableArray();
 
@@ -213,7 +201,6 @@ define([
         self.pageSize = 10;
 
         self.filterJobExecutionsByStatusQuery = ko.observable(null);
-
 
         self.jobsFeatured = ko.observableArray();
         self.jobs = ko.observableArray();
@@ -233,20 +220,14 @@ define([
             var selectedTabID = $element.attr('id');
             var selectedTabStatus = $element.data('status');
 
-            console.log('selectedTabStatus', selectedTabStatus);
-
             var filterStatusArray = selectedFilterStates[selectedTabStatus];
-            console.log('filterStatusArray', filterStatusArray);
             self.filterJobExecutionsByStatusQuery(filterStatusArray);
-            console.log('selectedTabID', selectedTabID);
             self.selectedJobExecutionsTab(selectedTabID);
         };
 
         self.jobExecutionTabIsActive = function (tabFilterString) {
             var thisTab = 'job-executions-' + tabFilterString;
             var selectedTab = self.selectedJobExecutionsTab();
-            console.log('isActive thisTab', thisTab);
-            console.log('isActive selectedTab', selectedTab);
             return thisTab === selectedTab;
         };
 
@@ -295,27 +276,12 @@ define([
 
             runner.executions.find().then(function (jobExecutionsPage) {
                 console.log('RUNNER RETURNED');
-
                 self.page = jobExecutionsPage.data;
                 var executionsList = self.page.values;
-
-                //console.log('jobExecutionsPage', ko.toJSON(jobExecutionsPage, null, 4));
-                //console.log('executionsList', ko.toJSON(executionsList, null, 4));
-
                 executionsList.forEach(function (jobExecution) {
                     var jobExecutionData = jobExecution.data;
-                    //console.log('jobExecutionData', ko.toJSON(jobExecutionData, null, 4));
-
-                    //var jobID = jobExecutionData.job_id;
-                    //var executionID = jobExecutionData.execution_id;
-
-                    //console.log('jobID', jobID);
-                    //console.log('executionID', executionID);
-
                     var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-
                     self.jobExecutions.push(observableExecution);
-
                 });
             });
 
@@ -331,15 +297,10 @@ define([
         }
 
         self.jobExecutionsFiltered = self.jobExecutions.filter(function (jobExecution) {
-            //console.log('jobExecutionsFiltered');
 
             var filterStatusArray = self.filterJobExecutionsByStatusQuery();
-            //var filterStatusArray = self.filterByStatusQuery();
             var jobExecutionStatus = jobExecution.status().toLowerCase();
             var theStatusBool = true;
-
-            //console.log('filterStatusArray', filterStatusArray);
-            //console.log('jobExecutionStatus', jobExecutionStatus);
 
             if (null == filterStatusArray) {
                 return self.jobExecutions;

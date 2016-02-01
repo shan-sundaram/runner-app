@@ -81,23 +81,9 @@ define([
         var status = self.status().toLowerCase();
         var timers = self.timers()[0];
 
-        //var idJob = self.idJob();
-        //var idJobExecution = self.idJobExecution();
-        //var theId = self.id();
-
-        //var theStatus = self.status();
-
         model.duration = ko.computed(function () {
-            //var timers = self.timers()[0];
-
             var start = timers.start();
             var end = timers.end();
-
-            //if (end === start) {
-            //    console.log('duration instant');
-            //    return 'end: ' + end + 'start: ' + start;
-            //    //return 'instant';
-            //}
 
             var startMoment = moment(start);
             var endMoment = moment(end);
@@ -105,9 +91,7 @@ define([
             var durationInMilliseconds = endMoment.diff(startMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]');
-            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]');
 
-            //console.log('duration', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
@@ -124,9 +108,7 @@ define([
             var durationInMilliseconds = nowMoment.diff(endMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]') + ' ago';
-            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]') + ' ago';
 
-            //console.log('finished', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
@@ -163,12 +145,10 @@ define([
 
     function JobExecutionViewModel(params) {
         var self = this;
-        var dev = false;
+        var dev = true;
 
         var idJob = params.idJob;
         var idJobExecution = params.idJobExecution;
-
-        //console.log('params.id: ' + jobExecutionId);
 
         self.jobExecution = ko.observableArray();
         self.job = ko.observableArray();
@@ -199,35 +179,24 @@ define([
         } else {
             var runner = runnerConfig.getRunnerInstance();
 
-            //given a job_execution_id, get the job.
-            //with that job and job_execution_id, get the job_execution
-
             console.log('idJob', idJob);
             console.log('idJobExecution', idJobExecution);
 
             runner.jobs.get(idJob).then(function (job) {
                 console.log('RUNNER RETURNED: jobs.get');
                 var jobData = job.data;
-                console.log('jobData', ko.toJSON(jobData, null, 4));
-
+                //console.log('jobData', ko.toJSON(jobData, null, 4));
                 var observableJob = ko.mapping.fromJS(jobData, {});
                 self.job(observableJob);
-
                 job.execution(idJobExecution).then(function (jobExecution) {
                     console.log('RUNNER RETURNED: job.execution');
                     var jobExecutionData = jobExecution.data;
-                    console.log('jobExecutionData', ko.toJSON(jobExecutionData, null, 4));
-
+                    //console.log('jobExecutionData', ko.toJSON(jobExecutionData, null, 4));
                     var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
                     self.jobExecution(observableJobExecution);
-
                 });
             });
         }
-    }
-
-    function foo() {
-
     }
 
     // Use prototype to declare any public methods
