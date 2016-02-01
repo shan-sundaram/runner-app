@@ -966,7 +966,7 @@
 		var Runner = module.Runner = function(context){
 
 			this.context = context || {};
-			this.context.endpoint = 'http://wfaas-job-api-svc-v1.service.consul:30000';
+			this.context.endpoint = 'https://api.runner.ctl.io';
 			this.context.rest = new Rest();
 			this.context.rest.preInvokeInterceptors.push(new PreInvokeAuthInterceptor(this.context));
 

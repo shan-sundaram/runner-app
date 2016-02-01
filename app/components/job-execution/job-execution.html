@@ -12,42 +12,20 @@
                 </li>
             </ol>
             <div class="content-header">
-                <h1 data-bind="text: jobExecution().name">[name]</h1>
-                <p class="lead" data-bind="text: jobExecution().id">[id]</p>
+                <h1 data-bind="text: job().name">&hellip;</h1>
+                <p class="lead" data-bind="text: jobExecution().execution_id">&hellip;</p>
             </div>
         </div>
     </div>
 </div>
 
-<!--<pre data-bind="text: ko.toJSON(jobExecution(), null, 4)"></pre>-->
-
-
-
+<!--<pre data-bind="text: ko.toJSON( job, null, 4 )"></pre>-->
 
 <div class="action-area">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <ol class="action-toolbar-left">
-<!--
-                    <li>
-                        <a href="#job/stop" data-rest-verb="POST" data-bind="attr: { href: jobExecution().hrefJobStop }">
-                            <svg class="cyclops-icon">
-                                <use xlink:href='#icon-stop'></use>
-                            </svg>
-                            <span>stop</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#job/kill" data-rest-verb="DELETE" data-bind="attr: { href: jobExecution().hrefJobKill }">
-                            <svg class="cyclops-icon">
-                                <use xlink:href='#icon-close'></use>
-                            </svg>
-                            <span>kill</span>
-                        </a>
-                    </li>
--->
-
                     <li>
                         <a href="#job-execution/stop" data-rest-verb="POST" data-bind="attr: { href: jobExecution().hrefJobExecutionStop }, widget: { name: 'actionToolbarConfirm', options: { classes: 'action-toolbar-confirm-danger', messageHtml: 'Are you sure you want to stop this job execution?', yesHtml: '<svg class=&quot;cyclops-icon&quot;><use xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; xlink:href=&quot;#icon-stop&quot;></use></svg>&nbsp;<span>stop</span>'}}">
                             <svg class="cyclops-icon">
@@ -90,20 +68,20 @@
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-user'></use>
                                         </svg>
-                                        <span class="fake">[jobExecution.user]</span>
+                                        <span class="fake">&hellip;</span>
                                         <!--<span data-bind="text: jobExecution.user()">[jobExecution.user]</span>-->
                                     </div>
                                     <div class="duration" title="Job Execution Duration">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-clock'></use>
                                         </svg>
-                                        <span data-bind="text: jobExecution().duration">[duration]</span>
+                                        <span data-bind="text: jobExecution().duration">&hellip;</span>
                                     </div>
                                     <div class="finished" title="Job Execution Finished">
                                         <svg class="cyclops-icon">
                                             <use xlink:href='#icon-calendar'></use>
                                         </svg>
-                                        <span data-bind="text: jobExecution().finished">[finished]</span>
+                                        <span data-bind="text: jobExecution().finished">&hellip;</span>
                                     </div>
                                 </div>
                             </div>
@@ -221,3 +199,4 @@
 </div>
 
 
+<!--<pre data-bind="text: ko.toJSON( jobExecution, null, 4 )"></pre>-->

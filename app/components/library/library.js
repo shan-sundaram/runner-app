@@ -20,48 +20,64 @@ define([
         fixtures
 ) {
 
+    var selectedFilterStates = {
+        'all': null,
+        'active': [
+            'pending',
+            'initializing',
+            'running'
+        ],
+        'errored': [
+            'failure',
+            'init_failure'
+        ],
+        'successful': [
+            'success'
+        ],
+
+        'inactive': [
+            'stopping',
+            'stopped',
+            'killing',
+            'killed',
+            'expired'
+        ]
+    };
+
     var statuses = {
         'active': {
             statusIcon: '#icon-play',
             statusClass: 'running',
-            statusClass2: 'active',
         },
 
 
         'success': {
             statusIcon: '#icon-check-circle',
             statusClass: 'success'
-
         },
         'failure': {
             statusIcon: '#icon-exclamation-circle',
             statusClass: 'failure'
-
         },
         'pending': {
             statusIcon: '#icon-ellipsis',
             statusClass: 'pending',
-
         },
         'initializing': {
             statusIcon: '#icon-ellipsis',
             statusClass: 'initializing',
-
         },
         'running': {
             statusIcon: '#icon-play',
             statusClass: 'running'
-
         },
         'stopping': {
             statusIcon: '#icon-ellipsis',
             statusClass: 'stopping'
-
         },
         'stopped': {
             statusIcon: '#icon-stop',
             statusClass: 'stopped'
-
         },
         'killing': {
             statusIcon: '#icon-ellipsis',
@@ -70,7 +86,14 @@ define([
         'killed': {
             statusIcon: '#icon-close',
             statusClass: 'killed'
-
+        },
+        'expired': {
+            statusIcon: '#icon-close',
+            statusClass: 'expired'
+        },
+        'init_failure': {
+            statusIcon: '#icon-close',
+            statusClass: 'init_failure'
         }
     };
 
@@ -92,55 +115,70 @@ define([
         var self = this;
         var model = ko.mapping.fromJS(data, {}, self);
 
-        var theId = self.id();
-        var theStatus = self.status();
+        var status = self.status().toLowerCase();
+        var timers = self.timers()[0];
 
         //console.log('JobExecutionMappingAdditions theId', theId);
         //console.log('JobExecutionMappingAdditions theStatus', theStatus);
 
         model.duration = ko.computed(function () {
-            var fudgeFactorForTesting = 1234567;
-            var lastUpdatedTime = self.lastUpdatedTime();
-            var createdTime = self.createdTime() - fudgeFactorForTesting;
+            //var timers = self.timers()[0];
 
-            if (lastUpdatedTime === createdTime) {
-                console.log('duration instant');
-                return 'instant';
-            }
+            var start = timers.start();
+            var end = timers.end();
 
-            var lastUpdatedMoment = moment(lastUpdatedTime);
-            var createdMoment = moment(createdTime);
-            var durationInMilliseconds = lastUpdatedMoment.diff(createdMoment);
+            //if (end === start) {
+            //    console.log('duration instant');
+            //    return 'end: ' + end + 'start: ' + start;
+            //    //return 'instant';
+            //}
+
+            var startMoment = moment(start);
+            var endMoment = moment(end);
+
+            var durationInMilliseconds = endMoment.diff(startMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]');
+            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]');
 
             //console.log('duration', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
         model.finished = ko.computed(function () {
-            var lastUpdatedTime = self.lastUpdatedTime();
-            var lastUpdatedMoment = moment(lastUpdatedTime);
+            var timers = self.timers()[0];
+
+            var start = timers.start();
+            var end = timers.end();
+
+            var startMoment = moment(start);
+            var endMoment = moment(end);
             var nowMoment = moment();
 
-            var durationInMilliseconds = nowMoment.diff(lastUpdatedMoment);
+            var durationInMilliseconds = nowMoment.diff(endMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]') + ' ago';
+            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]') + ' ago';
 
             //console.log('finished', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
-        model.hrefjobExecutionstop = ko.computed(function () {
-            return '#job/' + theId;
-        }, self);
-
-        model.hrefJobKill = ko.computed(function () {
-            return '#job/' + theId;
+        model.parentJobName = ko.computed(function () {
+            return self.job_id();
+            //return 'parentJobName';
+            //return statuses[status]['statusIcon'];
         }, self);
 
         model.statusIcon = ko.computed(function () {
-            return statuses[theStatus]['statusIcon'];
+            //return 'statusIcon';
+            return statuses[status]['statusIcon'];
+        }, self);
+
+        model.hrefJobExecution = ko.computed(function () {
+            //#job/0da21734-61e8-48aa-9cad-4e3e13146007/job-execution/ac609d05-10dd-41af-9529-a1b6328044f8
+            var href = '#job/' + self.job_id() + '/job-execution/' + self.execution_id();
+            return href;
         }, self);
 
         return model;
@@ -166,42 +204,22 @@ define([
 
     function LibraryViewModel(params) {
         var self = this;
-        var dev = true;
+        var dev = false;
+
+
+        self.jobExecutions = ko.observableArray();
 
         self.pageIndex = 0;
         self.pageSize = 10;
 
-        self.jobExecutions = ko.observableArray();
         self.filterJobExecutionsByStatusQuery = ko.observable(null);
 
 
         self.jobsFeatured = ko.observableArray();
         self.jobs = ko.observableArray();
+
         var jobsFeaturedFixture = fixtures.jobsFeatured;
         var jobsFixture = fixtures.jobs;
-
-
-        var selectedFilterStates = {
-            'all': null,
-            'active': [
-                'pending',
-                'initializing',
-                'running'
-            ],
-            'errored': [
-                'failure'
-            ],
-            'successful': [
-                'success'
-            ],
-
-            'inactive': [
-                'stopping',
-                'stopped',
-                'killing',
-                'killed'
-            ]
-        };
 
         //Set ID of initially selected tab element
         self.selectedJobExecutionsTab = ko.observable('job-executions-all');
@@ -234,10 +252,10 @@ define([
 
         if (dev) {
             var jobExecutionsFixture = fixtures.jobExecutions;
-            //var jobsFeaturedFixture = fixtures.jobsFeatured;
-            //var jobsFixture = fixtures.jobs;
 
             jobExecutionsFixture.forEach(function (jobExecutionData) {
+                //console.log('jobExecutionData', ko.toJSON(jobExecutionData, null, 4));
+
                 //24 hours
                 //1440 min
                 //86400 sec
@@ -275,21 +293,29 @@ define([
         } else {
             var runner = runnerConfig.getRunnerInstance();
 
-            var options = {
-                page: 0,
-                size: 10
-            };
-
-            runner.jobs.find(options).then(function (jobExecutionsPage) {
+            runner.executions.find().then(function (jobExecutionsPage) {
                 console.log('RUNNER RETURNED');
-                self.page = jobExecutionsPage.data;
-                var jobExecutions = self.page.values;
 
-                jobExecutions.forEach(function (jobExecution) {
+                self.page = jobExecutionsPage.data;
+                var executionsList = self.page.values;
+
+                //console.log('jobExecutionsPage', ko.toJSON(jobExecutionsPage, null, 4));
+                //console.log('executionsList', ko.toJSON(executionsList, null, 4));
+
+                executionsList.forEach(function (jobExecution) {
                     var jobExecutionData = jobExecution.data;
-                    console.log('jobExecutionData.status', jobExecutionData.status);
-                    var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-                    self.jobExecutions.push(observableJobExecution);
+                    //console.log('jobExecutionData', ko.toJSON(jobExecutionData, null, 4));
+
+                    //var jobID = jobExecutionData.job_id;
+                    //var executionID = jobExecutionData.execution_id;
+
+                    //console.log('jobID', jobID);
+                    //console.log('executionID', executionID);
+
+                    var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+
+                    self.jobExecutions.push(observableExecution);
+
                 });
             });
 
@@ -305,11 +331,11 @@ define([
         }
 
         self.jobExecutionsFiltered = self.jobExecutions.filter(function (jobExecution) {
-            console.log('jobExecutionsFiltered');
+            //console.log('jobExecutionsFiltered');
 
             var filterStatusArray = self.filterJobExecutionsByStatusQuery();
             //var filterStatusArray = self.filterByStatusQuery();
-            var jobExecutionStatus = jobExecution.status();
+            var jobExecutionStatus = jobExecution.status().toLowerCase();
             var theStatusBool = true;
 
             //console.log('filterStatusArray', filterStatusArray);

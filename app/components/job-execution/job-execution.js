@@ -22,39 +22,55 @@ define([
     //https://github.com/crissdev/knockout.mapping
 
     var statuses = {
-        ACTIVE: {
+        'active': {
             statusIcon: '#icon-play',
             statusClass: 'running'
         },
 
 
-        INITIALIZING: {
-            statusIcon: '#icon-play',
-            statusClass: 'initializing'
-        },
-        PENDING: {
-            statusIcon: '#icon-play',
-            statusClass: 'pending'
-        },
-        RUNNING: {
-            statusIcon: '#icon-play',
-            statusClass: 'running'
-        },
-        SUCCESS: {
-            statusIcon: '#icon-ellipsis',
+        'success': {
+            statusIcon: '#icon-check-circle',
             statusClass: 'success'
         },
-        FAILURE: {
+        'failure': {
             statusIcon: '#icon-exclamation-circle',
-            statusClass: 'error'
+            statusClass: 'failure'
         },
-        STOPPED: {
-            statusIcon: '#icon-stop',
-            statusClass: 'error'
-        },
-        KILLED: {
+        'pending': {
             statusIcon: '#icon-ellipsis',
+            statusClass: 'pending'
+        },
+        'initializing': {
+            statusIcon: '#icon-ellipsis',
+            statusClass: 'initializing'
+        },
+        'running': {
+            statusIcon: '#icon-play',
+            statusClass: 'running'
+        },
+        'stopping': {
+            statusIcon: '#icon-ellipsis',
+            statusClass: 'stopping'
+        },
+        'stopped': {
+            statusIcon: '#icon-stop',
+            statusClass: 'stopped'
+        },
+        'killing': {
+            statusIcon: '#icon-ellipsis',
+            statusClass: 'killing'
+        },
+        'killed': {
+            statusIcon: '#icon-close',
             statusClass: 'killed'
+        },
+        'expired': {
+            statusIcon: '#icon-close',
+            statusClass: 'expired'
+        },
+        'init_failure': {
+            statusIcon: '#icon-close',
+            statusClass: 'init_failure'
         }
     };
 
@@ -62,65 +78,78 @@ define([
         var self = this;
         var model = ko.mapping.fromJS(data, {}, self);
 
-        var theId = self.id();
-        var theStatus = self.status();
+        var status = self.status().toLowerCase();
+        var timers = self.timers()[0];
+
+        //var idJob = self.idJob();
+        //var idJobExecution = self.idJobExecution();
+        //var theId = self.id();
+
+        //var theStatus = self.status();
 
         model.duration = ko.computed(function () {
-            var fudgeFactorForTesting = 1234567;
-            var lastUpdatedTime = self.lastUpdatedTime();
-            var createdTime = self.createdTime() - fudgeFactorForTesting;
+            //var timers = self.timers()[0];
 
-            if (lastUpdatedTime === createdTime) {
-                console.log('duration instant');
-                return 'instant';
-            }
+            var start = timers.start();
+            var end = timers.end();
 
-            var lastUpdatedMoment = moment(lastUpdatedTime);
-            //console.log('lastUpdatedMoment', lastUpdatedMoment.format("ddd, MMM Do YYYY, h:mm:ss a"));
-            var createdMoment = moment(createdTime);
-            //console.log('createdMoment', createdMoment.format("ddd, MMM Do YYYY, h:mm:ss a"));
-            var durationInMilliseconds = lastUpdatedMoment.diff(createdMoment);
-            //console.log('durationInMilliseconds', durationInMilliseconds);
+            //if (end === start) {
+            //    console.log('duration instant');
+            //    return 'end: ' + end + 'start: ' + start;
+            //    //return 'instant';
+            //}
+
+            var startMoment = moment(start);
+            var endMoment = moment(end);
+
+            var durationInMilliseconds = endMoment.diff(startMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
-            //console.log('durationMoment', durationMoment);
-            //var durationMomentHumanize = durationMoment.humanize();
-            //console.log('durationMomentHumanize', durationMomentHumanize);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]');
-            //console.log('durationMomentFormat', durationMomentFormat);
+            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]');
 
-            console.log('duration', durationMomentFormat);
+            //console.log('duration', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
         model.finished = ko.computed(function () {
-            var lastUpdatedTime = self.lastUpdatedTime();
-            var lastUpdatedMoment = moment(lastUpdatedTime);
+            var timers = self.timers()[0];
+
+            var start = timers.start();
+            var end = timers.end();
+
+            var startMoment = moment(start);
+            var endMoment = moment(end);
             var nowMoment = moment();
 
-            var durationInMilliseconds = nowMoment.diff(lastUpdatedMoment);
-            //console.log('durationInMilliseconds', durationInMilliseconds);
+            var durationInMilliseconds = nowMoment.diff(endMoment);
             var durationMoment = moment.duration(durationInMilliseconds);
-            //console.log('durationMoment', durationMoment);
             var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec]') + ' ago';
-            //console.log('durationMomentFormat', durationMomentFormat);
+            //var durationMomentFormat = durationMoment.format('d [day] h [hr] m [min] s [sec] S [ms]') + ' ago';
 
-            console.log('finished', durationMomentFormat);
+            //console.log('finished', durationMomentFormat);
             return durationMomentFormat;
         }, self);
 
-        model.hrefjobExecutionstop = ko.computed(function () {
-            return '#job/' + theId;
+        model.hrefJobExecutionStop = ko.computed(function () {
+            //#job/0da21734-61e8-48aa-9cad-4e3e13146007/job-execution/ac609d05-10dd-41af-9529-a1b6328044f8/stop
+            var retVal = '#job/' + self.job_id() + '/job-execution/' + self.execution_id() + '/stop';
+            return retVal;
         }, self);
 
-        model.hrefJobKill = ko.computed(function () {
-            return '#job/' + theId;
+        model.hrefJobExecutionKill = ko.computed(function () {
+            //#job/0da21734-61e8-48aa-9cad-4e3e13146007/job-execution/ac609d05-10dd-41af-9529-a1b6328044f8/kill
+            var retVal = '#job/' + self.job_id() + '/job-execution/' + self.execution_id() + '/kill';
+            return retVal;
         }, self);
 
         model.statusIcon = ko.computed(function () {
-            return statuses[theStatus]['statusIcon'];
+            var retVal = statuses[status]['statusIcon'];
+            return retVal;
         }, self);
+
         model.statusClass = ko.computed(function () {
-            return statuses[theStatus]['statusClass'];
+            var retVal = statuses[status]['statusClass'];
+            return retVal;
         }, self);
 
         return model;
@@ -134,13 +163,15 @@ define([
 
     function JobExecutionViewModel(params) {
         var self = this;
-        var dev = true;
+        var dev = false;
 
-        var jobExecutionId = params.id;
+        var idJob = params.idJob;
+        var idJobExecution = params.idJobExecution;
 
         //console.log('params.id: ' + jobExecutionId);
 
         self.jobExecution = ko.observableArray();
+        self.job = ko.observableArray();
 
         if (dev) {
             var jobExecutionData = fixtures.jobExecution;
@@ -150,18 +181,17 @@ define([
             //86400 sec
             //86400000 milliseconds
 
-            var earliestPastCreateSeconds = 4;
-            var earliestPastUpdateSeconds = 2;
-            var latestPastSeconds = 3600; // 3600 = 1 hour
-            //var latestPastSeconds = 86400; // 86400 = 1 day
-            var randomCreateMilliseconds = Math.floor(Math.random() * (latestPastSeconds * 1000)) + (earliestPastCreateSeconds * 1000);
-            var randomUpdateMilliseconds = Math.floor(Math.random() * (latestPastSeconds * 1000)) + (earliestPastUpdateSeconds * 1000);
-
-            var randomCreatedTime = moment().subtract(randomCreateMilliseconds).valueOf();
-            var randomLastUpdatedTime = moment().subtract(randomUpdateMilliseconds).valueOf();
-
-            jobExecutionData.createdTime = randomCreatedTime;
-            jobExecutionData.lastUpdatedTime = randomLastUpdatedTime;
+            //var earliestPastCreateSeconds = 4;
+            //var earliestPastUpdateSeconds = 2;
+            //var latestPastSeconds = 3600; // 3600 = 1 hour
+            //var randomCreateMilliseconds = Math.floor(Math.random() * (latestPastSeconds * 1000)) + (earliestPastCreateSeconds * 1000);
+            //var randomUpdateMilliseconds = Math.floor(Math.random() * (latestPastSeconds * 1000)) + (earliestPastUpdateSeconds * 1000);
+            //
+            //var randomCreatedTime = moment().subtract(randomCreateMilliseconds).valueOf();
+            //var randomLastUpdatedTime = moment().subtract(randomUpdateMilliseconds).valueOf();
+            //
+            //jobExecutionData.createdTime = randomCreatedTime;
+            //jobExecutionData.lastUpdatedTime = randomLastUpdatedTime;
 
 
             var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
@@ -169,13 +199,35 @@ define([
         } else {
             var runner = runnerConfig.getRunnerInstance();
 
-            runner.jobs.get(jobExecutionId).then(function (jobExecution) {
-                console.log('RUNNER RETURNED');
-                var jobExecutionData = jobExecution.data;
-                var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-                self.jobExecution(observableJobExecution);
+            //given a job_execution_id, get the job.
+            //with that job and job_execution_id, get the job_execution
+
+            console.log('idJob', idJob);
+            console.log('idJobExecution', idJobExecution);
+
+            runner.jobs.get(idJob).then(function (job) {
+                console.log('RUNNER RETURNED: jobs.get');
+                var jobData = job.data;
+                console.log('jobData', ko.toJSON(jobData, null, 4));
+
+                var observableJob = ko.mapping.fromJS(jobData, {});
+                self.job(observableJob);
+
+                job.execution(idJobExecution).then(function (jobExecution) {
+                    console.log('RUNNER RETURNED: job.execution');
+                    var jobExecutionData = jobExecution.data;
+                    console.log('jobExecutionData', ko.toJSON(jobExecutionData, null, 4));
+
+                    var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+                    self.jobExecution(observableJobExecution);
+
+                });
             });
         }
+    }
+
+    function foo() {
+
     }
 
     // Use prototype to declare any public methods

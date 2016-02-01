@@ -148,7 +148,7 @@
                 <div class="queue-container">
                     <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFiltered(), as: 'jobExecution' }">
                         <!-- BEGIN: JOB ITEM PREVIEW-->
-                        <li class="" data-bind="css: jobExecution.status(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">
+                        <li class="" data-bind="css: jobExecution.status().toLowerCase(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="&hellip;">
                             <div class="status-bar">
                                 <svg class="cyclops-icon" title="queued">
                                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ellipsis" data-bind="attr: { 'xlink:href': jobExecution.statusIcon }"></use>
@@ -156,25 +156,25 @@
                             </div>
                             <div class="details clearfix">
                                 <div class="col col-100">
-                                    <a href="#job-execution/999" class="playbook" data-bind="attr: { href: '#job-execution/' + jobExecution.id() }, text: jobExecution.name">[jobExecution.name]</a>
+                                    <a href="#job-execution/999" class="playbook" data-bind="attr: { href: jobExecution.hrefJobExecution() }, text: jobExecution.execution_id">&hellip;</a>
                                     <div class="user">
                                         <svg class="cyclops-icon">
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
                                         </svg>
-                                        <span class="fake">[jobExecution.user]</span>
+                                        <span class="fake">&hellip;</span>
                                         <!--<span data-bind="text: jobExecution.user()">[jobExecution.user]</span>-->
                                     </div>
                                     <div class="duration">
                                         <svg class="cyclops-icon">
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-clock"></use>
                                         </svg>
-                                        <span data-bind="text: jobExecution.duration()">[jobExecution.duration]</span>
+                                        <span data-bind="text: jobExecution.duration()">&hellip;</span>
                                     </div>
                                     <div class="finished">
                                         <svg class="cyclops-icon">
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-calendar"></use>
                                         </svg>
-                                        <span data-bind="text: jobExecution.finished()">[jobExecution.finshed]</span>
+                                        <span data-bind="text: jobExecution.finished()">&hellip;</span>
                                     </div>
                                 </div>
                             </div>

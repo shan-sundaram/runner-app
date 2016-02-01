@@ -24,6 +24,7 @@ require.config({
         knockstrap: 'vendor/knockstrap/build/knockstrap',
         router: 'router',
         fixtures: 'fixtures',
+        //https://github.com/CenturyLinkCloud/rnr-client-js
         runner: 'runner',
         runnerConfig: 'runner.config',
         bluebird: 'vendor/bluebird/js/browser/bluebird',

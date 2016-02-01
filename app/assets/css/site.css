@@ -24,6 +24,8 @@ html.cyclops #runner .job-status.initializing .status-bar {
     background-color: #E09D00;
 }
 
+html.cyclops #runner .queue > li.init_failure .status-bar,
+html.cyclops #runner .job-status.init_failure .status-bar,
 html.cyclops #runner .queue > li.errored .status-bar,
 html.cyclops #runner .job-status.errored .status-bar,
 html.cyclops #runner .queue > li.failure .status-bar,

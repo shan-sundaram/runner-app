@@ -39,6 +39,7 @@
                 <!-- BEGIN: JOBS QUEUE -->
                 <ol class="queue queue-preview" data-bind="foreach: { data: jobExecutionsFiltered(), as: 'jobExecution' }">
                     <!-- BEGIN: JOB ITEM -->
+
                     <li class="" data-bind="css: jobExecution.status().toLowerCase(), attr: { title: 'Job Execution Status: ' + jobExecution.status() }" title="[jobExecution.status]">
                         <div class="status-bar">
                             <svg class="cyclops-icon" title="queued">
@@ -47,7 +48,8 @@
                         </div>
                         <div class="new-list-view-responsive new-list-view-responsive-sm details clearfix">
                             <div class="col col-40">
-                                <a href="#job-execution/999" class="playbook" data-bind="attr: { href: '#job-execution/' + jobExecution.id() }, text: jobExecution.name">&hellip;</a>
+                                <a href="#job-execution/999" class="playbook" data-bind="attr: { href: jobExecution.hrefJobExecution() }, text: jobExecution.execution_id()">&hellip;</a>
+                                <!--<a href="#job-execution/999" class="playbook" data-bind="attr: { href: '#job-execution/' + jobExecution.execution_id() }, text: jobExecution.execution_id()">&hellip;</a>-->
                                 <div class="user" title="Job Execution User">
                                     <svg class="cyclops-icon">
                                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user"></use>
@@ -76,9 +78,8 @@
                 </ol>
                 <!-- END: JOBS QUEUE -->
 
-                <!--<pre data-bind="text: ko.toJSON( paging, null, 4 )"></pre>-->
 
-
+<!--
                 <ul>
                     <li>
                         <label>Page count:</label>
@@ -86,13 +87,10 @@
                     </li>
 
 
-<!--
                     <li>
                         <label>Page number:</label>
                         <span data-bind="text: paging.pageNumber">[paging.pageNumber]</span>
                     </li>
--->
-<!--
 
                     <li>
                         <label>Page size:</label>
@@ -133,9 +131,7 @@
                         <label>Has last page:</label>
                         <span data-bind="text: paging.isLastPage"></span>
                     </li>
--->
 
-<!--
                     <li>
                         <label>Items on current page:</label>
 
@@ -143,14 +139,14 @@
                             <li data-bind="text: $data"></li>
                         </ul>
                     </li>
--->
 
                     <li>
                         <label>View model:</label>
                         <pre data-bind="text: ko.toJSON( paging, null, 4 )"></pre>
-                        <!--<pre data-bind="text: ko.toJSON(paging)"></pre>-->
+                        &lt;!&ndash;<pre data-bind="text: ko.toJSON(paging)"></pre>&ndash;&gt;
                     </li>
                 </ul>
+-->
 
 
 <!--

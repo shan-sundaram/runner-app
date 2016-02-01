@@ -49,6 +49,45 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
             },
 
 
+
+
+
+
+            {
+                url: 'job/{idJob}/job-execution/{idJobExecution}',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+            {
+                url: 'job/{idJob}/job-execution/{idJobExecution}/stop',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+            {
+                url: 'job/{idJob}/job-execution/{idJobExecution}/kill',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+            {
+                url: 'job/{idJob}/job-execution/{idJobExecution}/log',
+                params: {
+                    page: 'job-execution'
+                }
+            },
+            {
+                url: 'job/{idJob}/job-execution/{idJobExecution}/log/download',
+                params: {
+                    page: 'job-execution'
+                }
+            }
+
+
+
+/*
+
             {
                 url: 'job-execution/{id}',
                 params: {
@@ -79,6 +118,7 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
                     page: 'job-execution'
                 }
             }
+*/
 
         ]
     };
