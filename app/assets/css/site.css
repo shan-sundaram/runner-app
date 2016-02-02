@@ -1,3 +1,18 @@
+html.cyclops nav .pagination>li
+{
+    cursor: pointer;
+}
+
+html.cyclops nav .pagination>li>a,
+html.cyclops nav .pagination>li>span
+{
+    min-width: 40px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 38px;
+    padding: 0px;
+}
 
 html.cyclops .action-toolbar-left li {
     cursor: pointer;

@@ -78,102 +78,42 @@
                 </ol>
                 <!-- END: JOBS QUEUE -->
 
+                <!--<pre data-bind="text: ko.toJSON( paging, null, 4 )"></pre>-->
 
 <!--
-                <ul>
-                    <li>
-                        <label>Page count:</label>
-                        <span data-bind="text: $data.paging.pageCount">&hellip;</span>
-                    </li>
-
-
-                    <li>
-                        <label>Page number:</label>
-                        <span data-bind="text: paging.pageNumber">[paging.pageNumber]</span>
-                    </li>
-
-                    <li>
-                        <label>Page size:</label>
-                        <span data-bind="text: paging.pageSize"></span>
-                    </li>
-
-                    <li>
-                        <label>Item count:</label>
-                        <span data-bind="text: paging.itemCount"></span>
-                    </li>
-
-                    <li>
-                        <label>First item on page:</label>
-                        <span data-bind="text: paging.firstItemOnPage"></span>
-                    </li>
-
-                    <li>
-                        <label>Last item on page:</label>
-                        <span data-bind="text: paging.lastItemOnPage"></span>
-                    </li>
-
-                    <li>
-                        <label>Has previous page:</label>
-                        <span data-bind="text: paging.hasPreviousPage "></span>
-                    </li>
-
-                    <li>
-                        <label>Has next page:</label>
-                        <span data-bind="text: paging.hasNextPage "></span>
-                    </li>
-
-                    <li>
-                        <label>Has first page:</label>
-                        <span data-bind="text: paging.isFirstPage"></span>
-                    </li>
-
-                    <li>
-                        <label>Has last page:</label>
-                        <span data-bind="text: paging.isLastPage"></span>
-                    </li>
-
-                    <li>
-                        <label>Items on current page:</label>
-
-                        <ul data-bind="foreach: paging.pageItems">
-                            <li data-bind="text: $data"></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <label>View model:</label>
-                        <pre data-bind="text: ko.toJSON( paging, null, 4 )"></pre>
-                        &lt;!&ndash;<pre data-bind="text: ko.toJSON(paging)"></pre>&ndash;&gt;
-                    </li>
-                </ul>
+                <div data-bind="with: paging" style="border: 1px solid red;">
+                    <pre data-bind="text: pageCount"></pre>
+                    <pre data-bind="text: hasPreviousPage"></pre>
+                </div>
 -->
 
-
-<!--
-                <nav style="float: left;">
+                <nav data-bind="with: paging" class="" style="">
                     <ul class="pagination">
-                        <li class="disabled" data-bind="click: loadPreviousPage">
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
+                        <li data-bind="css: { disabled: isFirstPage }, attr: { title: 'First Page' }">
+                            <span aria-hidden="true">&laquo;</span>
+                            <!--<span aria-hidden="true">First</span>-->
                         </li>
 
-                        &lt;!&ndash; ko foreach: paginationPageArray()  &ndash;&gt;
-                        <li class="">
-                            <span data-bind="text: ($index() + 1)">[paginationPageNum]</span>
+                        <li data-bind="css: { disabled: isFirstPage }, attr: { title: 'Previous Page' }">
+                            <span aria-hidden="true">&lsaquo;</span>
+                            <!--<span aria-hidden="true">Prev</span>-->
                         </li>
-                        &lt;!&ndash; /ko &ndash;&gt;
 
-                        <li data-bind="click: loadNextPage">
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
+                        <li>
+                            <span data-bind="text: pageNumber, attr: { title: 'Current Page' }">&hellip;</span>
+                        </li>
+
+                        <li data-bind="css: { disabled: isLastPage }, attr: { title: 'Next Page' }, click: loadNextPage">
+                            <!--<span aria-hidden="true">Next</span>-->
+                            <span aria-hidden="true">&rsaquo;</span>
+                        </li>
+
+                        <li data-bind="css: { disabled: isLastPage }, attr: { title: 'Last Page' }">
+                            <!--<span aria-hidden="true">Last</span>-->
+                            <span aria-hidden="true">&raquo;</span>
                         </li>
                     </ul>
                 </nav>
--->
 
 
                 <div align="right">
