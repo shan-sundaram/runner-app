@@ -241,17 +241,12 @@ define([
             runner.executions.find().then(function (jobExecutionsPage) {
                 console.log('RUNNER RETURNED');
 
-
-
-
-                self.page = jobExecutionsPage.data;
+                self.page = jobExecutionsPage;
                 console.log('self.page', ko.toJSON(self.page, null, 4));
-
-
 
                 //self.page(jobExecutionsPage.data);
 
-                var executionsList = self.page.values;
+                var executionsList = self.page.values();
 
                 executionsList.forEach(function (jobExecution) {
                     var jobExecutionData = jobExecution.data;
@@ -260,7 +255,17 @@ define([
                 });
 
 
-                var pagingData = new PagingModel(self.page);
+                var pagingData = new PagingModel(self.page, function(page){
+                    self.jobExecutions.removeAll();
+
+                    page.values().forEach(function (jobExecution) {
+                        var jobExecutionData = jobExecution.data;
+                        var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+                        self.jobExecutions.push(observableExecution);
+                    });
+
+                });
+
                 console.log('pagingData', ko.toJSON(pagingData, null, 4));
 
                 var observablePaging = ko.mapping.fromJS(pagingData, pagingMapping);
@@ -328,13 +333,15 @@ define([
         };
     }
 
-    function PagingModel(page) {
+    function PagingModel(page, onFetch) {
         var self = this;
 
-        self.pageNumber = page.page + 1;
-        self.pageSize = page.size;
-        self.itemCount = page.totalSize;
+        self.pageNumber = page.page() + 1;
+        self.pageSize = page.size();
+        self.itemCount = page.totalSize();
         self.page = page;
+        self.onFetch = onFetch;
+
     }
 
     var pagingMapping = {
@@ -347,21 +354,15 @@ define([
     function PagingMappingAdditions(data) {
 
         var self = this;
-        self.data = data;
+        self.page = data.page;
+        self.onFetch = data.onFetch;
 
         ko.mapping.fromJS(data, {}, self);
 
         self.loadNextPage = function () {
-            self.data.page().next().then(function (jobExecutionsPage){
-                //self.page = jobExecutionsPage.data;
-
-                var executionsList = jobExecutionsPage.values;
-
-                executionsList.forEach(function (jobExecution) {
-                    var jobExecutionData = jobExecution.data;
-                    var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-                    self.jobExecutions.push(observableExecution);
-                });
+            self.page.next().then(function (jobExecutionsPage){
+                self.onFetch(jobExecutionsPage);
+                self.pageNumber(jobExecutionsPage.page() + 1);
             })
         };
 
