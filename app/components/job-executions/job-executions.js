@@ -170,8 +170,14 @@ define([
 
         self.jobExecutions = ko.observableArray();
 
-        self.page = ko.observable();
-        self.pageIndex = 0;
+        self.jobExecutionsPage = ko.observable();
+
+
+
+        //self.page = ko.observable();
+
+        self.pageIndex = ko.observable(0);
+        //self.pageIndex = 0;
         self.pageSize = 10;
 
         self.paging = ko.observable();
@@ -241,42 +247,18 @@ define([
             runner.executions.find().then(function (jobExecutionsPage) {
                 console.log('RUNNER RETURNED');
 
-                self.page = jobExecutionsPage;
-                console.log('self.page', ko.toJSON(self.page, null, 4));
+                self.jobExecutionsPage = jobExecutionsPage;
 
-                //self.page(jobExecutionsPage.data);
+                //self.page = jobExecutionsPage.data;
 
-                var executionsList = self.page.values();
+                var executionsList = jobExecutionsPage.values();
 
                 executionsList.forEach(function (jobExecution) {
                     var jobExecutionData = jobExecution.data;
                     var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
                     self.jobExecutions.push(observableExecution);
                 });
-
-
-                var pagingData = new PagingModel(self.page, function(page){
-                    self.jobExecutions.removeAll();
-
-                    page.values().forEach(function (jobExecution) {
-                        var jobExecutionData = jobExecution.data;
-                        var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-                        self.jobExecutions.push(observableExecution);
-                    });
-
-                });
-
-                console.log('pagingData', ko.toJSON(pagingData, null, 4));
-
-                var observablePaging = ko.mapping.fromJS(pagingData, pagingMapping);
-                console.log('observablePaging', ko.toJSON(observablePaging, null, 4));
-
-                self.paging(observablePaging);
-                //console.log('self.paging', ko.toJSON(self.paging, null, 4));
-                console.log('self.paging', self.paging());
-
             });
-
         }
 
         self.jobExecutionsFiltered = self.jobExecutions.filter(function (jobExecution) {
@@ -307,7 +289,12 @@ define([
         });
 
         self.loadNextPage = function () {
-            self.page.fetch(self.pageIndex+1, self.pageSize).then(function(nextPage, data) {
+            console.log('loadNextPage', self.jobExecutionsPage.data);
+            //console.log('loadNextPage', ko.toJSON(self.jobExecutionsPage.data, null, 4));
+
+            var theIndex = self.pageIndex() + 1;
+
+            self.jobExecutionsPage.data.fetch(theIndex, self.pageSize).then(function(nextPage, data) {
                 var jobExecutionsData = nextPage.data.values;
                 self.jobExecutions([]);
                 jobExecutionsData.forEach(function (jobExecution) {
@@ -315,12 +302,16 @@ define([
                     var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
                     self.jobExecutions.push(observableJobExecution);
                 });
-                self.pageIndex = self.pageIndex + 1;
+                self.pageIndex(theIndex);
             });
         };
 
         self.loadPreviousPage = function () {
-            self.page.fetch(self.pageIndex-1, self.pageSize).then(function(prevPage, data) {
+            console.log('loadPreviousPage', self.jobExecutionsPage.data);
+
+            var theIndex = self.pageIndex() - 1;
+
+            self.jobExecutionsPage.data.fetch(theIndex, self.pageSize).then(function(prevPage, data) {
                 var jobExecutionsData = prevPage.data.values;
                 self.jobExecutions([]);
                 jobExecutionsData.forEach(function (jobExecution) {
@@ -328,11 +319,12 @@ define([
                     var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
                     self.jobExecutions.push(observableJobExecution);
                 });
-                self.pageIndex = self.pageIndex - 1;
+                self.pageIndex(theIndex);
             });
         };
     }
 
+/*
     function PagingModel(page, onFetch) {
         var self = this;
 
@@ -341,64 +333,51 @@ define([
         self.itemCount = page.totalSize();
         self.page = page;
         self.onFetch = onFetch;
-
     }
+*/
 
+/*
     var pagingMapping = {
         create: function (options) {
             return new PagingMappingAdditions(options.data);
         }
     };
+*/
 
 
-    function PagingMappingAdditions(data) {
+/*
+    function PagingMappingAdditions(pagingModel) {
 
         var self = this;
-        self.page = data.page;
-        self.onFetch = data.onFetch;
+        self.page = pagingModel.page;
+        self.onFetch = pagingModel.onFetch;
 
-        ko.mapping.fromJS(data, {}, self);
+        ko.mapping.fromJS(pagingModel, {}, self);
 
         self.loadNextPage = function () {
+            console.log('loadNextPage click');
+            //console.log('self.page', self.page);
+            console.log('self.page', ko.toJSON(self.page, null, 4));
+
             self.page.next().then(function (jobExecutionsPage){
                 self.onFetch(jobExecutionsPage);
+                //self.pageNumber(self.pageNumber() + 1);
                 self.pageNumber(jobExecutionsPage.page() + 1);
             })
         };
 
 
-/*
-        self.loadNextPage = function () {
-            self.fetch(self.pageNumber() + 1, self.pageSize()).then(function(nextPage, data) {
-                var jobExecutionsData = nextPage.data.values;
-                self.jobExecutions([]);
-                jobExecutionsData.forEach(function (jobExecution) {
-                    var jobExecutionData = jobExecution.data;
-                    var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-                    self.jobExecutions.push(observableJobExecution);
-                    //self.jobExecutions.push(observableJobExecution);
-                });
-                self.pageNumber = self.pageNumber + 1;
-            });
+        self.loadPreviousPage = function () {
+            console.log('loadPreviousPage click');
+
+            //console.log('self.page', self.page);
+            console.log('self.page', ko.toJSON(self.page, null, 4));
+            self.page.previous().then(function (jobExecutionsPage){
+                self.onFetch(jobExecutionsPage);
+                //self.pageNumber(self.pageNumber() - 1);
+                self.pageNumber(jobExecutionsPage.page() - 1);
+            })
         };
-
-
-        self.loadPrevPage = function () {
-            self.fetch(self.pageNumber() - 1, self.pageSize()).then(function(prevPage, data) {
-                var jobExecutionsData = prevPage.data.values;
-                self.jobExecutions([]);
-                jobExecutionsData.forEach(function (jobExecution) {
-                    var jobExecutionData = jobExecution.data;
-                    var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-                    self.jobExecutions.push(observableJobExecution);
-                });
-                self.pageNumber = self.pageNumber - 1;
-            });
-        };
-*/
-
-
-
 
         self.pageCount = ko.computed(function () {
             //the total number of pages.
@@ -443,6 +422,7 @@ define([
 
         return self;
     }
+*/
 
 
     // Use prototype to declare any public methods

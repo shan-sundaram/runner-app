@@ -80,47 +80,34 @@
 
                 <!--<pre data-bind="text: ko.toJSON( paging, null, 4 )"></pre>-->
 
-<!--
-                <div data-bind="with: paging" style="border: 1px solid red;">
-                    <pre data-bind="text: pageCount"></pre>
-                    <pre data-bind="text: hasPreviousPage"></pre>
-                </div>
--->
-
-                <nav data-bind="with: paging" class="" style="">
+                <nav class="" style="">
                     <ul class="pagination">
-                        <li data-bind="css: { disabled: isFirstPage }, attr: { title: 'First Page' }">
-                            <span aria-hidden="true">&laquo;</span>
-                            <!--<span aria-hidden="true">First</span>-->
+                        <li title="First Page">
+                            <span aria-hidden="true" class="pagination-glyphs">&laquo;</span>
+                            <!--<span aria-hidden="true">&laquo; First</span>-->
                         </li>
 
-                        <li data-bind="css: { disabled: isFirstPage }, attr: { title: 'Previous Page' }">
-                            <span aria-hidden="true">&lsaquo;</span>
-                            <!--<span aria-hidden="true">Prev</span>-->
+                        <li data-bind="click: loadPreviousPage" title="Previous Page">
+                            <span aria-hidden="true" class="pagination-glyphs">&lsaquo;</span>
+                            <!--<span aria-hidden="true">&lsaquo; Prev</span>-->
                         </li>
 
-                        <li>
-                            <span data-bind="text: pageNumber, attr: { title: 'Current Page' }">&hellip;</span>
+                        <li class="active" title="Current Page">
+                            <span data-bind="text: pageIndex() + 1" class="pagination-glyphs">&hellip;</span>
                         </li>
 
-                        <li data-bind="css: { disabled: isLastPage }, attr: { title: 'Next Page' }, click: loadNextPage">
-                            <!--<span aria-hidden="true">Next</span>-->
-                            <span aria-hidden="true">&rsaquo;</span>
+                        <li data-bind="click: loadNextPage" title="Next Page">
+                            <!--<span aria-hidden="true">Next &rsaquo;</span>-->
+                            <span aria-hidden="true" class="pagination-glyphs">&rsaquo;</span>
                         </li>
 
-                        <li data-bind="css: { disabled: isLastPage }, attr: { title: 'Last Page' }">
-                            <!--<span aria-hidden="true">Last</span>-->
-                            <span aria-hidden="true">&raquo;</span>
+                        <li title="Last Page">
+                            <!--<span aria-hidden="true">Last &raquo;</span>-->
+                            <span aria-hidden="true" class="pagination-glyphs">&raquo;</span>
                         </li>
                     </ul>
                 </nav>
-
-
-                <div align="right">
-                    <input type="button" value="Previous" data-bind="click: loadPreviousPage"/> <input type="button" value="Next" data-bind="click: loadNextPage"/>
-                </div>
-
-
+                
             </div>
         </div>
 
