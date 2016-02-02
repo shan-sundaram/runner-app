@@ -171,17 +171,8 @@ define([
         self.jobExecutions = ko.observableArray();
 
         self.jobExecutionsPage = ko.observable();
-
-
-
-        //self.page = ko.observable();
-
         self.pageIndex = ko.observable(0);
-        //self.pageIndex = 0;
-        self.pageSize = 10;
-
-        self.paging = ko.observable();
-        self.isLoading = ko.observable(false);
+        self.pageCount = ko.observable();
 
         self.filterJobExecutionsByStatusQuery = ko.observable(null);
         self.filterJobExecutionsByNameQuery = ko.observable(null);
@@ -240,16 +231,19 @@ define([
                 self.jobExecutions.push(observableJobExecution);
             });
         } else {
+            //https://github.com/CenturyLinkCloud/wf-dashboard/blob/e5c9eaf40d210daca2119fdb87993f4c014f03c0/app/components/job-executions/job-executions.js
             var runner = runnerConfig.getRunnerInstance();
 
-            self.isLoading(true);
+            //self.isLoading(true);
 
             runner.executions.find().then(function (jobExecutionsPage) {
                 console.log('RUNNER RETURNED');
 
                 self.jobExecutionsPage = jobExecutionsPage;
+                console.log('jobExecutionsPage', self.jobExecutionsPage);
 
-                //self.page = jobExecutionsPage.data;
+                self.pageCount = Math.ceil(jobExecutionsPage.data.totalSize / jobExecutionsPage.data.size);
+                console.log('pageCount', self.pageCount);
 
                 var executionsList = jobExecutionsPage.values();
 
@@ -288,61 +282,85 @@ define([
             return theStatusBool && theNameBool;
         });
 
-        self.loadNextPage = function () {
-            console.log('loadNextPage', self.jobExecutionsPage.data);
-            //console.log('loadNextPage', ko.toJSON(self.jobExecutionsPage.data, null, 4));
 
-            var theIndex = self.pageIndex() + 1;
 
-            self.jobExecutionsPage.data.fetch(theIndex, self.pageSize).then(function(nextPage, data) {
-                var jobExecutionsData = nextPage.data.values;
-                self.jobExecutions([]);
-                jobExecutionsData.forEach(function (jobExecution) {
+        self.loadFirstPage = function () {
+            console.log('loadFirstPage', self.jobExecutionsPage);
+
+            self.jobExecutionsPage.first().then(function (jobExecutionsPage){
+                self.jobExecutionsPage = jobExecutionsPage;
+
+                var theIndex = self.jobExecutionsPage.data.page;
+
+                self.jobExecutions.removeAll();
+
+                jobExecutionsPage.values().forEach(function (jobExecution) {
                     var jobExecutionData = jobExecution.data;
-                    var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-                    self.jobExecutions.push(observableJobExecution);
+                    var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+                    self.jobExecutions.push(observableExecution);
                 });
                 self.pageIndex(theIndex);
-            });
+            })
+        };
+
+        self.loadLastPage = function () {
+            console.log('loadLastPage', self.jobExecutionsPage);
+
+            self.jobExecutionsPage.last().then(function (jobExecutionsPage){
+                self.jobExecutionsPage = jobExecutionsPage;
+
+                var theIndex = self.jobExecutionsPage.data.page;
+
+                self.jobExecutions.removeAll();
+
+                jobExecutionsPage.values().forEach(function (jobExecution) {
+                    var jobExecutionData = jobExecution.data;
+                    var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+                    self.jobExecutions.push(observableExecution);
+                });
+                self.pageIndex(theIndex);
+            })
+        };
+
+        self.loadNextPage = function () {
+            console.log('loadNextPage', self.jobExecutionsPage);
+
+            self.jobExecutionsPage.next().then(function (jobExecutionsPage){
+                self.jobExecutionsPage = jobExecutionsPage;
+
+                var theIndex = self.jobExecutionsPage.data.page;
+
+                self.jobExecutions.removeAll();
+
+                jobExecutionsPage.values().forEach(function (jobExecution) {
+                    var jobExecutionData = jobExecution.data;
+                    var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+                    self.jobExecutions.push(observableExecution);
+                });
+                self.pageIndex(theIndex);
+            })
         };
 
         self.loadPreviousPage = function () {
-            console.log('loadPreviousPage', self.jobExecutionsPage.data);
+            console.log('loadPreviousPage', self.jobExecutionsPage);
 
-            var theIndex = self.pageIndex() - 1;
+            self.jobExecutionsPage.previous().then(function (jobExecutionsPage){
+                self.jobExecutionsPage = jobExecutionsPage;
 
-            self.jobExecutionsPage.data.fetch(theIndex, self.pageSize).then(function(prevPage, data) {
-                var jobExecutionsData = prevPage.data.values;
-                self.jobExecutions([]);
-                jobExecutionsData.forEach(function (jobExecution) {
+                var theIndex = self.jobExecutionsPage.data.page;
+
+                self.jobExecutions.removeAll();
+
+                jobExecutionsPage.values().forEach(function (jobExecution) {
                     var jobExecutionData = jobExecution.data;
-                    var observableJobExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
-                    self.jobExecutions.push(observableJobExecution);
+                    var observableExecution = ko.mapping.fromJS(jobExecutionData, jobExecutionMapping);
+                    self.jobExecutions.push(observableExecution);
                 });
                 self.pageIndex(theIndex);
-            });
+            })
         };
     }
 
-/*
-    function PagingModel(page, onFetch) {
-        var self = this;
-
-        self.pageNumber = page.page() + 1;
-        self.pageSize = page.size();
-        self.itemCount = page.totalSize();
-        self.page = page;
-        self.onFetch = onFetch;
-    }
-*/
-
-/*
-    var pagingMapping = {
-        create: function (options) {
-            return new PagingMappingAdditions(options.data);
-        }
-    };
-*/
 
 
 /*
