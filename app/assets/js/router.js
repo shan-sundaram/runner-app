@@ -8,6 +8,12 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
                 }
             },
             {
+                url: 'login',
+                params: {
+                    page: 'login'
+                }
+            },
+            {
                 url: 'library',
                 params: {
                     page: 'library'
@@ -83,42 +89,6 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
                     page: 'job-execution'
                 }
             }
-
-
-
-/*
-
-            {
-                url: 'job-execution/{id}',
-                params: {
-                    page: 'job-execution'
-                }
-            },
-            {
-                url: 'job-execution/{id}/stop',
-                params: {
-                    page: 'job-execution'
-                }
-            },
-            {
-                url: 'job-execution/{id}/kill',
-                params: {
-                    page: 'job-execution'
-                }
-            },
-            {
-                url: 'job-execution/{id}/log',
-                params: {
-                    page: 'job-execution'
-                }
-            },
-            {
-                url: 'job-execution/{id}/log/download',
-                params: {
-                    page: 'job-execution'
-                }
-            }
-*/
 
         ]
     };

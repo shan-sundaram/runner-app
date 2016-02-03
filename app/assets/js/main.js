@@ -20,6 +20,12 @@ define([
 
     var self = this;
 
+/*
+    ko.components.register("login", {
+        require: '/components/login/login.js'
+    });
+*/
+
     ko.components.register("navigation", {
         require: '/components/navigation/navigation.js'
     });
