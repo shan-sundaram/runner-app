@@ -83,12 +83,16 @@ define([
     domReady(function () {
         //console.log("domReady");
 
+        // disable "disabled" buttons
+        $(".disabled ").click(function (event) {
+            console.log('disabled');
+            event.stopImmediatePropagation();
+            return (false);
+        });
+
 
         $('.action-toolbar-left a').actionToolbarConfirm();
 
-        //$(function(){
-        //    $('.action-toolbar-left a').actionToolbarConfirm()
-        //})
 
         self.setResponseToLocalStorage = function (response) {
             //console.log("setResponseToLocalStorage");

@@ -1,7 +1,18 @@
+
 html.cyclops nav .pagination>li
 {
     cursor: pointer;
 }
+
+/*
+html.cyclops .pagination > .disabled > a,
+html.cyclops .pagination > .disabled > a:hover,
+html.cyclops .pagination > .disabled > span,
+html.cyclops .pagination > .disabled > span:hover {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+*/
 
 /*
 html.cyclops nav .pagination>li.current-page
