@@ -247,7 +247,7 @@
 		 * @returns {Promise<RNR.Page<?>>} - The last page.
 		 */
 		Page.prototype.last = function() {
-			return this.fetch()(this.totalSize() / this.size(), this.size());
+			return this.fetch()(Math.ceil(this.totalSize() / this.size()), this.size());
 		};
 
 		/**
@@ -426,10 +426,26 @@
 				if(Array.isArray(result)) {
 
 					return new Page(self.context)
-						.page(0)
-						.size(result.length)
-						.totalSize(result.length)
-						.values(result.map(function(item){
+							.page(0)
+							.size(result.length)
+							.totalSize(result.length)
+							.values(result.map(function(item){
+								// Transform the plain data object to a new Status type.
+								return new RNR.Status(self.context, item);
+							}))
+							// Setup the fetch operation on the page instance.
+							.fetch(function(page, size){
+								return self.statuses({page : page, size : size});
+							});
+
+				}
+
+				// Create a new Page instance with the result as the underlying model.
+				return new Page(self.context)
+						.page(result.page)
+						.size(result.size)
+						.totalSize(result.totalSize)
+						.values(result.results.map(function(item){
 							// Transform the plain data object to a new Status type.
 							return new RNR.Status(self.context, item);
 						}))
@@ -437,22 +453,6 @@
 						.fetch(function(page, size){
 							return self.statuses({page : page, size : size});
 						});
-
-				}
-
-				// Create a new Page instance with the result as the underlying model.
-				return new Page(self.context)
-					.page(result.page)
-					.size(result.size)
-					.totalSize(result.totalSize)
-					.values(result.results.map(function(item){
-						// Transform the plain data object to a new Status type.
-						return new RNR.Status(self.context, item);
-					}))
-					// Setup the fetch operation on the page instance.
-					.fetch(function(page, size){
-						return self.statuses({page : page, size : size});
-					});
 
 			}).then(function(result) {
 
@@ -546,17 +546,17 @@
 
 				// Create a new Page instance with the result as the underlying model.
 				return new Page(self.context)
-					.page(result.page)
-					.size(result.size)
-					.totalSize(result.totalSize)
-					.values(result.results.map(function(item){
-						// Transform the plain data object to a new Job type.
-						return new RNR.Job(self.context, item);
-					}))
-					// Setup the fetch operation on the page instance.
-					.fetch(function(page, size){
-						return self.find({page : page, size : size});
-					});
+						.page(result.page)
+						.size(result.size)
+						.totalSize(result.totalSize)
+						.values(result.results.map(function(item){
+							// Transform the plain data object to a new Job type.
+							return new RNR.Job(self.context, item);
+						}))
+						// Setup the fetch operation on the page instance.
+						.fetch(function(page, size){
+							return self.find({page : page, size : size});
+						});
 
 			}).then(function(result) {
 
@@ -747,17 +747,17 @@
 
 				// Create a new Page instance with the result as the underlying model.
 				return new Page(self.context)
-					.page(result.page)
-					.size(result.size)
-					.totalSize(result.totalSize)
-					.values(result.results.map(function(item){
-						// Transform the plain data object to a new Job type.
-						return new RNR.Execution(self.context, item);
-					}))
-					// Setup the fetch operation on the page instance.
-					.fetch(function(page, size){
-						return self.executions({page : page, size : size});
-					});
+						.page(result.page)
+						.size(result.size)
+						.totalSize(result.totalSize)
+						.values(result.results.map(function(item){
+							// Transform the plain data object to a new Job type.
+							return new RNR.Execution(self.context, item);
+						}))
+						// Setup the fetch operation on the page instance.
+						.fetch(function(page, size){
+							return self.executions({page : page, size : size});
+						});
 
 			}).then(function(result) {
 
@@ -841,10 +841,26 @@
 
 					// Create a new Page instance with the result as the underlying model.
 					return new Page(self.context)
-						.page(0)
-						.size(result.length)
-						.totalSize(result.length)
-						.values(result.map(function(item){
+							.page(0)
+							.size(result.length)
+							.totalSize(result.length)
+							.values(result.map(function(item){
+								// Transform the plain data object to a new Status type.
+								return new RNR.Status(self.context, item);
+							}))
+							// Setup the fetch operation on the page instance.
+							.fetch(function(page, size){
+								return self.statuses({page : page, size : size});
+							});
+
+				}
+
+				// Create a new Page instance with the result as the underlying model.
+				return new Page(self.context)
+						.page(result.page)
+						.size(result.size)
+						.totalSize(result.totalSize)
+						.values(result.results.map(function(item){
 							// Transform the plain data object to a new Status type.
 							return new RNR.Status(self.context, item);
 						}))
@@ -852,22 +868,6 @@
 						.fetch(function(page, size){
 							return self.statuses({page : page, size : size});
 						});
-
-				}
-
-				// Create a new Page instance with the result as the underlying model.
-				return new Page(self.context)
-					.page(result.page)
-					.size(result.size)
-					.totalSize(result.totalSize)
-					.values(result.results.map(function(item){
-						// Transform the plain data object to a new Status type.
-						return new RNR.Status(self.context, item);
-					}))
-					// Setup the fetch operation on the page instance.
-					.fetch(function(page, size){
-						return self.statuses({page : page, size : size});
-					});
 
 			}).then(function(result) {
 
@@ -879,7 +879,7 @@
 			});
 
 		};
-
+		
 		/**
 		 * Provides execution related operations like find.
 		 *
@@ -929,17 +929,17 @@
 
 				// Create a new Page instance with the result as the underlying model.
 				return new Page(self.context)
-					.page(result.page)
-					.size(result.size)
-					.totalSize(result.totalSize)
-					.values(result.results.map(function(item){
-						// Transform the plain data object to a new Job type.
-						return new RNR.Execution(self.context, item);
-					}))
-					// Setup the fetch operation on the page instance.
-					.fetch(function(page, size){
-						return self.find({page : page, size : size});
-					});
+						.page(result.page)
+						.size(result.size)
+						.totalSize(result.totalSize)
+						.values(result.results.map(function(item){
+							// Transform the plain data object to a new Job type.
+							return new RNR.Execution(self.context, item);
+						}))
+						// Setup the fetch operation on the page instance.
+						.fetch(function(page, size){
+							return self.find({page : page, size : size});
+						});
 
 			}).then(function(result) {
 
@@ -951,7 +951,7 @@
 			});
 
 		};
-
+		
 		/**
 		 * Create a new runner API instance.
 		 *
