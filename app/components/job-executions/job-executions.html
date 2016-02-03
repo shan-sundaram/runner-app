@@ -81,35 +81,43 @@
                 <!--<pre data-bind="text: ko.toJSON( paging(), null, 4 )"></pre>-->
 
                 <!--<nav class="pull-left" style="">-->
-                <nav data-bind="with: paging" class="pull-left" style="">
+                <nav data-bind="with: paging" class="pull-right" style="">
                     <ul class="pagination">
-                        <li title="First Page" data-bind="css: { disabled: isFirstPage }, click: loadFirstPage">
+                        <li title="First Page" data-bind="css: { disabled: isFirstPage() }, click: isFirstPage() ? null : loadPreviousPage">
                             <span aria-hidden="true" class="pagination-glyphs">&laquo;</span>
-                            <!--<span aria-hidden="true">&laquo; First</span>-->
                         </li>
 
-                        <li title="Previous Page" data-bind="css: { disabled: isFirstPage }, click: loadPreviousPage">
+                        <li title="Previous Page" data-bind="css: { disabled: isFirstPage() }, click: isFirstPage() ? null : loadPreviousPage">
+                            <span aria-hidden="true" class="pagination-glyphs">
+<!--
+                                <svg class="cyclops-icon">
+                                    <use xlink:href='#icon-chevron-left'></use>
+                                </svg>
+                            </span>
+-->
                             <span aria-hidden="true" class="pagination-glyphs">&lsaquo;</span>
-                            <!--<span aria-hidden="true">&lsaquo; Prev</span>-->
                         </li>
 
                         <li title="Current Page" class="active">
                             <span data-bind="text: pageNumber()" class="pagination-glyphs">&hellip;</span>
-                            <!--<span data-bind="text: pageIndex() + 1" class="pagination-glyphs">&hellip;</span>-->
                         </li>
 
-                        <li title="Next Page" data-bind="css: { disabled: isLastPage }, click: loadNextPage">
-                            <!--<span aria-hidden="true">Next &rsaquo;</span>-->
+                        <li title="Next Page" data-bind="css: { disabled: isLastPage() }, click: isLastPage() ? null : loadNextPage">
+<!--
+                            <span aria-hidden="true" class="pagination-glyphs">
+                                <svg class="cyclops-icon">
+                                    <use xlink:href='#icon-chevron-right'></use>
+                                </svg>
+                            </span>
+-->
                             <span aria-hidden="true" class="pagination-glyphs">&rsaquo;</span>
                         </li>
 
-                        <li title="Last Page" data-bind="css: { disabled: isLastPage }, click: loadLastPage">
-                            <!--<span aria-hidden="true">Last &raquo;</span>-->
+                        <li title="Last Page" data-bind="css: { disabled: isLastPage() }, click: isLastPage() ? null : loadNextPage">
                             <span aria-hidden="true" class="pagination-glyphs">&raquo;</span>
                         </li>
                     </ul>
                 </nav>
-                <!--<pre data-bind="text: ko.toJSON( jobExecutionsPage(), null, 4 )"></pre>-->
             </div>
         </div>
 

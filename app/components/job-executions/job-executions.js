@@ -326,21 +326,27 @@ define([
         ko.mapping.fromJS(pagingModel, {}, self);
 
         self.loadNextPage = function () {
-            console.log('loadNextPage click');
+            console.log('loadNextPage click', self.pageNumber());
             self.jobExecutionsPage().next().then(function (jobExecutionsPage) {
                 var thePageNumber = self.pageNumber();
                 pagingModel.onFetch(jobExecutionsPage);
                 self.pageNumber(thePageNumber + 1);
-            })
+                console.log('loadNextPage click done', self.pageNumber());
+
+            });
+
         };
 
         self.loadPreviousPage = function () {
-            console.log('loadPreviousPage click');
+            console.log('loadPreviousPage click', self.pageNumber());
             self.jobExecutionsPage().previous().then(function (jobExecutionsPage) {
                 var thePageNumber = self.pageNumber();
                 pagingModel.onFetch(jobExecutionsPage);
                 self.pageNumber(thePageNumber - 1);
-            })
+                console.log('loadPreviousPage click done', self.pageNumber());
+
+            });
+
         };
 
         self.loadFirstPage = function () {
@@ -349,7 +355,7 @@ define([
                 //var thePageNumber = self.pageNumber();
                 pagingModel.onFetch(jobExecutionsPage);
                 self.pageNumber(1);
-            })
+            });
         };
 
         self.loadLastPage = function () {
@@ -358,7 +364,7 @@ define([
                 var thePageNumber = self.pageCount();
                 pagingModel.onFetch(jobExecutionsPage);
                 self.pageNumber(thePageNumber);
-            })
+            });
         };
 
         self.pageCount = ko.computed(function () {
