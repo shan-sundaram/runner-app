@@ -240,7 +240,7 @@ define([
                 self.jobExecutionsPage(jobExecutionsPage);
                 console.log('jobExecutionsPage', self.jobExecutionsPage());
 
-                self.pageCount = Math.ceil(jobExecutionsPage.data.totalSize / jobExecutionsPage.data.size);
+                self.pageCount = Math.ceil(jobExecutionsPage.data.totalSize / jobExecutionsPage.data.size) + 1;
                 console.log('pageCount', self.pageCount);
 
                 var executionsList = jobExecutionsPage.values();

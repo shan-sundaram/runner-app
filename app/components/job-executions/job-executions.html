@@ -78,6 +78,9 @@
                 </ol>
                 <!-- END: JOBS QUEUE -->
 
+
+
+
                 <!--<pre data-bind="text: ko.toJSON( paging(), null, 4 )"></pre>-->
 
                 <!--<nav class="pull-left" style="">-->
@@ -118,10 +121,73 @@
                         </li>
                     </ul>
                 </nav>
+
+
+<!--
+                <ul data-bind="with: paging">
+                    <li>
+                        <span>pageNumber: </span>
+                        <span data-bind="text: pageNumber()"></span>
+                    </li>
+                    <li>
+                        <span>jobExecutionsPage.data.page: </span>
+                        <span data-bind="text: jobExecutionsPage().data.page"></span>
+                    </li>
+
+                    <li>
+                        <span>pageSize: </span>
+                        <span data-bind="text: pageSize()"></span>
+                    </li>
+                    <li>
+                        <span>jobExecutionsPage.data.size: </span>
+                        <span data-bind="text: jobExecutionsPage().data.size"></span>
+                    </li>
+
+                    <li>
+                        <span>itemCount: </span>
+                        <span data-bind="text: itemCount()"></span>
+                    </li>
+                    <li>
+                        <span>jobExecutionsPage.data.totalSize: </span>
+                        <span data-bind="text: jobExecutionsPage().data.totalSize"></span>
+                    </li>
+
+                    <li>
+                        <span>pageCount: </span>
+                        <span data-bind="text: pageCount()"></span>
+                    </li>
+                    <li>
+                        <span>firstItemOnPage: </span>
+                        <span data-bind="text: firstItemOnPage()"></span>
+                    </li>
+                    <li>
+                        <span>lastItemOnPage: </span>
+                        <span data-bind="text: lastItemOnPage()"></span>
+                    </li>
+                    <li>
+                        <span>hasPreviousPage: </span>
+                        <span data-bind="text: hasPreviousPage()"></span>
+                    </li>
+                    <li>
+                        <span>hasNextPage: </span>
+                        <span data-bind="text: hasNextPage()"></span>
+                    </li>
+                    <li>
+                        <span>isFirstPage: </span>
+                        <span data-bind="text: isFirstPage()"></span>
+                    </li>
+                    <li>
+                        <span>isLastPage: </span>
+                        <span data-bind="text: isLastPage()"></span>
+                    </li>
+                </ul>
+-->
+
+
+
+
             </div>
         </div>
-
-
     </div>
 </div>
 
