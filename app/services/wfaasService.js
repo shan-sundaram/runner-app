@@ -5,7 +5,7 @@
     //    angular.module('wfaas.service',[])
             app.factory('jobAPIService',['$http', '$location', 'authService', 'commonService', function($http, $location, authService, commonService){
                 var jobAPI = {};
-                
+
                 jobAPI.getAllJobs = function(fetchPage){
                     return $http({
                         method: 'GET',
@@ -39,6 +39,13 @@
                         url: commonService.getSelectedEnvironment().url + '/jobs/' + authService.authentication.accountAlias + '/' + jobId + '/executions'
                     });
                 };
+                jobAPI.stopExecution = function(jobId, execution_id){
+                    return $http({
+                      method: 'POST',
+                      url: commonService.getSelectedEnvironment().url + '/jobs/' + authService.authentication.accountAlias + '/' + jobId + '/executions/' + execution_id + '/stop',
+                      data: {}
+                    });
+                }
                 return jobAPI;
 
             }])
@@ -55,7 +62,7 @@
                 statusAPI.getExecutionStatus = function(jobId, jobExecutionId){
                     return $http({
                         method: 'GET',
-                        url: commonService.getSelectedEnvironment().url+ '/status/' + authService.authentication.accountAlias + '/job/' + jobId + '/execution/' + jobExecutionId
+                        url: commonService.getSelectedEnvironment().url+ '/status/' + authService.authentication.accountAlias + '/job/' + jobId + '/execution/' + jobExecutionId + '?page=0&size=100'
                     });
                 };
                 return statusAPI;

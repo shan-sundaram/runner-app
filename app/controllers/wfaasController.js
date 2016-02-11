@@ -120,14 +120,13 @@
                 /*Get status details for a job execution*/
                 var _getExecutionStatus = function(){
                     statusAPIService.getExecutionStatus($scope.selectedJob.id, $scope.idSelectedItem).success(function (response){
-                        if($scope.executionStatusList.length != response.length){
-                          console.log('length not equal');
-                          $scope.executionStatusList = response;
+                        if($scope.executionStatusList.length != response.results.length){
+                          $scope.executionStatusList = response.results;
                           $timeout(function ($scope) {
                               SyntaxHighlighter.highlight();
                           });
                         }
-                        if(response){
+                        if(response.results){
                             $scope.isStatusLoading = false;
                         }
                     });

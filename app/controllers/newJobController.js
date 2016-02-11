@@ -7,15 +7,18 @@
             $scope.jobResponseDocument = {};
             $scope.hostVars = {};
             $scope.properties = {};
+            $scope.callback = {};
             $scope.job = {};
             $scope.responseStyle = "";
             $scope.repoType = $scope.githubAccessType = '';
             $scope.job.hosts = [];
-            $scope.job.hosts.hostVars = $scope.job.properties = {};
+            $scope.job.callbacks = [];
+            $scope.job.hosts.hostVars = {};
+            $scope.job.properties = {};
 
             $scope.callbackLevels = ['Debug', 'Error', 'Result'];
             $scope.callbackSelect  = $scope.callbackLevels[2];
-            $scope.hideForm = true;
+            $scope.hideForm = false;
 
             $scope.checkboxModel = {
                 runImmediate: false
@@ -25,8 +28,13 @@
 
             $scope.addToList = function(objType){
                 switch(objType){
+                    case "webhooks":
+                        _addAdditonalWebhook();
+                        break;
                     case "properties":
                         _addAdditonalProperty();
+                        break;
+                    case "":
                         break;
                 }
             };
@@ -40,24 +48,28 @@
                 }
             }
 		    $scope.createJob = function (){
-                $scope.responseStyle = "success"; 
+                $scope.responseStyle = "success";
                 $scope.isNewJobInProgress = true;
                 jobAPIService.createJob($scope.job.jobDocument, $scope.checkboxModel.runImmediate).then(function (response){
                     $scope.isNewJobInProgress = false;
                     $scope.jobResponseDocument = response.data;
                     $scope.addNewJobtoList(response.data);
-                    $scope.responseStyle = "success";                 
+                    $scope.responseStyle = "success";
                 },
                 function (err) {
                     $scope.isNewJobInProgress = false;
                     $scope.jobResponseDocument = err.data;
-                    $scope.responseStyle = "error";                  
+                    $scope.responseStyle = "error";
                 });
             };
 
             var _addAdditonalProperty = function (){
                 $scope.job.properties[$scope.properties.key] = $scope.properties.value;
                 $scope.properties = {};
+            };
+
+            var _addAdditonalWebhook = function (){
+                $scope.job.callbacks.push($scope.callback);
             };
 
             $scope.cancelJob = function(){

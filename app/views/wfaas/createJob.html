@@ -18,10 +18,10 @@
                 <div class="form-group">
                     <label class="control-label" for="callBackUrl">Call Back Url(s)</label>
                     <div class="controls">
-                        <select class="col-md-1" ng-model="callbackSelect" ng-options="callbackLevel as callbackLevel for callbackLevel in callbackLevels" style="width: 80px; margin-right: 5px;">
-                        </select> 
-                        <input type="text" class="form-control col-md-5" name="callBackUrl" id="callBackUrl" ng-model="job.callbacks" placeholder="Provide Call back url">
-                    </div><button type="button" class="btn btn-default add-list"><i class="fa fa-plus"></i></button>
+                        <select class="col-md-1" ng-model="callback.level" ng-options="callbackLevel as callbackLevel for callbackLevel in callbackLevels" style="width: 80px; margin-right: 5px;">
+                        </select>
+                        <input type="text" class="form-control col-md-5" name="callBackUrl" id="callBackUrl" ng-model="callback.url" placeholder="Provide Call back url">
+                    </div><button type="button" class="btn btn-default add-list" ng-click="addToList('webhooks')"><i class="fa fa-plus"></i></button>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="sshPrivateKey">SSH Private Key(s)</label>
@@ -68,7 +68,7 @@
                 <div class="form-group">
                     <label class="control-label" for="playbookName">Playbook Name</label>
                     <div class="controls">
-                        <input type="text" class="form-control col-md-6" name="playbookName" id="playbookName" ng-model="job.repository.defaultPlaybook" placeholder="Playbook Name" required>                        
+                        <input type="text" class="form-control col-md-6" name="playbookName" id="playbookName" ng-model="job.repository.defaultPlaybook" placeholder="Playbook Name" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -112,7 +112,7 @@
                                 <div class="ibutton-padding-left"></div>
                                 <div class="ibutton-padding-right"></div>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </fieldset> -->
                 <div class="form-group" ng-show="githubAccessType == 'creds'">
@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </fieldset>
-            <fieldset ng-hide="hideForm">
+            <fieldset ng-show="!hideForm">
                 <legend>Host details</legend>
                 <div class="form-group">
                     <label class="control-label" for="hostId">Host</label>
@@ -164,7 +164,7 @@
                 <label class="col-sm-4">
                     <input style="margin-right: 5px;" type="checkbox" ng-model="checkboxModel.runImmediate">Run Immediate
                 </label>
-                <button class="btn btn-success col-xsm-1" type="submit" ng-click="createJob()">Create Job</button>
+                <button class="btn btn-success col-xsm-1" type="submit" ng-click="createJob()">queue Job</button>
                 <button type="button" class="btn btn-link col-xsm-3" ng-click="cancelJob()">Cancel</button>
                 </br></br>
                 <div class="col-sm-6">
